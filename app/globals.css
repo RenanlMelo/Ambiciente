@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main: #6d8237;
+  --mainHover: #596b2d;
+  --secondary: #99b259;
+  --secondaryHover: #82974e;
+  --background: #f5f8ee;
+  --font-black: #202020;
+  --font-title: #505050;
+  --font-body: #707070;
+  --line: #909090;
+  --white: #f6f6f6;
+}
+
+body {
+  background: url("/background.jpg") no-repeat bottom;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+}
