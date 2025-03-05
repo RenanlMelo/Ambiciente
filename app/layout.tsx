@@ -5,7 +5,7 @@ import { Roboto } from "next/font/google";
 import { HeaderProvider } from "./contexts/HeaderContext";
 
 const roboto = Roboto({
-  weight: ["400", "500", "700"],
+  weight: ["100", "300", "400", "500", "700"],
   subsets: ["latin"],
 });
 
