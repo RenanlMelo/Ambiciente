@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "./components/header";
 import { Roboto } from "next/font/google";
 import { HeaderProvider } from "./contexts/HeaderContext";
+import { AdminProvider } from "./contexts/AdminContext";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -27,10 +28,12 @@ export default function RootLayout({
           id="shadow-box"
           style={{ backgroundColor: "#0d1b3150" }}
         >
-          <HeaderProvider>
-            <Header />
-            {children}
-          </HeaderProvider>
+          <AdminProvider>
+            <HeaderProvider>
+              <Header />
+              {children}
+            </HeaderProvider>
+          </AdminProvider>
         </div>
       </body>
     </html>

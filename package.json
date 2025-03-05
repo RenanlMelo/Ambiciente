@@ -14,7 +14,8 @@
     "powerbi-models": "^1.15.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-scroll": "^1.9.3"
+    "react-scroll": "^1.9.3",
+    "swr": "^2.3.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

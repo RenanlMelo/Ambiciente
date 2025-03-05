@@ -8,7 +8,23 @@ import { IBM_Plex_Sans } from "next/font/google";
 
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
-export const Articles_sidebar = () => {
+interface Topic {
+  id: number;
+  title: string;
+  content: string;
+}
+
+interface Props {
+  article: {
+    id: number;
+    title: string;
+    subtitle: string;
+    slug: string;
+    topics: Topic[];
+  };
+}
+
+export const Articles_sidebar: React.FC<Props> = ({ article }) => {
   const { headerHeight } = useHeader();
   const [admin, setAdmin] = useState(true);
 
@@ -26,7 +42,7 @@ export const Articles_sidebar = () => {
             Articles
           </h2>
           <Link
-            href="admin-article"
+            href="/artigos"
             className="text-[var(--line)] text-sm font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
           >
             See All Articles
@@ -60,7 +76,7 @@ export const Articles_sidebar = () => {
         </div>
       )}
       <div id="navigation">
-        <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide">
+        <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide pb-4">
           Navigation
         </h2>
         <div className="relative">
@@ -68,28 +84,27 @@ export const Articles_sidebar = () => {
           <ul className="flex flex-col gap-y-8 text-xl">
             <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
               <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
-              <LinkScroll smooth spy to="1">
-                Title
+              <LinkScroll
+                smooth
+                spy
+                to="title"
+                className="font-semibold text-[var(--font-title)]"
+              >
+                {article.title}
               </LinkScroll>
             </li>
-            <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
-              <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
-              <LinkScroll smooth spy to="2">
-                Subtitle - Example 1
-              </LinkScroll>
-            </li>
-            <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
-              <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
-              <LinkScroll smooth spy to="3">
-                Subtitle - Example 2
-              </LinkScroll>
-            </li>
-            <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
-              <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
-              <LinkScroll smooth spy to="4">
-                Subtitle - Example 3
-              </LinkScroll>
-            </li>
+
+            {article.topics?.map((topic, index) => (
+              <li
+                key={topic.id || `topic-${index}`}
+                className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px] text-[var(--font-title)]"
+              >
+                <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
+                <LinkScroll smooth spy to={String(topic.id || index)}>
+                  {topic.title}
+                </LinkScroll>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

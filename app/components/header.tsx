@@ -27,7 +27,7 @@ export const Header = () => {
       <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl">
         <li>
           <Link
-            href="mapa"
+            href="/mapa"
             className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
           >
             Mapa
@@ -35,7 +35,7 @@ export const Header = () => {
         </li>
         <li>
           <Link
-            href="artigos"
+            href="/artigos"
             className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
           >
             Artigos
@@ -43,7 +43,7 @@ export const Header = () => {
         </li>
         <li>
           <Link
-            href="sobre"
+            href="/sobre"
             className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
           >
             Sobre

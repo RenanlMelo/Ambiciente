@@ -119,9 +119,9 @@ export const Denuncia_forms = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 26 26"
               stroke="#fff"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
@@ -179,9 +179,9 @@ export const Denuncia_forms = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 26 26"
                 stroke="#fff"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
@@ -218,9 +218,9 @@ export const Denuncia_forms = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 26 26"
                 stroke="#fff"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
