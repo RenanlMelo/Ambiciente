@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchArticles } from "../api/articles";
+import { fetchArticles } from "../../api/articles";
 
 interface Article {
   id: number;

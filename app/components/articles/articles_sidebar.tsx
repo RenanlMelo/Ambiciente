@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
-import { useHeader } from "../contexts/HeaderContext";
+import { useHeader } from "../../contexts/HeaderContext";
 import { IBM_Plex_Sans } from "next/font/google";
 
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });

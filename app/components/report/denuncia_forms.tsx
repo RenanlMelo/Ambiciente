@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useHeader } from "../contexts/HeaderContext";
+import { useHeader } from "../../contexts/HeaderContext";
 
 export const Denuncia_forms = () => {
   const { headerHeight } = useHeader();

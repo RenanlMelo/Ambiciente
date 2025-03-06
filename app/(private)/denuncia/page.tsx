@@ -1,4 +1,4 @@
-import { Denuncia_forms } from "@/app/components/denuncia_forms";
+import { Denuncia_forms } from "@/app/components/report/denuncia_forms";
 
 export default function Denuncia() {
   return (
