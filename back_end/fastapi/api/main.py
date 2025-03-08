@@ -2,8 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from api.database import SessionLocal, engine, Base
-from models import Article, Topic
-from schemas import ArticleCreate, ArticleUpdate
+from api.models import Article, Topic
+from api.schemas import ArticleCreate, ArticleUpdate
 import uuid
 
 app = FastAPI()
