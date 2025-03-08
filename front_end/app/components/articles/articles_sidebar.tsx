@@ -28,8 +28,7 @@ interface Props {
 
 export const Articles_sidebar: React.FC<Props> = ({ article }) => {
   const { headerHeight } = useHeader();
-  const [admin, setAdmin] = useState(true);
-  setAdmin(true);
+  // const [admin, setAdmin] = useState(true);
   const [removePopup, setRemovePopup] = useState<boolean>(false);
   const params = useParams();
   const slug = params?.slug as string;
@@ -43,58 +42,64 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         }}
         className={`${ibmPlexSans.className} fixed bg-[var(--background)] w-[20vw] pl-20 pr-12 pt-6 flex flex-col gap-y-5`}
       >
-        {admin && (
-          <div id="create_article">
-            <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide">
-              Articles
-            </h2>
-            <Link
-              href="/artigos"
-              className="text-[var(--line)] text-sm font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
-            >
-              See All Articles
-            </Link>
-            <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-base">
-              <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
-                <Link
-                  href="admin-artigos/criar"
-                  className="flex justify-between w-full"
-                >
-                  Create a New Article
-                  <Image
-                    src="/svg/create.svg"
-                    alt="create icon"
-                    className="w-7 h-7"
-                  />
-                </Link>
-              </li>
-              <li className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
-                <Link
-                  href={`admin-artigos/editar/${slug}`}
-                  className="flex justify-between items-center w-full"
-                >
-                  Edit This Article
-                  <Image
-                    src="/svg/edit.svg"
-                    alt="edit icon"
-                    className="w-6 h-6 mt-[2px] mb-[2px]"
-                  />
-                </Link>
-              </li>
-              <li
-                className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
-                onClick={() => setRemovePopup(true)}
+        {/* {admin && ( */}
+        <div id="create_article">
+          <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide">
+            Articles
+          </h2>
+          <Link
+            href="/artigos"
+            className="text-[var(--line)] text-sm font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+          >
+            See All Articles
+          </Link>
+          <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-base">
+            <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
+              <Link
+                href="admin-artigos/criar"
+                className="flex justify-between w-full"
               >
-                Remove
+                Create a New Article
                 <Image
-                  src="/svg/remove.svg"
-                  alt="remove icon"
+                  width={100}
+                  height={100}
+                  src="/svg/create.svg"
+                  alt="create icon"
                   className="w-7 h-7"
                 />
-              </li>
-            </ul>
-          </div>
-        )}
+              </Link>
+            </li>
+            <li className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
+              <Link
+                href={`admin-artigos/editar/${slug}`}
+                className="flex justify-between items-center w-full"
+              >
+                Edit This Article
+                <Image
+                  width={100}
+                  height={100}
+                  src="/svg/edit.svg"
+                  alt="edit icon"
+                  className="w-6 h-6 mt-[2px] mb-[2px]"
+                />
+              </Link>
+            </li>
+            <li
+              className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
+              onClick={() => setRemovePopup(true)}
+            >
+              Remove
+              <Image
+                width={100}
+                height={100}
+                src="/svg/remove.svg"
+                alt="remove icon"
+                className="w-7 h-7"
+              />
+            </li>
+          </ul>
+        </div>
+        {/* )} */}
         <div id="navigation">
           <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide pb-4">
             Navigation

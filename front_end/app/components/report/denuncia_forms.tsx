@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useHeader } from "../../contexts/HeaderContext";
+import Link from "next/link";
 
 export const Denuncia_forms = () => {
   const { headerHeight } = useHeader();
@@ -202,13 +203,19 @@ export const Denuncia_forms = () => {
                 className="cursor-pointer text-[#6b6b6b] w-full px-6 z-10 font-light"
               >
                 Li e concordo com a{" "}
-                <a className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)] w-fit">
+                <Link
+                  href="/"
+                  className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)] w-fit"
+                >
                   Política de Privacidade
-                </a>{" "}
+                </Link>{" "}
                 e os{" "}
-                <a className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)] w-fit">
+                <Link
+                  href="/"
+                  className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)] w-fit"
+                >
                   Termos & Condições.
-                </a>
+                </Link>
               </label>
               <svg
                 className="

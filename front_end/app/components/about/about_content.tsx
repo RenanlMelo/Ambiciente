@@ -13,6 +13,8 @@ export const About_content = () => {
       className="px-[30vw] pt-24 mb-24 relative bg-white w-full min-h-[100vh]"
     >
       <Image
+      width={100}
+      height={100}
         src="./logo.png"
         alt="logo do site"
         className="w-32 place-self-center"

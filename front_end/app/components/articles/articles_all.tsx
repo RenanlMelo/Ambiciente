@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { fetchArticles } from "../../api/articles";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +14,7 @@ interface Article {
 }
 
 export default function Articles_all() {
+  const router = useRouter();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +40,8 @@ export default function Articles_all() {
       >
         Create a New Article
         <Image
+          width={100}
+          height={100}
           src="/svg/create.svg"
           alt="create icon"
           className="pl-2 w-10 h-10"
@@ -49,12 +53,14 @@ export default function Articles_all() {
       </h1>
       <div className="grid grid-cols-2 gap-x-8 gap-y-12">
         {articles.map((article) => (
-          <a
-            href={`/artigos/${article.slug}`}
+          <div
             key={article.id}
+            onClick={() => router.push(`/artigos/${article.slug}`)}
             className="border-[#ddd] border cursor-pointer opacity-75 hover:opacity-100 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative"
           >
             <Image
+              width={1600}
+              height={900}
               src="/article1.png"
               alt="article background"
               className="w-full bg-cover"
@@ -71,6 +77,8 @@ export default function Articles_all() {
                 className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
               >
                 <Image
+                  width={100}
+                  height={100}
                   src="/svg/edit.svg"
                   alt="edit icon"
                   className="w-6 h-6 mt-[2px] mb-[2px]"
@@ -81,13 +89,15 @@ export default function Articles_all() {
                 className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
               >
                 <Image
+                  width={100}
+                  height={100}
                   src="/svg/remove.svg"
                   alt="remove icon"
                   className="w-7 h-7"
                 />
               </Link>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </main>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export const SignUp_forms = () => {
@@ -19,12 +20,12 @@ export const SignUp_forms = () => {
           </h1>
           <p className="text-[var(--font-subtle)]">
             Already have an account?
-            <a
+            <Link
               href="/sign-in"
               className="font-semibold text-[var(--main)] ml-1 underline decoration-[var(--main)] underline-offset-2 hover:text-[var(--mainHover)] hover:decoration-[var(--mainHover)]"
             >
               Sign In
-            </a>
+            </Link>
           </p>
           <form className="flex flex-col">
             <div className="flex flex-col gap-y-1 mb-5">
