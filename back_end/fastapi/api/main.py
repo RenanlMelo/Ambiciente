@@ -11,7 +11,7 @@ app = FastAPI()
 # Configurando o CORS para permitir requisições de localhost:3000
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ambiciente.vercel.app"],  # Permite requisições do frontend (localhost:3000)
+    allow_origins=["*"],  # Permite requisições do frontend (localhost:3000)
     allow_credentials=True,
     allow_methods=["*"],  # Permite qualquer método HTTP (GET, POST, etc.)
     allow_headers=["*"],  # Permite qualquer cabeçalho
