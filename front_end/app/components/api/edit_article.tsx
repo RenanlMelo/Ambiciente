@@ -39,7 +39,9 @@ export const Edit_article = () => {
   useEffect(() => {
     async function fetchArticle() {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/artigos/${slug}`);
+        const res = await fetch(
+          `https://ambiciente.onrender.com/artigos/${slug}`
+        );
         const data: { title: string; subtitle: string; topics: Topic[] } =
           await res.json();
 
@@ -112,7 +114,7 @@ export const Edit_article = () => {
 
       // Chamar a API para atualizar
       const response = await fetch(
-        `http://127.0.0.1:8000/artigos/${slug}`, // URL provisória
+        `https://ambiciente.onrender.com/artigos/${slug}`, // URL provisória
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

@@ -32,7 +32,7 @@ export default function ArticlePage() {
     error,
     isLoading,
   } = useSWR<Article>(
-    slug ? `http://127.0.0.1:8000/artigos/${slug}` : null,
+    slug ? `https://ambiciente.onrender.com/artigos/${slug}` : null,
     fetcher
   );
 
