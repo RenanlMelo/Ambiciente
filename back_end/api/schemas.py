@@ -17,14 +17,15 @@ class Topic(TopicBase):
 class ArticleBase(BaseModel):
     title: str
     subtitle: str
-    slug: str  # Mantendo apenas slug, title e subtitle
 
 class ArticleCreate(ArticleBase):
     topics: List[TopicCreate] = []  # Lista dinâmica de tópicos
 
 class Article(ArticleBase):
     id: int
+    slug: str 
     topics: List[Topic] = []
+
 
     class Config:
         orm_mode = True

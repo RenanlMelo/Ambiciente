@@ -25,6 +25,12 @@ export const Edit_article = () => {
   const slug = params?.slug as string;
   console.log("slug", slug);
 
+  // Define a URL base da API com base nas variáveis de ambiente
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_URL_PROD
+      : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+
   // Estado para o formulário
   const [formData, setFormData] = useState<ArticleData>({
     title: "",
@@ -39,9 +45,7 @@ export const Edit_article = () => {
   useEffect(() => {
     async function fetchArticle() {
       try {
-        const res = await fetch(
-          `https://ambiciente.onrender.com/artigos/${slug}`
-        );
+        const res = await fetch(`${apiUrl}/artigos/${slug}`);
         const data: { title: string; subtitle: string; topics: Topic[] } =
           await res.json();
 
@@ -59,7 +63,7 @@ export const Edit_article = () => {
     }
 
     fetchArticle();
-  }, [slug]);
+  }, [slug, apiUrl]);
 
   // Função para adicionar um tópico
   function addTopic() {
@@ -112,15 +116,12 @@ export const Edit_article = () => {
 
       console.log("Enviando (PUT):", articleData);
 
-      // Chamar a API para atualizar
-      const response = await fetch(
-        `https://ambiciente.onrender.com/artigos/${slug}`, // URL provisória
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(articleData),
-        }
-      );
+      // Chamar a API para atualizar usando a URL definida
+      const response = await fetch(`${apiUrl}/artigos/${slug}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articleData),
+      });
 
       const data = await response.json();
       console.log("Resposta da atualização:", data);

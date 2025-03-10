@@ -26,13 +26,19 @@ export default function ArticlePage() {
   const params = useParams();
   const slug = params?.slug as string;
 
+  // Definir a URL da API dependendo do ambiente
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_URL_PROD
+      : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+
   // Usando SWR para buscar os artigos
   const {
     data: article,
     error,
     isLoading,
   } = useSWR<Article>(
-    slug ? `https://ambiciente.onrender.com/artigos/${slug}` : null,
+    slug ? `${apiUrl}/artigos/${slug}` : null, // Usando a URL definida
     fetcher
   );
 

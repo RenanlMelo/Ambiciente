@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from api.database import Base
+# from api.database import Base
+from database import Base
 
 class Article(Base):
     __tablename__ = "articles"
@@ -18,6 +19,6 @@ class Topic(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True, unique=True)
     content = Column(Text)
-    article_id = Column(Integer, ForeignKey("articles.id"), unique=True)
+    article_id = Column(Integer, ForeignKey("articles.id"))
 
     article = relationship("Article", back_populates="topics")

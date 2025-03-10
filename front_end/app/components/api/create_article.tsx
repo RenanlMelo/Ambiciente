@@ -56,7 +56,14 @@ export const Create_article = () => {
 
       console.log("Enviando:", articleData);
 
-      const response = await fetch("https://ambiciente.onrender.com/artigos", {
+      // Definir a URL da API dependendo do ambiente
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_API_URL_PROD
+          : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+
+      // Fazendo a requisição com a URL configurada
+      const response = await fetch(`${apiUrl}/artigos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(articleData),
