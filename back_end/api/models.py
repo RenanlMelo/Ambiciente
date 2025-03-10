@@ -1,7 +1,10 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
-# from api.database import Base
-from database import Base
+
+# FOR PROD
+from api.database import Base
+# FOR HML
+# from database import Base
 
 class Article(Base):
     __tablename__ = "articles"
