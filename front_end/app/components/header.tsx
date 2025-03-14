@@ -51,7 +51,7 @@ export const Header = () => {
         </li>
       </ul>
       <Link
-        href="denuncia"
+        href="/denuncia"
         className="font-bold text-white bg-[var(--secondary)] px-4 py-2 rounded-[4px] hover:bg-[var(--secondaryHover)]"
       >
         FAÇA A SUA DENÚNCIA

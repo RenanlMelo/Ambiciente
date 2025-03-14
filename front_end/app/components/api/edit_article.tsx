@@ -23,7 +23,6 @@ export const Edit_article = () => {
 
   const params = useParams();
   const slug = params?.slug as string;
-  console.log("slug", slug);
 
   // Define a URL base da API com base nas variáveis de ambiente
   const apiUrl =

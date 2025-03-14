@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
 import { useHeader } from "../../contexts/HeaderContext";
 import { IBM_Plex_Sans } from "next/font/google";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
@@ -32,6 +33,36 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
   const [removePopup, setRemovePopup] = useState<boolean>(false);
   const params = useParams();
   const slug = params?.slug as string;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  async function deleteArticle(articleTitle: string) {
+    setIsLoading(true);
+
+    // Definir a URL da API dependendo do ambiente
+    const apiUrl =
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_API_URL_PROD
+        : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+    try {
+      const response = await fetch(`${apiUrl}/artigos/${articleTitle}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao excluir artigo");
+      }
+
+      console.log("Artigo excluído com sucesso!");
+      router.push("/artigos");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  console.log(article);
 
   return (
     <>
@@ -140,9 +171,30 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         </div>
       </aside>
       {removePopup && (
-        <dialog className="bg-red-500 w-32 h-32 absolute top-1/2 left-1/2 z-50">
-          a
-        </dialog>
+        <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm">
+          <dialog
+            open
+            className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center"
+          >
+            <p className="text-xl text-[var(--font-title)]">
+              Deseja apagar esse artigo?
+            </p>
+            <div className="grid grid-cols-2 items-center gap-x-12">
+              <button
+                onClick={() => deleteArticle(article.title)}
+                className="bg-[var(--main)] text-[var(--white)] uppercase tracking-wider py-2 px-8"
+              >
+                Sim
+              </button>
+              <button
+                onClick={() => setRemovePopup(false)}
+                className="bg-[#d35040] text-[var(--white)] uppercase tracking-wider py-2 px-8"
+              >
+                Cancelar
+              </button>
+            </div>
+          </dialog>
+        </div>
       )}
     </>
   );

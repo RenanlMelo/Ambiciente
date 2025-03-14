@@ -10,12 +10,12 @@ export const About_content = () => {
       style={{
         top: `${headerHeight}px`,
       }}
-      className="px-[30vw] pt-24 mb-24 relative bg-white w-full min-h-[100vh]"
+      className="px-[30vw] py-24 relative bg-white w-full min-h-[100vh]"
     >
       <Image
-      width={100}
-      height={100}
-        src="./logo.png"
+        width={250}
+        height={250}
+        src="/logo.png"
         alt="logo do site"
         className="w-32 place-self-center"
       />
