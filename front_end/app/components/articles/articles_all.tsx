@@ -171,6 +171,13 @@ export default function Articles_all() {
           </div>
         ))}
       </div>
+      {isLoading && (
+        <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center gap-x-5">
+          <span className="bg-white w-10 h-10" />
+          <span className="bg-white w-10 h-10" />
+          <span className="bg-white w-10 h-10" />
+        </div>
+      )}
     </main>
   );
 }
