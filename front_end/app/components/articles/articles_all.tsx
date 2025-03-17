@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchArticles } from "../../api/articles";
+import { useHeader } from "../../contexts/HeaderContext";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,8 +15,11 @@ interface Article {
 }
 
 export default function Articles_all() {
+  const { headerHeight } = useHeader();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [removePopup, setRemovePopup] = useState<boolean>(false);
   const router = useRouter(); // Adicionado o useRouter
 
   useEffect(() => {
@@ -32,8 +36,40 @@ export default function Articles_all() {
       </p>
     );
 
+  async function deleteArticle(articleTitle: string) {
+    setIsLoading(true);
+
+    // Definir a URL da API dependendo do ambiente
+    const apiUrl =
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_API_URL_PROD
+        : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+    try {
+      const response = await fetch(`${apiUrl}/artigos/${articleTitle}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao excluir artigo");
+      }
+
+      console.log("Artigo excluído com sucesso!");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <main className="w-full min-h-[100vh] h-full bg-white p-32">
+    <main
+      style={{
+        height: `calc(100lvh - ${headerHeight}px)`,
+        top: `${headerHeight}px`,
+      }}
+      className="w-full absolute bg-white px-32 pt-10"
+    >
       <Link
         href="artigos/admin-artigos/criar"
         className="flex justify-between items-center w-fit text-lg text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
@@ -90,7 +126,7 @@ export default function Articles_all() {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  router.push(`/artigos/admin-artigos/editar/${article.slug}`);
+                  setRemovePopup(true);
                 }}
                 className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
               >
@@ -103,6 +139,35 @@ export default function Articles_all() {
                 />
               </button>
             </div>
+            {removePopup && (
+              <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm">
+                <dialog
+                  open
+                  className="fixed p-12 w-[35rem] h-48 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center"
+                >
+                  <p className="text-xl text-[var(--font-title)]">
+                    Deseja apagar esse artigo?
+                  </p>
+                  <div className="grid grid-cols-2 items-center gap-x-12">
+                    <button
+                      onClick={() => deleteArticle(article.title)}
+                      className="bg-[var(--main)] text-[var(--white)] uppercase tracking-wider py-2 px-8"
+                    >
+                      Sim
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRemovePopup(false);
+                      }}
+                      className="bg-[#d35040] text-[var(--white)] uppercase tracking-wider py-2 px-8"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </dialog>
+              </div>
+            )}
           </div>
         ))}
       </div>

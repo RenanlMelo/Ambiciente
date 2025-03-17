@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
 import { useHeader } from "../../contexts/HeaderContext";
@@ -68,7 +68,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
     <>
       <aside
         style={{
-          height: `calc(100vh - ${headerHeight}px)`,
+          height: `calc(100lvh - ${headerHeight}px)`,
           top: `${headerHeight}px`,
         }}
         className={`${ibmPlexSans.className} fixed bg-[var(--background)] w-[20vw] pl-20 pr-12 pt-6 flex flex-col gap-y-5`}
@@ -170,6 +170,13 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
           </div>
         </div>
       </aside>
+      {isLoading && (
+        <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center gap-x-5">
+          <span className="bg-white w-10 h-10" />
+          <span className="bg-white w-10 h-10" />
+          <span className="bg-white w-10 h-10" />
+        </div>
+      )}
       {removePopup && (
         <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm">
           <dialog
