@@ -4,6 +4,7 @@ import { Header } from "./components/header";
 import { Roboto } from "next/font/google";
 import { HeaderProvider } from "./contexts/HeaderContext";
 import { AdminProvider } from "./contexts/AdminContext";
+import Footer from "./components/footer";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -32,6 +33,7 @@ export default function RootLayout({
             <HeaderProvider>
               <Header />
               {children}
+              {/* <Footer /> */}
             </HeaderProvider>
           </AdminProvider>
         </div>
