@@ -63,10 +63,12 @@ def update_article(article: ArticleUpdate, slug: str, db: Session = Depends(get_
     db_article.title = article.title
     db_article.subtitle = article.subtitle
 
-    # Atualizar tópicos existentes
-    for db_topic, new_topic in zip(db_article.topics, article.topics):
-        db_topic.title = new_topic.title
-        db_topic.content = new_topic.content
+    # Remover tópicos antigos
+    db.query(Topic).filter(Topic.article_id == db_article.id).delete()
+
+    # Adicionar novos tópicos
+    new_topics = [Topic(title=t.title, content=t.content, article_id=db_article.id) for t in article.topics]
+    db.add_all(new_topics)
 
     db.commit()
     db.refresh(db_article)

@@ -8,10 +8,21 @@ import { useHeader } from "../contexts/HeaderContext";
 const aboreto = Aboreto({ weight: "400", subsets: ["latin"] });
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
+interface Page {
+  name: string;
+  url: string;
+}
+
 export const Header = () => {
   const { setHeaderHeight } = useHeader();
   const headerRef = useRef<HTMLElement>(null);
-
+  const pagesList: Page[] = [
+    { name: "Introdução", url: "/" },
+    { name: "Mapa", url: "/mapa" },
+    { name: "Artigos", url: "/artigos" },
+    { name: "Sobre", url: "/sobre" },
+  ];
+  
   useEffect(() => {
     if (headerRef.current) {
       setHeaderHeight(headerRef.current.clientHeight);
@@ -27,30 +38,16 @@ export const Header = () => {
         AMBICIENTE
       </Link>
       <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl w-fit place-self-center">
-        <li>
-          <Link
-            href="/mapa"
-            className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
-          >
-            Mapa
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/artigos"
-            className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
-          >
-            Artigos
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/sobre"
-            className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
-          >
-            Sobre
-          </Link>
-        </li>
+        {pagesList.map((page) => (
+          <li>
+            <Link
+              href={page.url}
+              className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+            >
+              {page.name}
+            </Link>
+          </li>
+        ))}
       </ul>
       <Link
         href="/denuncia"

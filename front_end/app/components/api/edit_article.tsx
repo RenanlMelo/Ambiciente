@@ -21,25 +21,20 @@ export const Edit_article = () => {
   const { headerHeight } = useHeader();
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
-
   const params = useParams();
   const slug = params?.slug as string;
+  // Estado para o formulário
+  const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
+    topics: [] as Topic[],
+  });
 
   // Define a URL base da API com base nas variáveis de ambiente
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL_PROD
       : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
-
-  // Estado para o formulário
-  const [formData, setFormData] = useState<ArticleData>({
-    title: "",
-    subtitle: "",
-    topics: [],
-  });
-
-  // Para simplificar, crie um state que controle todos os tópicos do form
-  const { topics } = formData;
 
   // 1. Carregar o artigo existente
   useEffect(() => {
@@ -54,7 +49,7 @@ export const Edit_article = () => {
           subtitle: data.subtitle || "",
           topics: data.topics.map((topic: Topic, index: number) => ({
             ...topic,
-            id: topic.id ?? Date.now() + index, // Garante um id único se não existir
+            id: topic.id ? topic.id : Date.now() + index, // Apenas gera um ID se não existir
           })),
         });
       } catch (error) {
@@ -67,9 +62,10 @@ export const Edit_article = () => {
 
   // Função para adicionar um tópico
   function addTopic() {
+    const newTopic = { id: Date.now(), title: "", content: "" };
     setFormData({
       ...formData,
-      topics: [...formData.topics, { id: Date.now(), title: "", content: "" }],
+      topics: [...formData.topics, newTopic],
     });
   }
 
@@ -77,24 +73,27 @@ export const Edit_article = () => {
   function removeTopic(id: number) {
     setFormData({
       ...formData,
-      topics: formData.topics.filter((topic) => topic.id !== id),
+      topics: formData.topics.filter((topic: Topic) => topic.id !== id),
     });
   }
 
   // Atualizar dados de um tópico específico
   function handleTopicChange(id: number, field: keyof Topic, value: string) {
-    setFormData({
-      ...formData,
-      topics: topics.map((topic) =>
+    setFormData((prevData) => ({
+      ...prevData,
+      topics: prevData.topics.map((topic) =>
         topic.id === id ? { ...topic, [field]: value } : topic
       ),
-    });
+    }));
   }
 
   // Atualizar campos de texto (título, subtítulo)
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   }
 
   // 2. Submeter formulário (fazendo PUT para atualizar)
@@ -189,7 +188,7 @@ export const Edit_article = () => {
         <div className="col-span-2">
           <h3 className="font-semibold text-lg mb-2">Tópicos</h3>
 
-          {topics.map((topic, index) => (
+          {formData.topics.map((topic, index) => (
             <div
               key={topic.id || `topic-${index}`}
               className="mb-4 p-3 border rounded-md"
@@ -202,11 +201,7 @@ export const Edit_article = () => {
                 id={`topic_title_${topic.id}`}
                 value={topic.title}
                 onChange={(e) =>
-                  handleTopicChange(
-                    topic.id ?? Date.now(),
-                    "title",
-                    e.target.value
-                  )
+                  handleTopicChange(topic.id, "title", e.target.value)
                 }
                 className="w-full border px-4 py-1 rounded-sm focus:outline-none"
               />

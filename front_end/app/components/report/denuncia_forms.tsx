@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useHeader } from "../../contexts/HeaderContext";
 import Link from "next/link";
 
 export const Denuncia_forms = () => {
   const { headerHeight } = useHeader();
+  const [formData, setFormData] = useState("");
 
   return (
     <main
@@ -191,7 +192,7 @@ export const Denuncia_forms = () => {
             </p>
           </div>
           <div className="flex flex-col items-center w-full bg-[var(--politicas-bg)] py-8 px-6 gap-y-4">
-            <div className="w-full">
+            <div className="w-full relative">
               <input
                 id="checkbox_politicas"
                 type="checkbox"
@@ -218,8 +219,7 @@ export const Denuncia_forms = () => {
               </label>
               <svg
                 className="
-              absolute 
-              w-4 h-4 mt-[2px]
+              absolute w-4 h-4 mt-[2px] top-0 -translate-y-px
                 hidden peer-checked:block"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 26 26"
@@ -244,6 +244,7 @@ export const Denuncia_forms = () => {
           </p>
         </div>
       </form>
+      {/* {output && ()} */}
     </main>
   );
 };

@@ -11,11 +11,12 @@ interface Topic {
 }
 
 export const Create_article = () => {
-  const [output, setOutput] = useState("");
   const { headerHeight } = useHeader();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [output, setOutput] = useState("");
   const [topics, setTopics] = useState<Topic[]>([]);
+  // Estado para o formulário
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -68,7 +69,7 @@ export const Create_article = () => {
         title: formData.title,
         subtitle: formData.subtitle,
         slug: "", // O backend gera automaticamente
-        topics: topics.filter((t) => t.title && t.content), // Filtrar tópicos vazios
+        topics: formData.topics.filter((t) => t.title && t.content), // Filtrar tópicos vazios
       };
 
       console.log("Enviando:", articleData);
