@@ -7,7 +7,7 @@ app = FastAPI()
 
 # Configuração do CORS
 origins = [
-    "https://ambiciente.vercel.app/",
+    "https://ambiciente.vercel.app",
     "http://localhost:3000",
 ]
 
