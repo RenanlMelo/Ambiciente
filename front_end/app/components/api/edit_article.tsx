@@ -108,7 +108,7 @@ export const Edit_article = () => {
         (t) => t.title.trim() && t.content.trim()
       );
 
-      const articleData = {
+      const articleData: ArticleData = {
         title: formData.title,
         subtitle: formData.subtitle,
         topics: validTopics,

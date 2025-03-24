@@ -15,7 +15,6 @@ export const Create_article = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [output, setOutput] = useState("");
-  const [topics, setTopics] = useState<Topic[]>([]);
   // Estado para o formulário
   const [formData, setFormData] = useState({
     title: "",
@@ -96,7 +95,6 @@ export const Create_article = () => {
         subtitle: "",
         topics: [] as Topic[],
       });
-      setTopics([]);
       setSuccessMessage(true);
     } catch (error) {
       console.error(error);

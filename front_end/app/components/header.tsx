@@ -22,7 +22,7 @@ export const Header = () => {
     { name: "Artigos", url: "/artigos" },
     { name: "Sobre", url: "/sobre" },
   ];
-  
+
   useEffect(() => {
     if (headerRef.current) {
       setHeaderHeight(headerRef.current.clientHeight);
@@ -39,7 +39,7 @@ export const Header = () => {
       </Link>
       <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl w-fit place-self-center">
         {pagesList.map((page) => (
-          <li>
+          <li key={page.url}>
             <Link
               href={page.url}
               className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"

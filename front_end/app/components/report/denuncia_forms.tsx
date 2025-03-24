@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useHeader } from "../../contexts/HeaderContext";
 import Link from "next/link";
 
 export const Denuncia_forms = () => {
   const { headerHeight } = useHeader();
-  const [formData, setFormData] = useState("");
 
   return (
     <main
