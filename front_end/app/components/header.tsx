@@ -23,9 +23,9 @@ export const Header = () => {
       ref={headerRef}
       className={`${ibmPlexSans.className} z-50 fixed top-0 w-[100vw] bg-[var(--background)] grid grid-cols-3 text-[var(--main)] px-20 py-6`}
     >
-      <a href="/" className={`${aboreto.className} text-3xl`}>
+      <Link href="/" className={`${aboreto.className} text-3xl`}>
         AMBICIENTE
-      </a>
+      </Link>
       <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl w-fit place-self-center">
         <li>
           <Link

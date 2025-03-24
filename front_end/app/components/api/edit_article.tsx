@@ -98,46 +98,43 @@ export const Edit_article = () => {
   }
 
   // 2. Submeter formulário (fazendo PUT para atualizar)
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setOutput(JSON.stringify(formData, null, 2));
+    setIsLoading(true);
+
+    try {
+      // Filtrar tópicos vazios (caso queira)
+      const validTopics = formData.topics.filter(
+        (t) => t.title.trim() && t.content.trim()
+      );
+
+      const articleData = {
+        title: formData.title,
+        subtitle: formData.subtitle,
+        topics: validTopics,
+      };
+
+      console.log("Enviando (PUT):", articleData);
+
+      // Chamar a API para atualizar usando a URL definida
+      const response = await fetch(`${apiUrl}/artigos/${slug}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articleData),
+      });
+
+      const data = await response.json();
+      console.log("Resposta da atualização:", data);
+
+      // Exibir mensagem de sucesso
+      setSuccessMessage(true);
+    } catch (error) {
+      console.error("Erro ao atualizar artigo:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
-  // async function onSubmit(event: FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   setIsLoading(true);
-
-  //   try {
-  //     // Filtrar tópicos vazios (caso queira)
-  //     const validTopics = formData.topics.filter(
-  //       (t) => t.title.trim() && t.content.trim()
-  //     );
-
-  //     const articleData = {
-  //       title: formData.title,
-  //       subtitle: formData.subtitle,
-  //       topics: validTopics,
-  //     };
-
-  //     console.log("Enviando (PUT):", articleData);
-
-  //     // Chamar a API para atualizar usando a URL definida
-  //     const response = await fetch(`${apiUrl}/artigos/${slug}`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(articleData),
-  //     });
-
-  //     const data = await response.json();
-  //     console.log("Resposta da atualização:", data);
-
-  //     // Exibir mensagem de sucesso
-  //     setSuccessMessage(true);
-  //   } catch (error) {
-  //     console.error("Erro ao atualizar artigo:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
 
   return (
     <div
