@@ -165,7 +165,7 @@ export default function Articles_all() {
             className="fixed p-12 w-[35rem] h-48 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center"
           >
             <p className="text-xl text-[var(--font-title)]">
-              Deseja apagar o artigo &quot{articleToDelete.title}&quot?
+              Deseja apagar o artigo &quot;{articleToDelete.title}&quot;?
             </p>
             <div className="grid grid-cols-2 items-center gap-x-12">
               <button
