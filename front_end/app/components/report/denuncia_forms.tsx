@@ -10,14 +10,13 @@ export const Denuncia_forms = () => {
   return (
     <main
       style={{
-        height: `calc(100vh - ${headerHeight}px)`,
-        top: `${headerHeight}px`,
+        marginTop: `${headerHeight}px`,
       }}
-      className="absolute w-full bg-white px-[12vw]"
+      className="w-full bg-white px-[12vw] py-12"
     >
       <h2
         style={{ top: `${headerHeight}px` }}
-        className="text-[var(--font-title)] font-semibold text-3xl mt-20"
+        className="text-[var(--font-title)] font-semibold text-3xl"
       >
         Envie uma nova denúncia
       </h2>

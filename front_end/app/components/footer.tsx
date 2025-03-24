@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#2c3e50] text-white pt-5 text-center absolute bottom-0 w-full">
+    <footer className="bg-[#2c3e50] text-white pt-5 text-center w-full z-[100]">
       <div className="flex justify-around flex-wrap max-w-6xl mx-auto p-5">
         {/* Sobre Nós */}
         <div className="flex-1 min-w-[250px] m-2.5">
