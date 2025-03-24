@@ -21,10 +21,12 @@ export const Header = () => {
   return (
     <header
       ref={headerRef}
-      className={`${ibmPlexSans.className} z-50 fixed w-[100vw] bg-[var(--background)] flex justify-between items-center text-[var(--main)] px-20 py-6`}
+      className={`${ibmPlexSans.className} z-50 fixed top-0 w-[100vw] bg-[var(--background)] grid grid-cols-3 text-[var(--main)] px-20 py-6`}
     >
-      <h1 className={`${aboreto.className} text-3xl`}>AMBICIENTE</h1>
-      <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl">
+      <a href="/" className={`${aboreto.className} text-3xl`}>
+        AMBICIENTE
+      </a>
+      <ul className="flex justify-evenly items-center gap-x-8 text-[var(--main)] font-medium text-xl w-fit place-self-center">
         <li>
           <Link
             href="/mapa"
@@ -52,7 +54,7 @@ export const Header = () => {
       </ul>
       <Link
         href="/denuncia"
-        className="font-bold text-white bg-[var(--secondary)] px-4 py-2 rounded-[4px] hover:bg-[var(--secondaryHover)]"
+        className="font-bold text-white bg-[var(--secondary)] px-4 py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] w-fit place-self-end"
       >
         FAÇA A SUA DENÚNCIA
       </Link>

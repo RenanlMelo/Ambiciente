@@ -65,10 +65,10 @@ export default function Articles_all() {
   return (
     <main
       style={{
-        height: `calc(100lvh - ${headerHeight}px)`,
-        top: `${headerHeight}px`,
+        minHeight: `calc(90lvh - ${headerHeight}px)`,
+        marginTop: `${headerHeight}px`,
       }}
-      className="w-full absolute bg-white px-32 pt-10"
+      className="w-full bg-white px-32 pt-10"
     >
       <Link
         href="artigos/admin-artigos/criar"
@@ -91,7 +91,7 @@ export default function Articles_all() {
         {articles.map((article) => (
           <div
             key={article.id}
-            className="border-[#ddd] border cursor-pointer opacity-75 hover:opacity-100 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative"
+            className="border-[#ddd] border cursor-pointer opacity-100 hover:opacity-80 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative"
             onClick={() => router.push(`/artigos/${article.slug}`)} // Navegação ao clicar no card
           >
             <Image

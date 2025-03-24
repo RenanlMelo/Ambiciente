@@ -15,17 +15,6 @@ def get_db():
     finally:
         db.close()
 
-@router.delete("/{article_title}", status_code=204)
-def delete_article(article_title: str, db: Session = Depends(get_db)):
-    db_article = db.query(Article).filter(Article.title == article_title).first()
-    
-    if db_article is None:
-        raise HTTPException(status_code=404, detail="Artigo não encontrado")
-
-    db.delete(db_article)
-    db.commit()
-    return
-
 
 @router.get("/")
 def get_articles(db: Session = Depends(get_db)):
@@ -64,7 +53,6 @@ def create_article(article: ArticleCreate, db: Session = Depends(get_db)):
     return db_article  # Retorna um ArticleResponse
 
 
-
 @router.put("/{slug}", response_model=ArticleUpdate)
 def update_article(article: ArticleUpdate, slug: str, db: Session = Depends(get_db)):
     db_article = db.query(Article).filter(Article.slug == slug).first()
@@ -74,10 +62,26 @@ def update_article(article: ArticleUpdate, slug: str, db: Session = Depends(get_
 
     db_article.title = article.title
     db_article.subtitle = article.subtitle
-    db_article.topics = [
-        Topic(title=t.title, content=t.content) for t in article.topics
-    ]
+
+    # Atualizar tópicos existentes
+    for db_topic, new_topic in zip(db_article.topics, article.topics):
+        db_topic.title = new_topic.title
+        db_topic.content = new_topic.content
+
     db.commit()
     db.refresh(db_article)
 
     return db_article
+
+
+
+@router.delete("/{article_title}", status_code=204)
+def delete_article(article_title: str, db: Session = Depends(get_db)):
+    db_article = db.query(Article).filter(Article.title == article_title).first()
+    
+    if db_article is None:
+        raise HTTPException(status_code=404, detail="Artigo não encontrado")
+
+    db.delete(db_article)
+    db.commit()
+    return

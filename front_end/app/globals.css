@@ -22,5 +22,6 @@ body {
   background: url("/background.jpg") no-repeat bottom;
   background-size: cover;
   font-family: sans-serif;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
 }

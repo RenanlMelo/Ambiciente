@@ -4,13 +4,13 @@ import React from "react";
 export const Articles_content = () => {
   return (
     <>
-      <div className="w-[80vw] ml-[20vw]">
+      <div className="min-h-[100vh] w-[80vw] ml-[20vw]">
         <Image
           src="/article1.png"
           alt="article background"
           className="w-full h-[48vh] bg-cover self-start"
         />
-        <main className="bg-white h-[65vh] pl-[15vw] pr-[20vw] pt-[7vh]">
+        <main className="bg-white absolute pl-[15vw] pr-[20vw] pt-[7vh]">
           <div id="1">
             <h3 className="text-[var(--main)] text-5xl font-semibold pb-4">
               Title - Example

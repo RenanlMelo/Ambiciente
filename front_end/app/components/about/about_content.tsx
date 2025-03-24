@@ -8,9 +8,9 @@ export const About_content = () => {
   return (
     <main
       style={{
-        top: `${headerHeight}px`,
+        marginTop: `${headerHeight}px`,
       }}
-      className="px-[30vw] py-24 relative bg-white w-full min-h-[100vh]"
+      className="px-[30vw] py-24 bg-white w-full min-h-[100vh]"
     >
       <Image
         width={250}
