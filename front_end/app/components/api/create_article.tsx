@@ -11,39 +11,56 @@ interface Topic {
 }
 
 export const Create_article = () => {
+  const [output, setOutput] = useState("");
   const { headerHeight } = useHeader();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [topics, setTopics] = useState<Topic[]>([]);
-  const [formData, setFormData] = useState({ title: "", subtitle: "" });
+  const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
+    topics: [] as Topic[],
+  });
 
   const params = useParams();
   const slug = params?.slug as string;
   console.log("slug", slug);
 
   function addTopic() {
-    setTopics([...topics, { id: Date.now(), title: "", content: "" }]);
+    const newTopic = { id: Date.now(), title: "", content: "" };
+    setFormData({
+      ...formData,
+      topics: [...formData.topics, newTopic],
+    });
   }
 
   function removeTopic(id: number) {
-    setTopics(topics.filter((topic) => topic.id !== id));
+    setFormData({
+      ...formData,
+      topics: formData.topics.filter((topic: Topic) => topic.id !== id),
+    });
   }
 
   function handleTopicChange(id: number, field: keyof Topic, value: string) {
-    setTopics(
-      topics.map((topic) =>
+    setFormData({
+      ...formData,
+      topics: formData.topics.map((topic: Topic) =>
         topic.id === id ? { ...topic, [field]: value } : topic
-      )
-    );
+      ),
+    });
   }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setOutput(JSON.stringify(formData, null, 2));
     setIsLoading(true);
 
     try {
@@ -73,7 +90,11 @@ export const Create_article = () => {
       console.log("Resposta:", data);
 
       // Limpar os campos após o envio bem-sucedido
-      setFormData({ title: "", subtitle: "" });
+      setFormData({
+        title: "",
+        subtitle: "",
+        topics: [] as Topic[],
+      });
       setTopics([]);
       setSuccessMessage(true);
     } catch (error) {
@@ -86,10 +107,10 @@ export const Create_article = () => {
   return (
     <div
       style={{
-        height: `calc(100vh - ${headerHeight}px)`,
+        minHeight: `calc(100vh - ${headerHeight}px)`,
         top: `${headerHeight}px`,
       }}
-      className="bg-white absolute w-full py-32 px-96"
+      className="bg-white absolute w-full pt-32 pb-20 px-96"
     >
       <Link
         href={`/artigos`}
@@ -130,7 +151,7 @@ export const Create_article = () => {
         <div className="col-span-2">
           <h3 className="font-semibold text-lg mb-2">Tópicos</h3>
 
-          {topics.map((topic) => (
+          {formData.topics.map((topic) => (
             <div key={topic.id} className="mb-4 p-3 border rounded-md">
               <label htmlFor={`topic_title_${topic.id}`}>
                 Título do Tópico
@@ -192,6 +213,11 @@ export const Create_article = () => {
         <p className="text-[var(--font-body)] text-lg">
           Seu artigo foi criado com sucesso!
         </p>
+      )}
+      {output && (
+        <pre className="mt-4 p-3 bg-gray-100 border rounded-md overflow-auto">
+          {output}
+        </pre>
       )}
     </div>
   );

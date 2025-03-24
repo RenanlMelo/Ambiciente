@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { Articles_sidebar } from "@/app/components/articles/articles_sidebar";
-import { useHeader } from "../../../contexts/HeaderContext";
+import { useHeader } from "@/app/contexts/HeaderContext";
 
 interface Topic {
   id: number;
