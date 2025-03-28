@@ -8,28 +8,29 @@ interface Article {
   slug: string;
 }
 
-async function getArticles(): Promise<Article[]> {
+export async function getStaticProps() {
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL_PROD
       : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
-  console.log("API URL:", apiUrl);
-
-  const res = await fetch(`${apiUrl}/artigos`, {
-    next: { revalidate: 60 },
-  });
+  const res = await fetch(`${apiUrl}/artigos`);
 
   if (!res.ok) {
-    throw new Error("Erro ao buscar artigos");
+    return {
+      notFound: true, // Retorna erro 404 se falhar
+    };
   }
 
-  return res.json();
+  const articles: Article[] = await res.json();
+
+  return {
+    props: { articles },
+    revalidate: 60, // Regenera a página a cada 60 segundos
+  };
 }
 
-export default async function ArticlesPage() {
-  const articles = await getArticles();
-
+export default function ArticlesPage({ articles }: { articles: Article[] }) {
   return (
     <div className="flex-col justify-start">
       <Articles_all articles={articles} />
