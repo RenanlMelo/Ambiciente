@@ -8,29 +8,22 @@ interface Article {
   slug: string;
 }
 
-export async function getStaticProps() {
+export default async function ArticlesPage() {
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL_PROD
       : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
-  const res = await fetch(`${apiUrl}/artigos`);
+  const res = await fetch(`${apiUrl}/artigos`, {
+    next: { revalidate: 60 }, // ISR (Incremental Static Regeneration)
+  });
 
   if (!res.ok) {
-    return {
-      notFound: true, // Retorna erro 404 se falhar
-    };
+    throw new Error("Erro ao buscar artigos");
   }
 
   const articles: Article[] = await res.json();
 
-  return {
-    props: { articles },
-    revalidate: 60, // Regenera a página a cada 60 segundos
-  };
-}
-
-export default function ArticlesPage({ articles }: { articles: Article[] }) {
   return (
     <div className="flex-col justify-start">
       <Articles_all articles={articles} />
