@@ -6,3 +6,5 @@ slugify==0.0.1
 bcrypt==4.0.1
 pyasn1==0.4.8
 python-multipart==0.0.9
+pydantic_core==2.27.2
+email_validator==2.2.0
