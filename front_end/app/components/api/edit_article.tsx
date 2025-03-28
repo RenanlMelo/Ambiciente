@@ -17,7 +17,6 @@ interface ArticleData {
 }
 
 export const Edit_article = () => {
-  const [output, setOutput] = useState("");
   const { headerHeight } = useHeader();
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -99,7 +98,6 @@ export const Edit_article = () => {
   // 2. Submeter formulário (fazendo PUT para atualizar)
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setOutput(JSON.stringify(formData, null, 2));
     setIsLoading(true);
 
     try {
@@ -253,11 +251,6 @@ export const Edit_article = () => {
         <p className="text-[var(--font-body)] text-lg">
           Seu artigo foi atualizado com sucesso!
         </p>
-      )}
-      {output && (
-        <pre className="mt-4 p-3 bg-gray-100 border rounded-md overflow-auto">
-          {output}
-        </pre>
       )}
     </div>
   );

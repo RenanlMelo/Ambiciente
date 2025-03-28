@@ -14,7 +14,6 @@ export const Create_article = () => {
   const { headerHeight } = useHeader();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  const [output, setOutput] = useState("");
   // Estado para o formulário
   const [formData, setFormData] = useState({
     title: "",
@@ -60,7 +59,6 @@ export const Create_article = () => {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setOutput(JSON.stringify(formData, null, 2));
     setIsLoading(true);
 
     try {
@@ -212,11 +210,6 @@ export const Create_article = () => {
         <p className="text-[var(--font-body)] text-lg">
           Seu artigo foi criado com sucesso!
         </p>
-      )}
-      {output && (
-        <pre className="mt-4 p-3 bg-gray-100 border rounded-md overflow-auto">
-          {output}
-        </pre>
       )}
     </div>
   );
