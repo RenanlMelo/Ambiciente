@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { fetchArticles } from "../../api/articles";
 import { useHeader } from "../../contexts/HeaderContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,27 +13,15 @@ interface Article {
   slug: string;
 }
 
-export default function Articles_all() {
+interface ArticleAllProps {
+  articles: Article[];
+}
+
+export const Articles_all: React.FC<ArticleAllProps> = ({ articles }) => {
   const { headerHeight } = useHeader();
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    fetchArticles()
-      .then(setArticles)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading)
-    return (
-      <p className="text-4xl absolute top-1/2 left-1/2 -translate-x-1/2 text-white">
-        Carregando artigos...
-      </p>
-    );
 
   async function deleteArticle() {
     if (!articleToDelete) return;
@@ -59,7 +46,6 @@ export default function Articles_all() {
       }
 
       console.log("Artigo excluído com sucesso!");
-      setArticles(articles.filter((art) => art.id !== articleToDelete.id));
       setArticleToDelete(null);
     } catch (error) {
       console.error(error);
@@ -99,7 +85,7 @@ export default function Articles_all() {
             Nenhum artigo disponível
           </h2>
         ) : (
-          articles.map((article) => (
+          articles.map((article: Article) => (
             <div
               key={article.id}
               className="border-[#ddd] border cursor-pointer opacity-100 hover:opacity-80 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative"
@@ -194,4 +180,4 @@ export default function Articles_all() {
       )}
     </main>
   );
-}
+};
