@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from api.database import Base
+from app.database import Base
 
 # No modelo Article
 class Article(Base):

@@ -16,8 +16,10 @@ async function getArticles(): Promise<Article[]> {
 
   console.log("API URL:", apiUrl);
 
+  const revalidateTime = process.env.NODE_ENV === "production" ? 60 : 1;
+
   const res = await fetch(`${apiUrl}/artigos`, {
-    next: { revalidate: 60 },
+    next: { revalidate: revalidateTime },
   });
 
   if (!res.ok) {

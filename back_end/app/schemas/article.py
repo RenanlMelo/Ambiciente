@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List
-from api.schemas.topic import Topic, TopicCreate
+from app.schemas.topic import Topic, TopicCreate
 
 class ArticleBase(BaseModel):
     title: str

@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import uuid
 
-from api.database import SessionLocal
-from api.models.article import Article, Topic
-from api.schemas.article import ArticleCreate, ArticleUpdate, ArticleResponse
+from app.database import SessionLocal
+from app.models.article import Article, Topic
+from app.schemas.article import ArticleCreate, ArticleUpdate, ArticleResponse
 
 router = APIRouter()  # Definição do roteador
 
