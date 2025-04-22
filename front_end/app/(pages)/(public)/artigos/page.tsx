@@ -8,7 +8,7 @@ interface Article {
   slug: string;
 }
 
-async function getArticles(): Promise<Article[]> {
+export default async function ArticlesPage() {
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL_PROD
@@ -26,11 +26,7 @@ async function getArticles(): Promise<Article[]> {
     throw new Error("Erro ao buscar artigos");
   }
 
-  return res.json();
-}
-
-export default async function ArticlesPage() {
-  const articles = await getArticles();
+  const articles: Article[] = await res.json();
 
   return (
     <div className="flex-col justify-start">
