@@ -1,11 +1,20 @@
-from api.database import Base
 from sqlalchemy import Column, Integer, String
+from fastapi import Form
+from ..database import Base
 
-# Modelo User
 class User(Base):
-    __tablename__= 'users'
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True)
-    email = Column(String, unique=True)
-    hashed_Password = Column(String)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+
+class LoginForm:
+    def __init__(
+        self,
+        email: str = Form(...),
+        password: str = Form(...)
+    ):
+        self.email = email
+        self.password = password

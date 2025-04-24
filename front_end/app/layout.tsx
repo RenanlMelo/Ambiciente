@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "./components/header";
+import { Header } from "./components/ui/header";
 import { Roboto } from "next/font/google";
-import { HeaderProvider } from "./contexts/HeaderContext";
 import { AdminProvider } from "./contexts/AdminContext";
+import TopLoader from "./components/ui/topLoader";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -24,15 +24,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div
-          className={`${roboto.className}`}
+          className={`${roboto.className} -z-50 bg-gradient-to-t from-[#191a27aa] to-black/10]`}
           id="shadow-box"
           style={{ backgroundColor: "#0d1b3150" }}
         >
           <AdminProvider>
-            <HeaderProvider>
-              <Header />
-              {children}
-            </HeaderProvider>
+            <Header />
+            <TopLoader />
+            {children}
           </AdminProvider>
         </div>
       </body>

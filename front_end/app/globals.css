@@ -1,3 +1,4 @@
+@import "nprogress/nprogress.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +8,7 @@
   --mainHover: #596b2d;
   --secondary: #99b259;
   --secondaryHover: #82974e;
+  --border: #d1e0a7;
   --politicas-bg: #eef3e1;
   --background: #f5f8ee;
   --font-black: #202020;
@@ -24,4 +26,38 @@ body {
   font-family: sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Optional: Customize the loading bar */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #2c3e50; /* Customize with your color */
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+
+/* Customizing the scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Track color */
+  border-radius: 10px; /* Rounded corners for the scrollbar track */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
 }

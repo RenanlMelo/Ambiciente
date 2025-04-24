@@ -1,23 +1,12 @@
 "use client";
 
 import React from "react";
-import { useHeader } from "../../contexts/HeaderContext";
 import Link from "next/link";
 
 export const Denuncia_forms = () => {
-  const { headerHeight } = useHeader();
-
   return (
-    <main
-      style={{
-        marginTop: `${headerHeight}px`,
-      }}
-      className="w-full bg-white px-[12vw] py-12"
-    >
-      <h2
-        style={{ top: `${headerHeight}px` }}
-        className="text-[var(--font-title)] font-semibold text-3xl"
-      >
+    <main className="w-full bg-white px-[12vw] py-12 mt-[calc(8vh+1rem)]">
+      <h2 className="text-[var(--font-title)] font-semibold text-3xl mt-[calc(8vh+1rem)]">
         Envie uma nova denúncia
       </h2>
       <form action="" className="flex justify-between items-start">
@@ -78,7 +67,7 @@ export const Denuncia_forms = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex flex-col justify-center items-center w-[48%] relative gap-y-10">
+        <div className="flex flex-col justify-center items-center w-[48%] relative gap-y-10 mt-10">
           <div className="flex flex-col justify-center items-center border w-full relative px-6 gap-y-6 py-8">
             <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--font-title)] font-bold text-lg self-start">
               Buscar Arquivo
@@ -94,37 +83,6 @@ export const Denuncia_forms = () => {
               Imagens do formato JPG, GIF ou PNG são aceitos. O maior tamanho
               permitido para um arquivo é 5mb.
             </p>
-          </div>
-
-          <div className="flex justify-start items-center border w-full relative px-6 gap-y-6 gap-x-2 py-8">
-            <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--font-title)] font-bold text-lg self-start">
-              Histórico da Denúncia
-            </h3>
-            <input
-              id="checkbox_historico"
-              type="checkbox"
-              className="absolute appearance-none w-4 h-4 border rounded-sm checked:bg-black peer shrink-0 border-[var(--line)] bg-white checked:border-0"
-            />
-            <label
-              htmlFor="checkbox_historico"
-              className="cursor-pointer text-[#6b6b6b] w-full px-6 z-10"
-            >
-              Já denunciei essa violação anteriormente
-            </label>
-            <svg
-              className="
-              absolute 
-              w-4 h-4 mt-[2px]
-                hidden peer-checked:block"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 26 26"
-              stroke="#fff"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
           </div>
 
           <div className="flex flex-col justify-center items-start border w-full relative px-6 gap-x-2 py-8">

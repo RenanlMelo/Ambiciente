@@ -1,86 +1,52 @@
-"use client";
-import useSWR from "swr";
-import { useParams } from "next/navigation";
+import Article_viewer from "@/app/components/articles/article_viewer";
 import { Articles_sidebar } from "@/app/components/articles/articles_sidebar";
-import { useHeader } from "@/app/contexts/HeaderContext";
+import { Article } from "@/app/types";
 
-interface Topic {
-  id: number;
-  title: string;
-  content: string;
+interface Props {
+  params: { slug: string };
 }
 
-interface Article {
-  id: number;
-  title: string;
-  subtitle: string;
-  slug: string;
-  topics: Topic[]; // Adicionando os tópicos corretamente
+// Replaces getStaticPaths - generates static paths at build time
+export async function generateStaticParams() {
+  const apiUrl = getApiUrl();
+  try {
+    const res = await fetch(`${apiUrl}/api/artigos?fields=slug`);
+    const articles: Article[] = await res.json();
+    return articles.map((article) => ({ slug: article.slug }));
+  } catch (error) {
+    console.error("Failed to generate static paths:", error);
+    return [];
+  }
 }
 
-// Função para buscar os dados da API
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+// ISR Configuration - revalidates every 60 seconds
+export const revalidate = 5;
 
-export default function ArticlePage() {
-  const { headerHeight } = useHeader();
-  const params = useParams();
-  const slug = params?.slug as string;
+async function getArticle(slug: string): Promise<Article> {
+  const apiUrl = getApiUrl();
+  const res = await fetch(`${apiUrl}/api/artigos/${slug}`, {
+    next: { tags: [`article-${slug}`] }, // For on-demand revalidation
+  });
 
-  // Definir a URL da API dependendo do ambiente
-  const apiUrl =
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_API_URL_PROD
-      : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+  if (!res.ok) {
+    throw new Error(`Failed to fetch article ${slug}`);
+  }
+  return res.json();
+}
 
-  // Usando SWR para buscar os artigos
-  const {
-    data: article,
-    error,
-    isLoading,
-  } = useSWR<Article>(
-    slug ? `${apiUrl}/artigos/${slug}` : null, // Usando a URL definida
-    fetcher
-  );
-
-  if (isLoading) return <p>Carregando artigo...</p>;
-  if (error) return <p>Erro ao buscar o artigo.</p>;
-  if (!article) return <p>Artigo não encontrado.</p>;
+export default async function ArticlePage({ params }: Props) {
+  const article = await getArticle(params.slug);
 
   return (
-    <div className="w-full ">
+    <div className="w-full grid grid-cols-[1fr_4fr]">
       <Articles_sidebar article={article} />
-      <main
-        style={{
-          minHeight: `calc(100vh - ${headerHeight}px)`,
-          top: `${headerHeight}px`,
-        }}
-        className="w-full max-w-[80vw] place-self-end bg-white relative py-24 px-8 md:px-16 lg:px-32 box-border"
-      >
-        <h1 className="text-4xl font-semibold text-[var(--main)] break-words">
-          {article.title}
-        </h1>
-        <p className="text-[var(--mainHover)] break-words">
-          {article.subtitle}
-        </p>
-
-        {/* Renderizando os tópicos dinamicamente */}
-        <div className="mt-12">
-          {article.topics?.length > 0 ? (
-            article.topics.map((topic, index) => (
-              <div key={topic.id || `topic-${index}`} className="mt-8">
-                <h3 className="text-xl font-semibold text-[var(--font-title)] break-words">
-                  {topic.title}
-                </h3>
-                <p className="text-[var(--font-body)] break-words">
-                  {topic.content}
-                </p>
-              </div>
-            ))
-          ) : (
-            <p>No topics available.</p>
-          )}
-        </div>
-      </main>
+      <Article_viewer initialArticle={article} />
     </div>
   );
+}
+
+function getApiUrl() {
+  return process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_API_URL_PROD
+    : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 }

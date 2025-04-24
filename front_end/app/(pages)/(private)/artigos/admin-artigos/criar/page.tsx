@@ -1,4 +1,4 @@
-import { Create_article } from "@/app/components/api/create_article";
+import { Create_article } from "@/app/components/api_articles/create_article";
 
 export default function Create() {
   return (

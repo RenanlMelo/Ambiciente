@@ -77,9 +77,9 @@ def update_article(article: ArticleUpdate, slug: str, db: Session = Depends(get_
 
 
 
-@router.delete("/{article_title}", status_code=204)
-def delete_article(article_title: str, db: Session = Depends(get_db)):
-    db_article = db.query(Article).filter(Article.title == article_title).first()
+@router.delete("/{article_slug}", status_code=204)
+def delete_article(article_slug: str, db: Session = Depends(get_db)):
+    db_article = db.query(Article).filter(Article.slug == article_slug).first()
     
     if db_article is None:
         raise HTTPException(status_code=404, detail="Artigo não encontrado")

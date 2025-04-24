@@ -1,24 +1,19 @@
 "use client";
 import React from "react";
-import { useHeader } from "@/app/contexts/HeaderContext";
 import Image from "next/image";
 
 export const About_content = () => {
-  const { headerHeight } = useHeader();
   return (
-    <main
-      style={{
-        marginTop: `${headerHeight}px`,
-      }}
-      className="px-[30vw] py-24 bg-white w-full min-h-[100vh]"
-    >
+    <main className="px-[30vw] pt-16 pb-24 bg-white w-full mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Image
-        width={250}
-        height={250}
         src="/logo.png"
         alt="logo do site"
-        className="w-32 place-self-center"
+        width={1050}
+        height={1050}
+        loading="lazy"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] opacity-10 pointer-events-none"
       />
+
       <h2 className="text-2xl mb-4 text-[var(--font-title)]">Visão Geral</h2>
       <p className="text-lg text-[var(--font-body)]">
         O AMBICIENTE é uma plataforma inovadora dedicada à proteção ambiental e

@@ -6,11 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "backend": "cd ../back_end && python -m uvicorn app.main:app --reload"
+    "lint": "next lint"
   },
   "dependencies": {
+    "lucide-react": "^0.503.0",
     "next": "^15.1.7",
+    "nprogress": "^0.2.0",
     "powerbi-client": "^2.23.1",
     "powerbi-models": "^1.15.2",
     "react": "^19.0.0",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/nprogress": "^0.2.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-scroll": "^1.8.10",

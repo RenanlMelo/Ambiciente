@@ -1,0 +1,51 @@
+"use client";
+import useSWR from "swr";
+import { Article } from "@/app/types";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export default function Article_viewer({
+  initialArticle,
+}: {
+  initialArticle: Article;
+}) {
+  const { data: article } = useSWR<Article>(
+    initialArticle?.slug ? `/api/articles/${initialArticle.slug}` : null,
+    fetcher,
+    {
+      fallbackData: initialArticle,
+      refreshInterval: 1000,
+      revalidateOnFocus: false,
+    }
+  );
+
+  if (!article) return <div>Loading...</div>;
+
+  return (
+    <main className="col-start-2 overflow-y-scroll relative w-[80vw] place-self-end bg-white py-24 px-8 md:px-16 lg:px-32 box-border top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <h2 className="text-clamp-xxlarge font-semibold text-[var(--main)] break-words">
+        {article.title}
+      </h2>
+      <p className="text-clamp-small text-[var(--mainHover)] break-words">
+        {article.subtitle}
+      </p>
+
+      <div className="mt-12">
+        {article.topics?.length > 0 ? (
+          article.topics.map((topic) => (
+            <div key={topic.title} className="mt-8">
+              <h3 className="text-clamp-large font-semibold text-[var(--font-title)] break-words">
+                {topic.title}
+              </h3>
+              <p className="text-clamp-small text-[var(--font-body)] break-words">
+                {topic.content}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No topics available.</p>
+        )}
+      </div>
+    </main>
+  );
+}

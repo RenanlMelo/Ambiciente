@@ -1,28 +1,59 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import article  # Importando o roteador corretamente
+from fastapi.staticfiles import StaticFiles  # Para servir arquivos estáticos
+from contextlib import asynccontextmanager
 from app.database import Base, engine
-from app.routes import user
+from app.routes import article, user  # Importe todos os routers aqui
+import os
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Gerenciador de ciclo de vida da aplicação"""
+    # Cria as tabelas no banco de dados (em produção, use migrações)
+    if os.getenv("ENV") != "TEST":
+        Base.metadata.create_all(bind=engine)
+    yield
+    # Código de limpeza pós-shutdown pode vir aqui
 
-# Configuração do CORS
+app = FastAPI(
+    title="Ambiciente API",
+    description="API para o projeto Ambiciente",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url="/api/docs",  # Customiza a URL da documentação
+    redoc_url=None,  # Desabilita Redoc se não for usar
+)
+
+# Configuração CORS mais segura para produção
 origins = [
     "https://ambiciente.vercel.app",
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"],  # Útil para downloads
 )
 
-Base.metadata.create_all(bind=engine)
+# Rotas de API
+app.include_router(
+    article.router,
+    prefix="/api/artigos",
+    tags=["Artigos"],
+)
 
-# Incluindo os endpoints do artigo com um prefixo
-app.include_router(article.router, prefix="/artigos", tags=["Articles"])
-# app.include_router(report.router, prefix="/reports", tags=["Reports"])
-app.include_router(user.router, prefix="/user", tags=["Users"])
+app.include_router(
+    user.router,
+    prefix="/api/users",
+    tags=["Usuários"],
+)
+
+# Health Check (opcional mas recomendado)
+@app.get("/api/health", tags=["Monitoramento"])
+async def health_check():
+    return {"status": "healthy", "version": app.version}

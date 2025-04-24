@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
-import { useHeader } from "../../contexts/HeaderContext";
 import { IBM_Plex_Sans } from "next/font/google";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -28,7 +27,6 @@ interface Props {
 }
 
 export const Articles_sidebar: React.FC<Props> = ({ article }) => {
-  const { headerHeight } = useHeader();
   // const [admin, setAdmin] = useState(true);
   const [removePopup, setRemovePopup] = useState<boolean>(false);
   const params = useParams();
@@ -49,6 +47,8 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         method: "DELETE",
       });
 
+      console.log(`${apiUrl}/artigos/${articleTitle}`);
+
       if (!response.ok) {
         throw new Error("Erro ao excluir artigo");
       }
@@ -62,33 +62,27 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
     }
   }
 
-  console.log(article);
-
   return (
     <>
       <aside
-        style={{
-          height: `calc(100lvh - ${headerHeight}px)`,
-          top: `${headerHeight}px`,
-        }}
-        className={`${ibmPlexSans.className} fixed bg-[var(--background)] w-[20vw] pl-20 pr-12 pt-6 flex flex-col gap-y-5`}
+        className={`sidebar ${ibmPlexSans.className} overflow-y-scroll fixed bg-[var(--background)] w-[20vw] pl-20 pr-12 pt-6 pb-12 flex flex-col gap-y-5 top-[calc(8vh+1rem)] bottom-0 box-border z-50`}
       >
         {/* {admin && ( */}
         <div id="create_article">
-          <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide">
+          <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide">
             Articles
           </h2>
           <Link
             href="/artigos"
-            className="text-[var(--line)] text-sm font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+            className="text-[var(--line)] text-clamp-xsmall font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
           >
             See All Articles
           </Link>
-          <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-base">
+          <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
             <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
               <Link
                 href="admin-artigos/criar"
-                className="flex justify-between w-full"
+                className="flex justify-between w-full gap-x-8 items-center"
               >
                 Create a New Article
                 <Image
@@ -136,7 +130,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
             Navigation
           </h2>
           <div className="relative">
-            <span className="w-[2px] bg-[var(--line)] h-4/5 top-1/2 -translate-y-1/2 absolute left-0" />
+            <span className="w-[2px] bg-[var(--line)] h-[95%] top-1/2 -translate-y-1/2 absolute left-0" />
             <ul className="flex flex-col gap-y-8 text-xl">
               <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
                 <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
@@ -153,7 +147,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
               {article.topics?.map((topic, index) => (
                 <li
                   key={topic.id || `topic-${index}`}
-                  className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px] text-[var(--font-title)]"
+                  className="grid grid-cols-[12px_1fr] items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px] text-[var(--font-title)]"
                 >
                   <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
                   <LinkScroll
@@ -181,23 +175,23 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm">
           <dialog
             open
-            className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center"
+            className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center rounded-lg"
           >
             <p className="text-xl text-[var(--font-title)]">
               Deseja apagar esse artigo?
             </p>
             <div className="grid grid-cols-2 items-center gap-x-12">
               <button
-                onClick={() => deleteArticle(article.title)}
-                className="bg-[var(--main)] text-[var(--white)] uppercase tracking-wider py-2 px-8"
-              >
-                Sim
-              </button>
-              <button
                 onClick={() => setRemovePopup(false)}
-                className="bg-[#d35040] text-[var(--white)] uppercase tracking-wider py-2 px-8"
+                className="bg-green-200 text-green-600 border border-green-600 uppercase tracking-wider py-2 px-8"
               >
                 Cancelar
+              </button>
+              <button
+                onClick={() => deleteArticle(article.title)}
+                className="bg-red-200 text-red-600 border border-red-600 uppercase tracking-wider py-2 px-8"
+              >
+                Deletar
               </button>
             </div>
           </dialog>
