@@ -39,9 +39,6 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
       if (!response.ok) throw new Error("Delete failed");
 
-      // Trigger on-demand revalidation
-      await fetch("/api/revalidate?tag=articles");
-
       // Refresh the data
       router.refresh();
     } catch (error) {
@@ -142,7 +139,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
           <dialog className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center rounded-lg">
             <p className="text-xl text-[var(--font-title)]">
-              Deletar artigo "{articleToDelete.title}"?
+              Deletar artigo &quot;{articleToDelete.title}&quot;?
             </p>
             <div className="grid grid-cols-2 items-center gap-x-12">
               <button

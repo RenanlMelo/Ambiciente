@@ -1,7 +1,6 @@
 "use client";
 import React, { FormEvent, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 interface Topic {
   id: number;
@@ -20,9 +19,6 @@ export const Create_article = () => {
     subtitle: "",
     topics: [] as Topic[],
   });
-
-  const params = useParams();
-  const slug = params?.slug as string;
 
   function addTopic() {
     const newTopic = { id: Date.now(), title: "", content: "" };

@@ -3,7 +3,6 @@ import "./globals.css";
 import { Header } from "./components/ui/header";
 import { Roboto } from "next/font/google";
 import { AdminProvider } from "./contexts/AdminContext";
-import TopLoader from "./components/ui/topLoader";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -30,7 +29,6 @@ export default function RootLayout({
         >
           <AdminProvider>
             <Header />
-            <TopLoader />
             {children}
           </AdminProvider>
         </div>

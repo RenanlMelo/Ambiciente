@@ -3,7 +3,7 @@ import Footer from "@/app/components/ui/footer";
 import { Article } from "@/app/types";
 
 // ISR Configuration - revalidates every 60 seconds in production, 1 second in development
-export const revalidate = process.env.NODE_ENV === "production" ? 60 : 1;
+export const revalidate = 60;
 
 async function getArticles(): Promise<Article[]> {
   const apiUrl =

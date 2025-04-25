@@ -2,7 +2,7 @@
 
 import { User, CircleX } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Aboreto, IBM_Plex_Sans } from "next/font/google";
 import { usePathname } from "next/navigation";
 
