@@ -17,23 +17,22 @@ interface ArticleData {
 
 export const Edit_article = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const params = useParams();
   const slug = params?.slug as string;
-  // Estado para o formulário
+
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
     topics: [] as Topic[],
   });
 
-  // Define a URL base da API com base nas variáveis de ambiente
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_API_URL_PROD
       : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
-  // 1. Carregar o artigo existente
   useEffect(() => {
     async function fetchArticle() {
       try {
@@ -46,18 +45,18 @@ export const Edit_article = () => {
           subtitle: data.subtitle || "",
           topics: data.topics.map((topic: Topic, index: number) => ({
             ...topic,
-            id: topic.id ? topic.id : Date.now() + index, // Apenas gera um ID se não existir
+            id: topic.id ? topic.id : Date.now() + index,
           })),
         });
       } catch (error) {
         console.error("Erro ao carregar artigo:", error);
+        setErrorMessage("Erro ao carregar o artigo.");
       }
     }
 
     fetchArticle();
   }, [slug, apiUrl]);
 
-  // Função para adicionar um tópico
   function addTopic() {
     const newTopic = { id: Date.now(), title: "", content: "" };
     setFormData({
@@ -66,15 +65,13 @@ export const Edit_article = () => {
     });
   }
 
-  // Função para remover um tópico
   function removeTopic(id: number) {
     setFormData({
       ...formData,
-      topics: formData.topics.filter((topic: Topic) => topic.id !== id),
+      topics: formData.topics.filter((topic) => topic.id !== id),
     });
   }
 
-  // Atualizar dados de um tópico específico
   function handleTopicChange(id: number, field: keyof Topic, value: string) {
     setFormData((prevData) => ({
       ...prevData,
@@ -84,7 +81,6 @@ export const Edit_article = () => {
     }));
   }
 
-  // Atualizar campos de texto (título, subtítulo)
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setFormData({
@@ -93,13 +89,12 @@ export const Edit_article = () => {
     });
   }
 
-  // 2. Submeter formulário (fazendo PUT para atualizar)
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      // Filtrar tópicos vazios (caso queira)
       const validTopics = formData.topics.filter(
         (t) => t.title.trim() && t.content.trim()
       );
@@ -110,22 +105,26 @@ export const Edit_article = () => {
         topics: validTopics,
       };
 
-      console.log("Enviando (PUT):", articleData);
-
-      // Chamar a API para atualizar usando a URL definida
       const response = await fetch(`${apiUrl}/api/artigos/${slug}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(articleData),
       });
 
+      if (!response.ok) {
+        throw new Error("Erro na resposta da API");
+      }
+
       const data = await response.json();
       console.log("Resposta da atualização:", data);
 
-      // Exibir mensagem de sucesso
       setSuccessMessage(true);
     } catch (error) {
       console.error("Erro ao atualizar artigo:", error);
+      setErrorMessage(
+        "Ocorreu um erro ao atualizar o artigo. Tente novamente."
+      );
+      setTimeout(() => setErrorMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }
@@ -136,21 +135,26 @@ export const Edit_article = () => {
       <div className="absolute top-4 left-10 flex flex-col">
         <Link
           href={`/artigos/${slug}`}
-          className="text-xl justify-between w-full"
+          className="text-clamp-medium justify-between w-full"
         >
           &lt; Voltar para o artigo
         </Link>
-        <Link href={`/artigos`} className="text-xl justify-between w-full">
+        <Link
+          href={`/artigos`}
+          className="text-clamp-medium justify-between w-full"
+        >
           &lt; Ver todos os artigos
         </Link>
       </div>
       <form
         onSubmit={onSubmit}
-        className="grid grid-cols-2 justify-between items-start gap-x-12 gap-y-10"
+        className="grid grid-cols-2 justify-between items-start gap-x-12 gap-y-10 text-clamp-small"
       >
         {/* Campos de título e subtítulo */}
         <div>
-          <label htmlFor="title">Título do Artigo *</label>
+          <label htmlFor="title" className="text-clamp-medium">
+            Título do Artigo <strong className="text-red-500">*</strong>
+          </label>
           <input
             type="text"
             id="title"
@@ -162,7 +166,9 @@ export const Edit_article = () => {
           />
         </div>
         <div>
-          <label htmlFor="subtitle">Subtítulo do Artigo *</label>
+          <label htmlFor="subtitle" className="text-clamp-medium">
+            Subtítulo do Artigo <strong className="text-red-500">*</strong>
+          </label>
           <input
             type="text"
             id="subtitle"
@@ -176,7 +182,9 @@ export const Edit_article = () => {
 
         {/* Tópicos Dinâmicos */}
         <div className="col-span-2">
-          <h3 className="font-semibold text-lg mb-2">Tópicos</h3>
+          <h3 className="text-[var(--title)] text-clamp-medium mb-2">
+            Tópicos
+          </h3>
 
           {formData.topics.map((topic, index) => (
             <div
@@ -240,8 +248,13 @@ export const Edit_article = () => {
         </button>
       </form>
       {successMessage && (
-        <p className="text-fontBody text-lg">
-          Seu artigo foi atualizado com sucesso!
+        <p className="text-green-500 bg-green-200 text-clamp-small mt-4 px-4 py-2 rounded-md">
+          Seu artigo foi criado com sucesso!
+        </p>
+      )}
+      {errorMessage && (
+        <p className="text-red-500 bg-red-200 text-clamp-small mt-4 px-4 py-2 rounded-md">
+          {errorMessage}
         </p>
       )}
     </div>

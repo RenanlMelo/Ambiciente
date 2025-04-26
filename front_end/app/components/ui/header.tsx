@@ -4,7 +4,8 @@ import { User, CircleX } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Aboreto, IBM_Plex_Sans } from "next/font/google";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 const aboreto = Aboreto({ weight: "400", subsets: ["latin"] });
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
@@ -15,7 +16,9 @@ interface Page {
 }
 
 export const Header = () => {
+  const { user, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -43,6 +46,13 @@ export const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    logout();
+    setMenuOpen(false);
+    router.refresh();
   };
 
   return (
@@ -101,32 +111,50 @@ export const Header = () => {
         </button>
       </div>
 
-      {menuOpen && (
-        <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg p-4 pr-8 z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
-          <nav aria-label="User menu">
-            <ul className="flex flex-col gap-y-4 text-[var(--mainHover)] font-medium text-clamp-medium">
-              <li>
-                <Link href="/perfil" className="hover:text-[var(--secondary)]">
-                  Meu Perfil
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/configuracoes"
-                  className="hover:text-[var(--secondary)]"
-                >
-                  Configurações
-                </Link>
-              </li>
-              <li>
-                <Link href="/sair" className="hover:text-[var(--secondary)]">
-                  Sair
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
+      {menuOpen &&
+        (user ? (
+          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg p-4 pr-8 z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
+            <nav aria-label="User menu">
+              <ul className="flex flex-col gap-y-4 text-[var(--mainHover)] font-medium text-clamp-medium">
+                <li>
+                  <Link
+                    href="/perfil"
+                    className="hover:text-[var(--secondary)]"
+                  >
+                    Meu Perfil
+                  </Link>
+                </li>
+
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    href="/sair"
+                    className="hover:text-[var(--secondary)]"
+                  >
+                    Sair
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        ) : (
+          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
+            <nav aria-label="User menu">
+              <ul className="flex flex-col text-[var(--mainHover)] font-medium text-clamp-medium">
+                <li className="hover:text-[var(--secondary)] cursor-pointer">
+                  <Link href="/login" className="w-full block h-full p-4 pr-8">
+                    Login
+                  </Link>
+                </li>
+                <li className="hover:text-[var(--secondary)] cursor-pointer">
+                  <Link className="w-full block p-4 pr-8" href="/cadastro">
+                    Cadastro
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        ))}
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (

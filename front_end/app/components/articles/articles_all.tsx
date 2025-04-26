@@ -51,7 +51,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-full bg-white px-32 py-10 relative top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <main className="w-full bg-white px-32 py-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
         <Link
           href="artigos/admin-artigos/criar"
           className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
@@ -137,20 +137,21 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       {/* Delete confirmation modal */}
       {articleToDelete && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
-          <dialog className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center rounded-lg">
-            <p className="text-xl text-[var(--font-title)]">
+          <dialog className="p-8 rounded-2xl w-full max-w-md border-none  z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between">
+            <p className="text-clamp-medium text-[var(--font-title)]">
               Deletar artigo &quot;{articleToDelete.title}&quot;?
             </p>
-            <div className="grid grid-cols-2 items-center gap-x-12">
+            <div className="mt-6 flex justify-end gap-4">
               <button
                 onClick={() => setArticleToDelete(null)}
-                className="bg-green-200 text-green-600 border border-green-600 uppercase tracking-wider py-2 px-8"
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring"
+                disabled={isLoading}
               >
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
-                className="bg-red-200 text-red-600 border border-red-600 uppercase tracking-wider py-2 px-8"
+                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
                 disabled={isLoading}
               >
                 {isLoading ? "Deletando..." : "Deletar"}
@@ -162,3 +163,35 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
     </>
   );
 };
+
+{
+  /* <dialog className="p-8 rounded-2xl shadow-lg w-full max-w-md border-none">
+            <h2
+              id="delete-dialog-title"
+              className="text-xl font-semibold text-gray-900"
+            >
+              Tem certeza que deseja excluir o artigo “{articleToDelete?.title}
+              ”?
+            </h2>
+            <p id="delete-dialog-desc" className="mt-2 text-sm text-gray-600">
+              Essa ação não pode ser desfeita.
+            </p>
+
+            <div className="mt-6 flex justify-end gap-4">
+              <button
+                onClick={() => setArticleToDelete(null)}
+                className="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring"
+                disabled={isLoading}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isLoading}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
+              >
+                {isLoading ? "Excluindo..." : "Excluir"}
+              </button>
+            </div>
+          </dialog> */
+}

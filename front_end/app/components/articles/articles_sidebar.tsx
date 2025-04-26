@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Link as LinkScroll } from "react-scroll";
 import { IBM_Plex_Sans } from "next/font/google";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { CornerDownLeft } from "lucide-react";
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
 interface Topic {
@@ -33,8 +33,24 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
   const slug = params?.slug as string;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [offsetTop, setOffsetTop] = useState(0);
 
-  async function deleteArticle(articleTitle: string) {
+  useEffect(() => {
+    function handleResize() {
+      const vh = window.innerHeight * 0.1; // 8vh
+      const rem = parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+      ); // 1rem
+      setOffsetTop(-(vh + rem)); // Offset negativo, porque queremos *compensar* o cabeçalho fixo
+    }
+
+    handleResize(); // chama uma vez ao montar
+    window.addEventListener("resize", handleResize); // atualiza se o usuário redimensionar
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  async function deleteArticle() {
     setIsLoading(true);
 
     // Definir a URL da API dependendo do ambiente
@@ -43,11 +59,9 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         ? process.env.NEXT_PUBLIC_API_URL_PROD
         : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
     try {
-      const response = await fetch(`${apiUrl}/artigos/${articleTitle}`, {
+      const response = await fetch(`${apiUrl}/api/artigos/${slug}`, {
         method: "DELETE",
       });
-
-      console.log(`${apiUrl}/artigos/${articleTitle}`);
 
       if (!response.ok) {
         throw new Error("Erro ao excluir artigo");
@@ -69,15 +83,15 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       >
         {/* {admin && ( */}
         <div id="create_article">
+          <Link
+            href="/artigos"
+            className="mb-10 text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+          >
+            See All Articles <CornerDownLeft className="ml-1 w-5 h-5 inline" />
+          </Link>
           <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide">
             Articles
           </h2>
-          <Link
-            href="/artigos"
-            className="text-[var(--line)] text-clamp-xsmall font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
-          >
-            See All Articles
-          </Link>
           <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
             <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
               <Link
@@ -135,9 +149,11 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
               <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--font-title)] decoration-transparent underline underline-offset-[6px]">
                 <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
                 <LinkScroll
-                  smooth
-                  spy
-                  to="title"
+                  smooth={true}
+                  offset={offsetTop}
+                  spy={true}
+                  duration={500}
+                  to={"section-title"}
                   className="font-semibold text-[var(--font-title)]"
                 >
                   {article.title}
@@ -151,10 +167,12 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
                 >
                   <div className="-translate-x-[45%] bg-[var(--font-title)] w-3 h-3 rounded-full" />
                   <LinkScroll
-                    smooth
-                    spy
-                    to={String(topic.id || index)}
-                    className="truncate"
+                    to={topic.title}
+                    smooth={true}
+                    spy={true}
+                    offset={offsetTop}
+                    duration={400}
+                    className="truncate cursor-pointer"
                   >
                     {topic.title}
                   </LinkScroll>
@@ -172,24 +190,24 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         </div>
       )}
       {removePopup && (
-        <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm">
+        <div className="bg-black/30 w-[100vw] h-[100lvh] absolute top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
           <dialog
             open
-            className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center rounded-lg"
+            className="p-8 rounded-2xl w-full max-w-md border-none  z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between"
           >
-            <p className="text-xl text-[var(--font-title)]">
+            <p className="text-clamp-medium text-[var(--font-title)]">
               Deseja apagar esse artigo?
             </p>
-            <div className="grid grid-cols-2 items-center gap-x-12">
+            <div className="mt-6 flex justify-end gap-4">
               <button
                 onClick={() => setRemovePopup(false)}
-                className="bg-green-200 text-green-600 border border-green-600 uppercase tracking-wider py-2 px-8"
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring"
               >
                 Cancelar
               </button>
               <button
-                onClick={() => deleteArticle(article.title)}
-                className="bg-red-200 text-red-600 border border-red-600 uppercase tracking-wider py-2 px-8"
+                onClick={() => deleteArticle()}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
               >
                 Deletar
               </button>

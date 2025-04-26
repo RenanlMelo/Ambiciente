@@ -16,7 +16,7 @@ from app.auth import (
 
 router = APIRouter()
 
-@router.post("/register/", response_model=UserOut, status_code=status.HTTP_201_CREATED)  # Status code mais adequado
+@router.post("/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)  # Status code mais adequado
 async def register_user(
     user: UserCreate,
     db: Session = Depends(get_db)  # Usando a dependência centralizada
@@ -83,7 +83,8 @@ async def login_for_access_token(
         "user_id": user.id  # Adição útil para o frontend
     }
 
-@router.get("/me/", response_model=UserOut)
+
+@router.get("/me", response_model=UserOut)
 async def read_current_user(
     current_user: User = Depends(get_current_user)  # Usando o modelo User diretamente
 ):

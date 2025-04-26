@@ -57,19 +57,19 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        email: str = payload.get("sub")
+        if email is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = TokenData(email=email)
     except JWTError:
         raise credentials_exception
     
     # Aqui você deve buscar o usuário no banco de dados
     # Exemplo simplificado:
-    from app.models import User
+    from app.models.user import User
     from app.database import SessionLocal
     db = SessionLocal()
-    user = db.query(User).filter(User.username == token_data.username).first()
+    user = db.query(User).filter(User.email == token_data.email).first()
     db.close()
     
     if user is None:

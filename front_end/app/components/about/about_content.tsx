@@ -1,20 +1,23 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { TreePine, ThermometerSun, BookOpenText } from "lucide-react";
 
 export const About_content = () => {
   return (
-    <main className="px-[30vw] pt-16 pb-24 bg-white w-full mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+    <main className="px-[30vw] pt-24 pb-24 bg-white w-full mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Image
         src="/logo.png"
         alt="logo do site"
         width={1050}
         height={1050}
         loading="lazy"
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] opacity-10 pointer-events-none"
+        className="fixed left-1/2 top-2/3 -translate-x-1/2 -translate-y-2/3 w-[700px] opacity-10 pointer-events-none"
       />
 
-      <h2 className="text-clamp-xlarge mb-4 text-[var(--font-title)]">Visão Geral</h2>
+      <h2 className="text-clamp-xlarge mb-4 text-[var(--font-title)]">
+        Visão Geral
+      </h2>
       <p className="text-clamp-medium text-[var(--font-body)]">
         O AMBICIENTE é uma plataforma inovadora dedicada à proteção ambiental e
         à conscientização climática. Nosso objetivo principal é fornecer um
@@ -28,7 +31,8 @@ export const About_content = () => {
       </h2>
 
       <h3 className="mb-1 text-clamp-large text-[var(--font-title)]">
-        1. Denúncias Ambientais
+        1. Denúncias Ambientais{" "}
+        <TreePine className="inline -translate-y-[2px]" size={30} />
       </h3>
       <p className="text-clamp-medium text-[var(--font-body)] mb-4">
         Os usuários poderão relatar problemas ambientais como desmatamento
@@ -37,7 +41,8 @@ export const About_content = () => {
       </p>
 
       <h3 className="mb-1 text-clamp-large text-[var(--font-title)]">
-        2. Relatórios Climáticos e Monitoramento
+        2. Relatórios Climáticos e Monitoramento{" "}
+        <ThermometerSun className="inline -translate-y-[2px]" size={30} />
       </h3>
       <p className="text-clamp-medium text-[var(--font-body)] mb-4">
         Informações detalhadas sobre o clima, como temperatura, umidade do ar e
@@ -46,7 +51,8 @@ export const About_content = () => {
       </p>
 
       <h3 className="mb-1 text-clamp-large text-[var(--font-title)]">
-        3. Conteúdo Socioeducativo
+        3. Conteúdo Socioeducativo{" "}
+        <BookOpenText className="inline -translate-y-[2px]" size={30} />
       </h3>
       <p className="text-clamp-medium text-[var(--font-body)]">
         A plataforma contará com artigos informativos sobre sustentabilidade e
@@ -84,7 +90,9 @@ export const About_content = () => {
         </li>
       </ul>
 
-      <h2 className="mt-8 mb-4 text-clamp-large text-[var(--font-title)]">Conclusão</h2>
+      <h2 className="mt-8 mb-4 text-clamp-large text-[var(--font-title)]">
+        Conclusão
+      </h2>
       <p className="text-clamp-medium text-[var(--font-body)]">
         O AMBICIENTE é uma iniciativa voltada para a proteção ambiental e a
         conscientização da população. Com denúncias rápidas e eficazes, dados
