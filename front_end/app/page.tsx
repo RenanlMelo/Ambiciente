@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Footer from "./components/ui/footer";
 
 export default function Home() {
@@ -20,21 +21,21 @@ export default function Home() {
         <div className="flex justify-start items-center gap-12 mt-6 w-[calc(564px+10vw)] text-clamp-medium text-[var(--font-title)] font-medium">
           <div className="flex flex-col gap-4">
             <p>Faça login e denuncie agora</p>
-            <a
+            <Link
               href="/login"
               className="font-bold text-center text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
             >
               Login
-            </a>
+            </Link>
           </div>
           <div className="flex flex-col gap-4">
             Esteja ciente sobre o ambiente
-            <a
+            <Link
               href="/artigos"
               className="font-bold text-center text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
             >
               Artigos
-            </a>
+            </Link>
           </div>
         </div>
       </section>

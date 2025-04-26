@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const userData = await me.json();
       setUser({ username: userData.username, email: userData.email });
       router.push("/");
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
       setError("Invalid email or password");
       throw err;
@@ -123,9 +123,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       // Optionally auto-login or redirect to login
       router.push("/login");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || "Registration failed");
+      if (err instanceof Error) {
+        setError(err.message || "Registration failed");
+      } else {
+        setError("Registration failed");
+      }
       throw err;
     } finally {
       setLoading(false);

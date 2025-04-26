@@ -128,7 +128,6 @@ export const Header = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    href="/sair"
                     className="hover:text-[var(--secondary)]"
                   >
                     Sair

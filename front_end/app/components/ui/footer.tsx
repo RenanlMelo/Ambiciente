@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
@@ -23,36 +24,36 @@ const Footer = () => {
           </h4>
           <ul className="list-none p-0">
             <li className="my-2">
-              <a
+              <Link
                 href="#"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Mapa de Denúncias
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
+              <Link
                 href="#"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Artigos e Notícias
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
+              <Link
                 href="#"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Faça sua Denúncia
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
+              <Link
                 href="#"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Política de Privacidade
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -71,30 +72,30 @@ const Footer = () => {
             Siga-nos
           </h4>
           <div className="flex justify-center space-x-4 mt-2">
-            <a
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaFacebook />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaInstagram />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaTwitter />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaLinkedin />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
