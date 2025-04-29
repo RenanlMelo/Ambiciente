@@ -15,28 +15,9 @@ export default function Home() {
             quer fazer a diferença. Aqui, você pode denunciar crimes ambientais,
             se informar com artigos sobre sustentabilidade e visualizar o
             impacto ambiental no Brasil através de um mapa interativo. Juntos,
-            podemos construir um futuro mais verde e consciente. Vamos começar?
+            podemos construir um futuro mais{" "}
+            <strong className="text-[var(--main)]">verde</strong> e consciente!
           </p>
-        </div>
-        <div className="flex justify-start items-center gap-12 mt-6 w-[calc(564px+10vw)] text-clamp-medium text-[var(--font-title)] font-medium">
-          <div className="flex flex-col gap-4">
-            <p>Faça login e denuncie agora</p>
-            <Link
-              href="/login"
-              className="font-bold text-center text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
-            >
-              Login
-            </Link>
-          </div>
-          <div className="flex flex-col gap-4">
-            Esteja ciente sobre o ambiente
-            <Link
-              href="/artigos"
-              className="font-bold text-center text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
-            >
-              Artigos
-            </Link>
-          </div>
         </div>
       </section>
       <Footer />

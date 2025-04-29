@@ -1,15 +1,17 @@
 from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from app.models.user import LoginForm
 from sqlalchemy.orm import Session
 
 from app.schemas.user import UserCreate, UserOut, Token
 from app.models.user import User
 from app.database import get_db  # Alteração importante aqui
-from app.auth import (
+from app.utils.auth import (
     get_password_hash,
     verify_password,
     create_access_token,
+    create_refresh_token,
+    refresh_access_token,
     get_current_user,
     ACCESS_TOKEN_EXPIRE_MINUTES
 )
@@ -73,14 +75,19 @@ async def login_for_access_token(
         )
     
     access_token = create_access_token(
-        data={"sub": user.email},
+        data={"sub": user.email, "role": user.role},
         expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    refresh_token = create_refresh_token(
+        data={"sub": user.email, "role": user.role},
     )
     
     return {
         "access_token": access_token, 
+        "refresh_token": refresh_token,
         "token_type": "bearer",
-        "user_id": user.id  # Adição útil para o frontend
+        "user_id": user.id,
+        "role": user.role,
     }
 
 
@@ -93,3 +100,18 @@ async def read_current_user(
     """
     return current_user
 
+
+@router.post("/refresh", status_code=status.HTTP_200_OK)
+async def refresh_token(refresh_token: str = Body(..., embed=True)):
+    """
+    Rota para gerar um novo access_token a partir de um refresh_token válido.
+    """
+    try:
+        new_access_token = refresh_access_token(refresh_token)
+    except HTTPException as e:
+        raise e
+    
+    return {
+        "access_token": new_access_token,
+        "token_type": "bearer"
+    }

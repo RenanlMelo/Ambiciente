@@ -85,12 +85,13 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         <div id="create_article">
           <Link
             href="/artigos"
-            className="mb-10 text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+            className="text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
           >
-            See All Articles <CornerDownLeft className="ml-1 w-5 h-5 inline" />
+            Ver todos os artigos{" "}
+            <CornerDownLeft className="ml-1 w-5 h-5 inline" />
           </Link>
-          <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide">
-            Articles
+          <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide mt-6">
+            Artigos
           </h2>
           <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
             <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
@@ -98,7 +99,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
                 href="admin-artigos/criar"
                 className="flex justify-between w-full gap-x-8 items-center"
               >
-                Create a New Article
+                Criar novo artigo
                 <Image
                   width={100}
                   height={100}
@@ -113,7 +114,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
                 href={`admin-artigos/editar/${slug}`}
                 className="flex justify-between items-center w-full"
               >
-                Edit This Article
+                Editar artigo atual
                 <Image
                   width={100}
                   height={100}
@@ -127,7 +128,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
               className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
               onClick={() => setRemovePopup(true)}
             >
-              Remove
+              Deletar artigo atual
               <Image
                 width={100}
                 height={100}
@@ -141,7 +142,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         {/* )} */}
         <div id="navigation">
           <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide pb-4">
-            Navigation
+            Navegação
           </h2>
           <div className="relative">
             <span className="w-[2px] bg-[var(--line)] h-[95%] top-1/2 -translate-y-1/2 absolute left-0" />

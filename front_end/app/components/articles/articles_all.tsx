@@ -56,7 +56,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
           href="artigos/admin-artigos/criar"
           className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
         >
-          Create a New Article
+          Criar um novo artigo
           <Image
             width={100}
             height={100}
@@ -147,7 +147,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                 className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring"
                 disabled={isLoading}
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 onClick={handleDelete}

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "./components/ui/header";
 import { Roboto } from "next/font/google";
-import { AdminProvider } from "./contexts/AdminContext";
 import TopLoader from "./components/ui/topLoader";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -29,13 +28,11 @@ export default function RootLayout({
           id="shadow-box"
           style={{ backgroundColor: "#0d1b3150" }}
         >
-          <AdminProvider>
-            <AuthProvider>
-              <Header />
-              <TopLoader />
-              {children}
-            </AuthProvider>
-          </AdminProvider>
+          <AuthProvider>
+            <Header />
+            <TopLoader />
+            {children}
+          </AuthProvider>
         </div>
       </body>
     </html>

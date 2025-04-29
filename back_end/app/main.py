@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles  # Para servir arquivos estáticos
 from contextlib import asynccontextmanager
 from app.database import Base, engine
-from app.routes import article, user  # Importe todos os routers aqui
+from app.routes import article, user, roles  # Importe todos os routers aqui
 import os
 
 @asynccontextmanager
@@ -51,6 +51,12 @@ app.include_router(
     user.router,
     prefix="/api/users",
     tags=["Usuários"],
+)
+
+app.include_router(
+    roles.router,
+    prefix="/api/roles",
+    tags=["Roles"],
 )
 
 # Health Check (opcional mas recomendado)

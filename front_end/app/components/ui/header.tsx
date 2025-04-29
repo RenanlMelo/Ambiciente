@@ -113,13 +113,13 @@ export const Header = () => {
 
       {menuOpen &&
         (user ? (
-          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg p-4 pr-8 z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
+          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
             <nav aria-label="User menu">
-              <ul className="flex flex-col gap-y-4 text-[var(--mainHover)] font-medium text-clamp-medium">
-                <li>
+              <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-medium">
+                <li className="">
                   <Link
                     href="/perfil"
-                    className="hover:text-[var(--secondary)]"
+                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
                   >
                     Meu Perfil
                   </Link>
@@ -128,7 +128,7 @@ export const Header = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="hover:text-[var(--secondary)]"
+                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
                   >
                     Sair
                   </button>
@@ -139,14 +139,20 @@ export const Header = () => {
         ) : (
           <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
             <nav aria-label="User menu">
-              <ul className="flex flex-col text-[var(--mainHover)] font-medium text-clamp-medium">
-                <li className="hover:text-[var(--secondary)] cursor-pointer">
-                  <Link href="/login" className="w-full block h-full p-4 pr-8">
+              <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-medium">
+                <li>
+                  <Link
+                    href="/login"
+                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
+                  >
                     Login
                   </Link>
                 </li>
-                <li className="hover:text-[var(--secondary)] cursor-pointer">
-                  <Link className="w-full block p-4 pr-8" href="/cadastro">
+                <li>
+                  <Link
+                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
+                    href="/cadastro"
+                  >
                     Cadastro
                   </Link>
                 </li>

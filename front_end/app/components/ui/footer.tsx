@@ -25,7 +25,7 @@ const Footer = () => {
           <ul className="list-none p-0">
             <li className="my-2">
               <Link
-                href="#"
+                href="/mapa"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Mapa de Denúncias
@@ -33,7 +33,7 @@ const Footer = () => {
             </li>
             <li className="my-2">
               <Link
-                href="#"
+                href="/artigos"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Artigos e Notícias
@@ -41,7 +41,7 @@ const Footer = () => {
             </li>
             <li className="my-2">
               <Link
-                href="#"
+                href="/denuncia"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Faça sua Denúncia
@@ -49,7 +49,7 @@ const Footer = () => {
             </li>
             <li className="my-2">
               <Link
-                href="#"
+                href="/"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Política de Privacidade
@@ -62,9 +62,19 @@ const Footer = () => {
           <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Contato
           </h4>
-          <p>Email: contato@ambicente.com</p>
-          <p>Telefone: (11) 99999-9999</p>
-          <p>Endereço: Rua Sustentável, 123 - São Paulo, SP</p>
+          <p>
+            <a href="mailto:renanlaramelo@gmail.com">
+              Email: contato@ambicente.com
+            </a>
+          </p>
+          <p>
+            <a href="tel:+5515996839690">Telefone: (15) 99683-9690</a>
+          </p>
+          <p>
+            <a href="https://g.co/kgs/u8DQW6H">
+              Endereço: Rod. Sen. José Ermírio de Moraes, 1425 Sorocaba, SP
+            </a>
+          </p>
         </div>
         {/* Siga-nos */}
         <div className="flex-1 min-w-[250px] m-2.5">
