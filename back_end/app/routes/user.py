@@ -26,25 +26,26 @@ async def register_user(
     """
     Cria um novo usuário no sistema.
     
-    - **username**: Nome de usuário único
+    - **name**: Nome de usuário
+    - **last_name**: Último nome de usuário
     - **email**: E-mail válido
     - **password**: Senha com pelo menos 6 caracteres
     """
     # Verifica se usuário ou email já existem
     db_user = db.query(User).filter(
-        (User.username == user.username) | 
         (User.email == user.email)
     ).first()
     
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Username or email already registered"
+            detail="email already registered"
         )
     
     hashed_password = get_password_hash(user.password)
     db_user = User(
-        username=user.username,
+        name=user.name,
+        last_name=user.last_name,
         email=user.email,
         hashed_password=hashed_password
     )
@@ -70,7 +71,7 @@ async def login_for_access_token(
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
     

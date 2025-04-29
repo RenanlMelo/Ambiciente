@@ -5,7 +5,7 @@ import PrivateRoute from "@/app/components/auth/privateRoute";
 export default function Denuncia() {
   return (
     <>
-      <PrivateRoute allowedRoles={["user"]}>
+      <PrivateRoute allowedRoles={["user", "staff", "admin"]}>
         <Denuncia_forms />
         <Footer />
       </PrivateRoute>

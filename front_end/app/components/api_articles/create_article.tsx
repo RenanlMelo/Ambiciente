@@ -226,7 +226,7 @@ export const Create_article = () => {
         </button>
       </form>
       {successMessage && (
-        <p className="text-green-500 bg-green-200 text-clamp-small mt-4 px-4 py-2 rounded-md">
+        <p className="text-[var(--font-title)] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
           Seu artigo foi criado com sucesso!
         </p>
       )}

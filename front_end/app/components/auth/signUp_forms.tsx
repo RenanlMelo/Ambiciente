@@ -6,7 +6,8 @@ import { useAuth } from "@/app/contexts/AuthContext";
 export const SignUp_forms = () => {
   const { register, loading, error } = useAuth();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
+    last_name: "",
     email: "",
     password: "",
   });
@@ -20,7 +21,14 @@ export const SignUp_forms = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await register(formData.username, formData.email, formData.password);
+      console.log(formData);
+
+      await register(
+        formData.name,
+        formData.last_name,
+        formData.email,
+        formData.password
+      );
       setSuccess(true);
     } catch {
       // error shown via context
@@ -67,12 +75,25 @@ export const SignUp_forms = () => {
 
         <form onSubmit={handleSubmit}>
           <label className="block mb-2 font-semibold text-[var(--font-title)] text-clamp-small">
-            Username
+            Name
           </label>
           <input
             type="text"
-            name="username"
-            value={formData.username}
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            minLength={3}
+            className="w-full mb-6 p-2 border rounded bg-[var(--white)] shadow-[3px_4px_5px_#00000020] focus:outline-none text-clamp-small"
+          />
+
+          <label className="block mb-2 font-semibold text-[var(--font-title)] text-clamp-small">
+            Last Name
+          </label>
+          <input
+            type="text"
+            name="last_name"
+            value={formData.last_name}
             onChange={handleChange}
             required
             minLength={3}

@@ -2,14 +2,16 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class UserCreate(BaseModel):
-    username: str
+    name: str
+    last_name: str
     email: EmailStr
     password: str
     role: Optional[str] = "user"
 
 class UserOut(BaseModel):
     id: int
-    username: str
+    name: str
+    last_name: str
     email: EmailStr
     role: str
 

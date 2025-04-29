@@ -4,12 +4,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Article } from "@/app/types";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface ArticlesAllProps {
   articles: Article[];
 }
 
 export const Articles_all = ({ articles }: ArticlesAllProps) => {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
   const router = useRouter();
@@ -48,23 +50,29 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       setArticleToDelete(null);
     }
   };
+  if (user) {
+    console.log(user);
+    console.log("role", user.role);
+  }
 
   return (
     <>
       <main className="w-full bg-white px-32 py-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
-        <Link
-          href="artigos/admin-artigos/criar"
-          className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
-        >
-          Criar um novo artigo
-          <Image
-            width={100}
-            height={100}
-            src="/svg/create.svg"
-            alt="create icon"
-            className="pl-2 w-10 h-10"
-          />
-        </Link>
+        {user && user.role === "admin" && (
+          <Link
+            href="artigos/admin-artigos/criar"
+            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
+          >
+            Criar um novo artigo
+            <Image
+              width={100}
+              height={100}
+              src="/svg/create.svg"
+              alt="create icon"
+              className="pl-2 w-10 h-10"
+            />
+          </Link>
+        )}
 
         <h2 className="text-clamp-xlarge font-semibold text-[var(--font-title)] py-6">
           Lista de Artigos
@@ -94,40 +102,42 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                 <p className="text-clamp-small text-[var(--font-body)] px-8 pb-6">
                   {article.subtitle}
                 </p>
-                <div className="absolute bottom-5 right-5 flex gap-x-3">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(
-                        `/artigos/admin-artigos/editar/${article.slug}`
-                      );
-                    }}
-                    className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
-                  >
-                    <Image
-                      width={100}
-                      height={100}
-                      src="/svg/edit.svg"
-                      alt="edit icon"
-                      className="w-6 h-6 mt-[2px] mb-[2px]"
-                    />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setArticleToDelete(article);
-                    }}
-                    className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
-                  >
-                    <Image
-                      width={100}
-                      height={100}
-                      src="/svg/remove.svg"
-                      alt="remove icon"
-                      className="w-7 h-7"
-                    />
-                  </button>
-                </div>
+                {user && user.role === "admin" && (
+                  <div className="absolute bottom-5 right-5 flex gap-x-3">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(
+                          `/artigos/admin-artigos/editar/${article.slug}`
+                        );
+                      }}
+                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                    >
+                      <Image
+                        width={100}
+                        height={100}
+                        src="/svg/edit.svg"
+                        alt="edit icon"
+                        className="w-6 h-6 mt-[2px] mb-[2px]"
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setArticleToDelete(article);
+                      }}
+                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                    >
+                      <Image
+                        width={100}
+                        height={100}
+                        src="/svg/remove.svg"
+                        alt="remove icon"
+                        className="w-7 h-7"
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
             ))
           )}

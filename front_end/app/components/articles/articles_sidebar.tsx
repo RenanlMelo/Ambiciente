@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CornerDownLeft } from "lucide-react";
+import { useAuth } from "@/app/contexts/AuthContext";
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
 interface Topic {
@@ -27,7 +28,7 @@ interface Props {
 }
 
 export const Articles_sidebar: React.FC<Props> = ({ article }) => {
-  // const [admin, setAdmin] = useState(true);
+  const { user } = useAuth();
   const [removePopup, setRemovePopup] = useState<boolean>(false);
   const params = useParams();
   const slug = params?.slug as string;
@@ -81,65 +82,65 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       <aside
         className={`sidebar ${ibmPlexSans.className} overflow-y-scroll fixed bg-[var(--background)] w-[20vw] pl-20 pr-12 pt-6 pb-12 flex flex-col gap-y-5 top-[calc(8vh+1rem)] bottom-0 box-border z-50`}
       >
-        {/* {admin && ( */}
-        <div id="create_article">
-          <Link
-            href="/artigos"
-            className="text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
-          >
-            Ver todos os artigos{" "}
-            <CornerDownLeft className="ml-1 w-5 h-5 inline" />
-          </Link>
-          <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide mt-6">
-            Artigos
-          </h2>
-          <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
-            <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
-              <Link
-                href="admin-artigos/criar"
-                className="flex justify-between w-full gap-x-8 items-center"
+        <Link
+          href="/artigos"
+          className="text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--line)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+        >
+          Ver todos os artigos{" "}
+          <CornerDownLeft className="ml-1 w-5 h-5 inline" />
+        </Link>
+        {user && user.role === "admin" && (
+          <div id="create_article">
+            <h2 className="text-[var(--font-title)] font-semibold text-clamp-large tracking-wide">
+              Artigos
+            </h2>
+            <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
+              <li className="cursor-pointer border-y border-[var(--line)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
+                <Link
+                  href="admin-artigos/criar"
+                  className="flex justify-between w-full gap-x-8 items-center"
+                >
+                  Criar novo artigo
+                  <Image
+                    width={100}
+                    height={100}
+                    src="/svg/create.svg"
+                    alt="create icon"
+                    className="w-7 h-7"
+                  />
+                </Link>
+              </li>
+              <li className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
+                <Link
+                  href={`admin-artigos/editar/${slug}`}
+                  className="flex justify-between items-center w-full"
+                >
+                  Editar artigo atual
+                  <Image
+                    width={100}
+                    height={100}
+                    src="/svg/edit.svg"
+                    alt="edit icon"
+                    className="w-6 h-6 mt-[2px] mb-[2px]"
+                  />
+                </Link>
+              </li>
+              <li
+                className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
+                onClick={() => setRemovePopup(true)}
               >
-                Criar novo artigo
+                Deletar artigo atual
                 <Image
                   width={100}
                   height={100}
-                  src="/svg/create.svg"
-                  alt="create icon"
+                  src="/svg/remove.svg"
+                  alt="remove icon"
                   className="w-7 h-7"
                 />
-              </Link>
-            </li>
-            <li className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
-              <Link
-                href={`admin-artigos/editar/${slug}`}
-                className="flex justify-between items-center w-full"
-              >
-                Editar artigo atual
-                <Image
-                  width={100}
-                  height={100}
-                  src="/svg/edit.svg"
-                  alt="edit icon"
-                  className="w-6 h-6 mt-[2px] mb-[2px]"
-                />
-              </Link>
-            </li>
-            <li
-              className="cursor-pointer border-b border-[var(--line)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
-              onClick={() => setRemovePopup(true)}
-            >
-              Deletar artigo atual
-              <Image
-                width={100}
-                height={100}
-                src="/svg/remove.svg"
-                alt="remove icon"
-                className="w-7 h-7"
-              />
-            </li>
-          </ul>
-        </div>
-        {/* )} */}
+              </li>
+            </ul>
+          </div>
+        )}
         <div id="navigation">
           <h2 className="text-[var(--font-title)] font-semibold text-2xl tracking-wide pb-4">
             Navegação

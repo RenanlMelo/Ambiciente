@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles  # Para servir arquivos estáticos
 from contextlib import asynccontextmanager
 from app.database import Base, engine
-from app.routes import article, user, roles  # Importe todos os routers aqui
+from app.routes import article, user, roles, denuncias  # Importe todos os routers aqui
 import os
 
 @asynccontextmanager
@@ -35,9 +34,9 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["Content-Disposition"],  # Útil para downloads
+    expose_headers=["*"],  # Útil para downloads
 )
 
 # Rotas de API
@@ -57,6 +56,12 @@ app.include_router(
     roles.router,
     prefix="/api/roles",
     tags=["Roles"],
+)
+
+app.include_router(
+    denuncias.router,
+    prefix="/api/denuncias",
+    tags=["Denúncias"],
 )
 
 # Health Check (opcional mas recomendado)

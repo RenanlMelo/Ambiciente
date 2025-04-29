@@ -1,5 +1,6 @@
 import { Articles_all } from "@/app/components/articles/articles_all";
 import Footer from "@/app/components/ui/footer";
+import { useAuth } from "@/app/contexts/AuthContext";
 import { Article } from "@/app/types";
 
 // ISR Configuration - revalidates every 60 seconds in production, 1 second in development
