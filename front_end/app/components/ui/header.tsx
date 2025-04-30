@@ -1,18 +1,35 @@
 "use client";
 
-import { User, CircleX } from "lucide-react";
+import { User, CircleX, AlignRight } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Aboreto, IBM_Plex_Sans } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/app/contexts/AuthContext";
 
+// Fontes
 const aboreto = Aboreto({ weight: "400", subsets: ["latin"] });
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
+// Tipagem das páginas
 interface Page {
   name: string;
   url: string;
+}
+
+// Hook para media query
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+
+  return matches;
 }
 
 export const Header = () => {
@@ -21,6 +38,7 @@ export const Header = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   const pagesList: Page[] = [
     { name: "Introdução", url: "/" },
@@ -29,24 +47,8 @@ export const Header = () => {
     { name: "Sobre", url: "/sobre" },
   ];
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -55,130 +57,169 @@ export const Header = () => {
     router.refresh();
   };
 
+  useEffect(() => {
+    setMenuOpen(false);
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
     <header
-      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] fixed top-0 w-full bg-[var(--background)] grid grid-cols-3 text-[var(--main)] px-5 md:px-20 pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
+      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-screen box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--main)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
     >
       {/* Logo */}
       <Link
         href="/"
-        className={`${aboreto.className} text-clamp-heading text-start h-fit self-center`}
+        className={`${aboreto.className} text-clamp-heading text-start h-fit self-center ml-5 md:ml-20`}
         aria-label="Home"
       >
         AMBICIENTE
       </Link>
 
-      {/* Desktop Navigation */}
-      <nav
-        aria-label="Main navigation"
-        className="hidden md:flex justify-center items-center"
-      >
-        <ul className="hidden md:flex justify-center items-center gap-x-8 text-[var(--main)] font-medium text-clamp-medium w-fit place-self-center">
-          {pagesList.map((page) => (
-            <li key={page.url}>
-              <Link
-                href={page.url}
-                className={`${
-                  page.url === pathname
-                    ? `decoration-[var(--main)]`
-                    : `decoration-transparent hover:decoration-[var(--main)]`
-                } underline decoration-2 underline-offset-[6px] transition-colors duration-150`}
-              >
-                {page.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {/* Mobile menu button */}
+      {isMobile && (
+        <div className="flex justify-end items-center md:gap-x-4 mr-1 md:mr-20">
+          <button
+            onClick={toggleMenu}
+            className="justify-self-end self-center p-4"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            <User className="w-6 h-6 stroke-[var(--main)]" />
+          </button>
+          <button
+            onClick={toggleMobileMenu}
+            className="justify-self-end self-center p-4"
+            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            <AlignRight className="w-6 h-6 stroke-[var(--main)]" />
+          </button>
+        </div>
+      )}
 
-      {/* Right Side Controls */}
-      <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--main)] font-medium text-clamp-medium">
-        <Link
-          href="/denuncia"
-          className="font-bold text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
-          aria-label="Faça sua denúncia"
+      {/* Desktop navigation */}
+      {!isMobile && (
+        <nav
+          aria-label="Main navigation"
+          className="flex justify-center items-center"
         >
-          FAÇA SUA DENÚNCIA
-        </Link>
+          <ul className="flex justify-center items-center gap-x-8 text-[var(--main)] font-medium text-clamp-medium w-fit place-self-center">
+            {pagesList.map((page) => (
+              <li key={page.url}>
+                <Link
+                  href={page.url}
+                  className={`${
+                    page.url === pathname
+                      ? `decoration-[var(--main)]`
+                      : `decoration-transparent hover:decoration-[var(--main)]`
+                  } underline decoration-2 underline-offset-[6px] transition-colors duration-150`}
+                >
+                  {page.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
-        <button
-          onClick={toggleMenu}
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={menuOpen}
-          className="p-2 rounded-full bg-[var(--secondary)] hover:bg-[var(--secondaryHover)] transition-colors duration-200"
-        >
-          <User size="1.5vw" fill="transparent" stroke="#f6f6f6" />
-        </button>
-      </div>
+      {/* Right side controls (desktop only) */}
+      {!isMobile && (
+        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--main)] font-medium text-clamp-medium">
+          <Link
+            href="/denuncia"
+            className="font-bold text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
+            aria-label="Faça sua denúncia"
+          >
+            FAÇA SUA DENÚNCIA
+          </Link>
 
-      {menuOpen &&
-        (user ? (
-          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
-            <nav aria-label="User menu">
-              <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-medium">
-                <li className="">
-                  <Link
-                    href="/perfil"
-                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
-                  >
-                    Meu Perfil
-                  </Link>
-                </li>
+          <button
+            onClick={toggleMenu}
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            className="p-2 rounded-full bg-[var(--secondary)] hover:bg-[var(--secondaryHover)] transition-colors duration-200"
+          >
+            <User
+              fill="transparent"
+              stroke="#f6f6f6"
+              className="w-[calc(1vw+20px)] h-[calc(1vw+20px)]"
+            />
+          </button>
+        </div>
+      )}
 
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
-                  >
-                    Sair
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        ) : (
-          <div className="absolute right-0 bg-[var(--background)] rounded-bl-lg z-40 border-b-2 border-l-2 border-[var(--border)] mt-[calc(8vh+1rem)] w-[150px] md:w-[200px]">
-            <nav aria-label="User menu">
-              <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-medium">
-                <li>
-                  <Link
-                    href="/login"
-                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:bg-[var(--secondary)] hover:text-white pr-8 p-4 w-full h-full flex items-center justify-start"
-                    href="/cadastro"
-                  >
-                    Cadastro
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        ))}
+      {/* User dropdown menu */}
+      {menuOpen && (
+        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[var(--border)] md:mt-[calc(8vh+1rem)] md:w-[200px]">
+          <button
+            onClick={toggleMenu}
+            aria-label="Fechar menu"
+            className="absolute top-3 right-2 p-2"
+          >
+            <CircleX size={40} stroke="#99b259" strokeWidth={2} />
+          </button>
+          <nav aria-label="User menu">
+            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge m-12 gap-2">
+              {user ? (
+                <>
+                  <li>
+                    <Link
+                      href="/perfil"
+                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                    >
+                      Meu Perfil
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                    >
+                      Sair
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      href="/login"
+                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                      href="/cadastro"
+                    >
+                      Cadastro
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
+        </div>
+      )}
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[var(--background)] flex flex-col items-center justify-center gap-y-8 pt-20 z-40">
+      {isMobile && mobileMenuOpen && (
+        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge">
           <button
             onClick={toggleMobileMenu}
             aria-label="Fechar menu"
-            className="absolute top-8 right-8 p-2"
+            className="absolute top-3 right-2 p-2"
           >
             <CircleX size={40} stroke="#99b259" strokeWidth={2} />
           </button>
 
           <nav aria-label="Mobile navigation">
-            <ul className="flex flex-col items-center gap-y-8">
+            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge m-12 gap-2">
               {pagesList.map((page) => (
                 <li key={page.url}>
                   <Link
                     href={page.url}
-                    className="text-2xl md:text-3xl hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                    className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {page.name}

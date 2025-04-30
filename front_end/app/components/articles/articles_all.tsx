@@ -57,11 +57,11 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-full bg-white px-32 py-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <main className="w-screen box-border bg-white px-5 md:px-32 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
         {user && user.role === "admin" && (
           <Link
             href="artigos/admin-artigos/criar"
-            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
+            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1 -translate-x-2"
           >
             Criar um novo artigo
             <Image
@@ -69,15 +69,15 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
               height={100}
               src="/svg/create.svg"
               alt="create icon"
-              className="pl-2 w-10 h-10"
+              className="pl-2 w-7 md:w-10 h-7 md:h-10"
             />
           </Link>
         )}
 
-        <h2 className="text-clamp-xlarge font-semibold text-[var(--font-title)] py-6">
+        <h2 className="text-clamp-xlarge font-semibold text-[var(--font-title)] pb-4 md:py-6">
           Lista de Artigos
         </h2>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12">
+        <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
           {articles.length === 0 ? (
             <h2 className="text-[var(--font-body)] font-semibold text-clamp-medium underline underline-offset-[6px]">
               Nenhum artigo disponível

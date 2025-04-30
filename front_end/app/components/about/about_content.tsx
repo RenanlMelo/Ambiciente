@@ -5,7 +5,7 @@ import { TreePine, ThermometerSun, BookOpenText } from "lucide-react";
 
 export const About_content = () => {
   return (
-    <main className="px-[30vw] pt-24 pb-24 bg-white w-full mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+    <main className="px-5 md:px-[30vw] pt-10 md:pt-24 pb-24 bg-white w-full mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Image
         src="/logo.png"
         alt="logo do site"

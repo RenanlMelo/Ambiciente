@@ -24,8 +24,6 @@ body {
   background: url("/background.jpg") no-repeat bottom;
   background-size: cover;
   font-family: sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* Optional: Customize the loading bar */
