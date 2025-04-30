@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import Link from "next/link";
 
 interface Topic {
@@ -9,6 +9,7 @@ interface Topic {
 }
 
 export const Create_article = () => {
+  const nextTopicId = useRef(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -21,47 +22,59 @@ export const Create_article = () => {
   });
 
   function addTopic() {
-    const newTopic = { id: Date.now(), title: "", content: "" };
-    setFormData({
-      ...formData,
-      topics: [...formData.topics, newTopic],
-    });
+    const newTopic = { id: nextTopicId.current++, title: "", content: "" };
+    setFormData((prev) => ({
+      ...prev,
+      topics: [...prev.topics, newTopic],
+    }));
   }
 
   function removeTopic(id: number) {
-    setFormData({
-      ...formData,
-      topics: formData.topics.filter((topic: Topic) => topic.id !== id),
-    });
+    setFormData((prev) => ({
+      ...prev,
+      topics: prev.topics.filter((topic: Topic) => topic.id !== id),
+    }));
   }
 
   function handleTopicChange(id: number, field: keyof Topic, value: string) {
-    setFormData({
-      ...formData,
-      topics: formData.topics.map((topic: Topic) =>
+    setFormData((prev) => ({
+      ...prev,
+      topics: prev.topics.map((topic: Topic) =>
         topic.id === id ? { ...topic, [field]: value } : topic
       ),
-    });
+    }));
   }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
+    setErrorMessage(null);
+    setSuccessMessage(false);
+
+    const validTopics = formData.topics.filter(
+      (t) => t.title.trim() && t.content.trim()
+    );
+
+    if (validTopics.length === 0) {
+      setErrorMessage("Adicione pelo menos um tópico com título e conteúdo.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const articleData = {
         title: formData.title,
         subtitle: formData.subtitle,
         slug: "", // O backend gera automaticamente
-        topics: formData.topics.filter((t) => t.title && t.content), // Filtrar tópicos vazios
+        topics: validTopics,
       };
 
       console.log("Enviando:", articleData);
@@ -97,9 +110,11 @@ export const Create_article = () => {
         topics: [] as Topic[],
       });
       setSuccessMessage(true);
+      nextTopicId.current = 1;
     } catch (error) {
       console.error(error);
       setErrorMessage("Ocorreu um erro ao enviar o artigo. Tente novamente.");
+      setTimeout(() => setErrorMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }
@@ -109,16 +124,18 @@ export const Create_article = () => {
     <div className="bg-white absolute w-full pt-32 pb-20 px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Link
         href={`/artigos`}
-        className="absolute top-4 left-10 text-xl justify-between w-full"
+        className="absolute top-4 left-10 text-clamp-medium justify-between w-full"
       >
         &lt;&lt; Ver todos os artigos
       </Link>
       <form
         onSubmit={onSubmit}
-        className="grid grid-cols-2 justify-between items-start gap-x-12 gap-y-10"
+        className="grid grid-cols-2 justify-between items-start gap-x-12 gap-y-10 text-clamp-small"
       >
         <div>
-          <label htmlFor="title">Título do Artigo *</label>
+          <label htmlFor="title" className="text-clamp-medium">
+            Título do Artigo <strong className="text-red-500">*</strong>
+          </label>
           <input
             type="text"
             id="title"
@@ -130,7 +147,9 @@ export const Create_article = () => {
           />
         </div>
         <div>
-          <label htmlFor="subtitle">Subtítulo do Artigo *</label>
+          <label htmlFor="subtitle" className="text-clamp-medium">
+            Subtítulo do Artigo <strong className="text-red-500">*</strong>
+          </label>
           <input
             type="text"
             id="subtitle"
@@ -144,7 +163,9 @@ export const Create_article = () => {
 
         {/* Tópicos Dinâmicos */}
         <div className="col-span-2">
-          <h3 className="font-semibold text-lg mb-2">Tópicos</h3>
+          <h3 className="text-[var(--title)] text-clamp-medium mb-2">
+            Tópicos
+          </h3>
 
           {formData.topics.map((topic) => (
             <div key={topic.id} className="mb-4 p-3 border rounded-md">
@@ -205,13 +226,13 @@ export const Create_article = () => {
         </button>
       </form>
       {successMessage && (
-        <p className="text-[var(--font-body)] text-lg">
+        <p className="text-[var(--font-title)] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
           Seu artigo foi criado com sucesso!
         </p>
       )}
 
       {errorMessage && (
-        <p className="text-red-500 bg-red-100 text-lg mt-4 px-4 py-2 rounded-md">
+        <p className="text-red-500 bg-red-200 text-clamp-small mt-4 px-4 py-2 rounded-md">
           {errorMessage}
         </p>
       )}

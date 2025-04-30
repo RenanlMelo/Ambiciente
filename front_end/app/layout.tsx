@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "./components/ui/header";
 import { Roboto } from "next/font/google";
-import { AdminProvider } from "./contexts/AdminContext";
+import TopLoader from "./components/ui/topLoader";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -27,10 +28,11 @@ export default function RootLayout({
           id="shadow-box"
           style={{ backgroundColor: "#0d1b3150" }}
         >
-          <AdminProvider>
+          <AuthProvider>
             <Header />
+            <TopLoader />
             {children}
-          </AdminProvider>
+          </AuthProvider>
         </div>
       </body>
     </html>

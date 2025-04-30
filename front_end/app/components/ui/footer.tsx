@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
@@ -23,36 +24,36 @@ const Footer = () => {
           </h4>
           <ul className="list-none p-0">
             <li className="my-2">
-              <a
-                href="#"
+              <Link
+                href="/mapa"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Mapa de Denúncias
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
-                href="#"
+              <Link
+                href="/artigos"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Artigos e Notícias
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
-                href="#"
+              <Link
+                href="/denuncia"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Faça sua Denúncia
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
                 Política de Privacidade
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -61,9 +62,19 @@ const Footer = () => {
           <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Contato
           </h4>
-          <p>Email: contato@ambicente.com</p>
-          <p>Telefone: (11) 99999-9999</p>
-          <p>Endereço: Rua Sustentável, 123 - São Paulo, SP</p>
+          <p>
+            <a href="mailto:renanlaramelo@gmail.com">
+              Email: contato@ambicente.com
+            </a>
+          </p>
+          <p>
+            <a href="tel:+5515996839690">Telefone: (15) 99683-9690</a>
+          </p>
+          <p>
+            <a href="https://g.co/kgs/u8DQW6H">
+              Endereço: Rod. Sen. José Ermírio de Moraes, 1425 Sorocaba, SP
+            </a>
+          </p>
         </div>
         {/* Siga-nos */}
         <div className="flex-1 min-w-[250px] m-2.5">
@@ -71,30 +82,30 @@ const Footer = () => {
             Siga-nos
           </h4>
           <div className="flex justify-center space-x-4 mt-2">
-            <a
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaFacebook />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaInstagram />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaTwitter />
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaLinkedin />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -4,12 +4,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Article } from "@/app/types";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface ArticlesAllProps {
   articles: Article[];
 }
 
 export const Articles_all = ({ articles }: ArticlesAllProps) => {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
   const router = useRouter();
@@ -48,23 +50,29 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       setArticleToDelete(null);
     }
   };
+  if (user) {
+    console.log(user);
+    console.log("role", user.role);
+  }
 
   return (
     <>
-      <main className="w-full bg-white px-32 py-10 relative top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
-        <Link
-          href="artigos/admin-artigos/criar"
-          className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
-        >
-          Create a New Article
-          <Image
-            width={100}
-            height={100}
-            src="/svg/create.svg"
-            alt="create icon"
-            className="pl-2 w-10 h-10"
-          />
-        </Link>
+      <main className="w-full bg-white px-32 py-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+        {user && user.role === "admin" && (
+          <Link
+            href="artigos/admin-artigos/criar"
+            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1"
+          >
+            Criar um novo artigo
+            <Image
+              width={100}
+              height={100}
+              src="/svg/create.svg"
+              alt="create icon"
+              className="pl-2 w-10 h-10"
+            />
+          </Link>
+        )}
 
         <h2 className="text-clamp-xlarge font-semibold text-[var(--font-title)] py-6">
           Lista de Artigos
@@ -94,40 +102,42 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                 <p className="text-clamp-small text-[var(--font-body)] px-8 pb-6">
                   {article.subtitle}
                 </p>
-                <div className="absolute bottom-5 right-5 flex gap-x-3">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(
-                        `/artigos/admin-artigos/editar/${article.slug}`
-                      );
-                    }}
-                    className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
-                  >
-                    <Image
-                      width={100}
-                      height={100}
-                      src="/svg/edit.svg"
-                      alt="edit icon"
-                      className="w-6 h-6 mt-[2px] mb-[2px]"
-                    />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setArticleToDelete(article);
-                    }}
-                    className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
-                  >
-                    <Image
-                      width={100}
-                      height={100}
-                      src="/svg/remove.svg"
-                      alt="remove icon"
-                      className="w-7 h-7"
-                    />
-                  </button>
-                </div>
+                {user && user.role === "admin" && (
+                  <div className="absolute bottom-5 right-5 flex gap-x-3">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(
+                          `/artigos/admin-artigos/editar/${article.slug}`
+                        );
+                      }}
+                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                    >
+                      <Image
+                        width={100}
+                        height={100}
+                        src="/svg/edit.svg"
+                        alt="edit icon"
+                        className="w-6 h-6 mt-[2px] mb-[2px]"
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setArticleToDelete(article);
+                      }}
+                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                    >
+                      <Image
+                        width={100}
+                        height={100}
+                        src="/svg/remove.svg"
+                        alt="remove icon"
+                        className="w-7 h-7"
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
             ))
           )}
@@ -137,20 +147,21 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       {/* Delete confirmation modal */}
       {articleToDelete && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
-          <dialog className="p-12 w-[35rem] h-48 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between items-center rounded-lg">
-            <p className="text-xl text-[var(--font-title)]">
+          <dialog className="p-8 rounded-2xl w-full max-w-md border-none  z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between">
+            <p className="text-clamp-medium text-[var(--font-title)]">
               Deletar artigo &quot;{articleToDelete.title}&quot;?
             </p>
-            <div className="grid grid-cols-2 items-center gap-x-12">
+            <div className="mt-6 flex justify-end gap-4">
               <button
                 onClick={() => setArticleToDelete(null)}
-                className="bg-green-200 text-green-600 border border-green-600 uppercase tracking-wider py-2 px-8"
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring"
+                disabled={isLoading}
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 onClick={handleDelete}
-                className="bg-red-200 text-red-600 border border-red-600 uppercase tracking-wider py-2 px-8"
+                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
                 disabled={isLoading}
               >
                 {isLoading ? "Deletando..." : "Deletar"}
@@ -162,3 +173,35 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
     </>
   );
 };
+
+{
+  /* <dialog className="p-8 rounded-2xl shadow-lg w-full max-w-md border-none">
+            <h2
+              id="delete-dialog-title"
+              className="text-xl font-semibold text-gray-900"
+            >
+              Tem certeza que deseja excluir o artigo “{articleToDelete?.title}
+              ”?
+            </h2>
+            <p id="delete-dialog-desc" className="mt-2 text-sm text-gray-600">
+              Essa ação não pode ser desfeita.
+            </p>
+
+            <div className="mt-6 flex justify-end gap-4">
+              <button
+                onClick={() => setArticleToDelete(null)}
+                className="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring"
+                disabled={isLoading}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isLoading}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
+              >
+                {isLoading ? "Excluindo..." : "Excluir"}
+              </button>
+            </div>
+          </dialog> */
+}
