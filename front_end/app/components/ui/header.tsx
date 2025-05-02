@@ -64,7 +64,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-screen box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--main)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
+      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-full box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
     >
       {/* Logo */}
       <Link
@@ -83,14 +83,14 @@ export const Header = () => {
             className="justify-self-end self-center p-4"
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <User className="w-6 h-6 stroke-[var(--main)]" />
+            <User className="md:w-6 md:h-6 stroke-[var(--primary)]" />
           </button>
           <button
             onClick={toggleMobileMenu}
             className="justify-self-end self-center p-4"
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <AlignRight className="w-6 h-6 stroke-[var(--main)]" />
+            <AlignRight className="w-6 h-6 stroke-[var(--primary)]" />
           </button>
         </div>
       )}
@@ -101,15 +101,15 @@ export const Header = () => {
           aria-label="Main navigation"
           className="flex justify-center items-center"
         >
-          <ul className="flex justify-center items-center gap-x-8 text-[var(--main)] font-medium text-clamp-medium w-fit place-self-center">
+          <ul className="flex justify-center items-center gap-x-8 text-[var(--primary)] font-medium text-clamp-medium w-fit place-self-center">
             {pagesList.map((page) => (
               <li key={page.url}>
                 <Link
                   href={page.url}
                   className={`${
                     page.url === pathname
-                      ? `decoration-[var(--main)]`
-                      : `decoration-transparent hover:decoration-[var(--main)]`
+                      ? `decoration-[var(--primary)]`
+                      : `decoration-transparent hover:decoration-[var(--primary)]`
                   } underline decoration-2 underline-offset-[6px] transition-colors duration-150`}
                 >
                   {page.name}
@@ -122,14 +122,16 @@ export const Header = () => {
 
       {/* Right side controls (desktop only) */}
       {!isMobile && (
-        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--main)] font-medium text-clamp-medium">
-          <Link
-            href="/denuncia"
-            className="font-bold text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
-            aria-label="Faça sua denúncia"
-          >
-            FAÇA SUA DENÚNCIA
-          </Link>
+        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--primary)] font-medium text-clamp-medium pr-5 md:pr-0 md:mr-20">
+          {user && user.role === "user" && (
+            <Link
+              href="/denuncia"
+              className="font-bold text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
+              aria-label="Faça sua denúncia"
+            >
+              FAÇA SUA DENÚNCIA
+            </Link>
+          )}
 
           <button
             onClick={toggleMenu}
@@ -140,7 +142,7 @@ export const Header = () => {
             <User
               fill="transparent"
               stroke="#f6f6f6"
-              className="w-[calc(1vw+20px)] h-[calc(1vw+20px)]"
+              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
             />
           </button>
         </div>
@@ -148,30 +150,53 @@ export const Header = () => {
 
       {/* User dropdown menu */}
       {menuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[var(--border)] md:mt-[calc(8vh+1rem)] md:w-[200px]">
-          <button
-            onClick={toggleMenu}
-            aria-label="Fechar menu"
-            className="absolute top-3 right-2 p-2"
-          >
-            <CircleX size={40} stroke="#99b259" strokeWidth={2} />
-          </button>
-          <nav aria-label="User menu">
-            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge m-12 gap-2">
+        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[var(--border)] md:inset-auto md:absolute md:right-0 md:mt-[calc(8vh+1rem)] md:h-fit md:w-auto">
+          {isMobile && (
+            <button
+              onClick={toggleMenu}
+              aria-label="Fechar menu"
+              className="absolute top-3 right-2 p-2"
+            >
+              <CircleX size={40} stroke="#99b259" strokeWidth={2} />
+            </button>
+          )}
+          <nav aria-label="User menu" className="min-w-[150px] ">
+            <ul className="grid grid-rows-2 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 gap-2">
               {user ? (
                 <>
                   <li>
-                    <Link
-                      href="/perfil"
-                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
-                    >
-                      Meu Perfil
-                    </Link>
+                    {user.role === "admin" && (
+                      <Link
+                        href="/users-control"
+                        className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
+                      >
+                        Controle de Usuários
+                      </Link>
+                    )}
+                  </li>
+                  <li>
+                    {user.role === "user" && (
+                      <Link
+                        href="/perfil"
+                        className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
+                      >
+                        Meu Perfil
+                      </Link>
+                    )}
+                    {user.role === "staff" ||
+                      (user.role === "admin" && (
+                        <Link
+                          href="/denuncia/visualizar-denuncias"
+                          className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
+                        >
+                          Visualizar Denúncias
+                        </Link>
+                      ))}
                   </li>
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                     >
                       Sair
                     </button>
@@ -182,14 +207,14 @@ export const Header = () => {
                   <li>
                     <Link
                       href="/login"
-                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                     >
                       Login
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                       href="/cadastro"
                     >
                       Cadastro
@@ -204,7 +229,7 @@ export const Header = () => {
 
       {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge">
+        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge p-12">
           <button
             onClick={toggleMobileMenu}
             aria-label="Fechar menu"
@@ -213,13 +238,13 @@ export const Header = () => {
             <CircleX size={40} stroke="#99b259" strokeWidth={2} />
           </button>
 
-          <nav aria-label="Mobile navigation">
-            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge m-12 gap-2">
+          <nav aria-label="Mobile navigation" className="w-full box-border">
+            <ul className="grid grid-rows-2 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge gap-2">
               {pagesList.map((page) => (
                 <li key={page.url}>
                   <Link
                     href={page.url}
-                    className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                    className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {page.name}
@@ -227,6 +252,12 @@ export const Header = () => {
                 </li>
               ))}
             </ul>
+            <Link
+              href="/denuncia"
+              className="block border-2 border-[var(--primaryHover)] px-3 py-1 mt-10 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge"
+            >
+              Faça sua denúncia
+            </Link>
           </nav>
         </div>
       )}

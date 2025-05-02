@@ -4,7 +4,7 @@ import React from "react";
 export default function Unauthorized() {
   return (
     <>
-      <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-[var(--font-black)] text-white gap-y-4">
+      <main className="flex flex-col items-center justify-center w-full min-h-screen p-4 bg-[var(--dark-grey)] text-white gap-y-4">
         <p className="text-clamp-large ">
           Você não tem o acesso necessário para acessar o conteúdo dessa página.
         </p>

@@ -1,21 +1,20 @@
-"use client"
+"use client";
 
-import { useAuth } from "@/app/contexts/AuthContext";
+import PrivateRoute from "@/app/components/auth/privateRoute";
+import { Users_info } from "@/app/components/user/users_info";
+import { Users_reports } from "@/app/components/user/users_reports";
 import React from "react";
 
 export default function Perfil() {
-    const { user } = useAuth()
-    return (
-        <div className="w-screen h-screen mt-[calc(8vh+1rem)] bg-white px-32 py-16">
-            <section className="text-clamp-medium text-[var(--font-body)] font-medium">
-                <h2 className="text-clamp-large text-[var(--font-title)] font-semibold">Informações do usuário</h2>
-                <p>{user?.name} {user?.last_name}</p>
-                <p>{user?.email}</p>
-            </section>
-            <h3 className="text-clamp-large text-[var(--font-title)] font-semibold mt-20 mb-4">Minhas Denúncias</h3>
-            <main className="border text-clamp-medium text-[var(--font-body)] font-medium">
-                <p></p>
-            </main>
-        </div>
-    )
+  return (
+    <PrivateRoute allowedRoles={["user"]}>
+      <div className="w-full min-h-screen mt-[calc(8vh+1rem)] bg-white px-5 md:px-32 py-16">
+        <Users_info />
+        <h3 className="text-clamp-large text-[var(--dark-grey)] font-semibold mt-12 mb-4">
+          Minhas Denúncias
+        </h3>
+        <Users_reports />
+      </div>
+    </PrivateRoute>
+  );
 }

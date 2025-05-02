@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Body
 from app.models.user import LoginForm
 from sqlalchemy.orm import Session
 
-from app.schemas.user import UserCreate, UserOut, Token
+from app.schemas.user import UserCreate, UserOut, Token, UserDeleteRequest
 from app.models.user import User
 from app.database import get_db  # Alteração importante aqui
 from app.utils.auth import (
@@ -47,7 +47,8 @@ async def register_user(
         name=user.name,
         last_name=user.last_name,
         email=user.email,
-        hashed_password=hashed_password
+        hashed_password=hashed_password,
+        role=user.role
     )
     db.add(db_user)
     db.commit()
@@ -116,3 +117,53 @@ async def refresh_token(refresh_token: str = Body(..., embed=True)):
         "access_token": new_access_token,
         "token_type": "bearer"
     }
+
+
+@router.get("/all_users", response_model=list[UserOut])
+async def get_all_users(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Obtém todos os usuários do sistema.
+    """
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions"
+        )
+    
+    users = db.query(User).filter(User.id != current_user.id).all()
+    return users
+
+
+@router.delete("/delete_user", status_code=status.HTTP_204_NO_CONTENT) 
+async def delete_user(
+    payload: UserDeleteRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Deleta múltiplos usuários do sistema.
+    
+    - **user_ids**: Lista de IDs dos usuários a serem deletados
+    """
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions"
+        )
+    
+    users = db.query(User).filter(User.id.in_(payload.user_ids)).all()
+    
+    if not users :
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    for user in users:
+        db.delete(user)
+
+    db.commit()
+    return {"detail": f"{len(users)} users deleted successfully"}

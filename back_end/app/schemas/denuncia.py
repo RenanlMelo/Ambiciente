@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
-from typing import Optional
 from datetime import date, datetime
+from typing import Optional
+from enum import Enum
 
 class DenunciaBase(BaseModel):
     descricao_ocorrido: str = Field(..., min_length=10)
@@ -25,10 +26,19 @@ class DenunciaFotoResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+class DenunciaStatusEnum(str, Enum):
+    EM_ANDAMENTO = "Em andamento"
+    CONCLUIDA    = "Concluída"
+    REJEITADA    = "Rejeitada"
+
 class DenunciaResponse(DenunciaBase):
     id: int
     email: Optional[EmailStr] = None 
     data_criacao: datetime
     id_usuario: int
+    status: DenunciaStatusEnum
 
     model_config = ConfigDict(from_attributes=True)
+
+class DenunciaStatusUpdate(BaseModel):
+    status: DenunciaStatusEnum

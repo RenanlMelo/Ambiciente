@@ -37,7 +37,7 @@ export const Denuncia_forms = () => {
   }
 
   const currentDate = new Date();
-  const formattedDate = currentDate.toISOString().split('T')[0];
+  const formattedDate = currentDate.toISOString().split("T")[0];
 
   // Preenche dados do usuário autenticado
   useEffect(() => {
@@ -71,7 +71,7 @@ export const Denuncia_forms = () => {
 
       console.log(formData);
 
-      const res = await fetch(`${apiUrl}/api/denuncias/enviar`, {
+      const res = await fetch(`${apiUrl}/api/denuncias/submit`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,8 +87,10 @@ export const Denuncia_forms = () => {
       }
 
       router.push("/perfil");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Registration failed");
+      throw err;
     } finally {
       setSubmitting(false);
     }
@@ -103,23 +105,23 @@ export const Denuncia_forms = () => {
   }
 
   return (
-    <main className="w-full h-fit bg-white px-[12vw] py-12 mt-[calc(8vh+1rem)]">
-      <h2 className="text-[var(--font-title)] font-semibold text-clamp-xxlarge">
+    <main className="w-full h-fit bg-white px-5 md:px-[12vw] py-12 mt-[calc(8vh+1rem)]">
+      <h2 className="text-[var(--medium-grey)] font-semibold text-clamp-xxlarge">
         Envie uma nova denúncia
       </h2>
       {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
       <form
         onSubmit={handleSubmit}
-        className="flex justify-between items-start gap-8"
+        className="flex flex-col md:flex-row justify-between items-start gap-8"
       >
         {/* Detalhes da Infração */}
-        <div className="flex flex-col justify-center items-center border w-[48%] relative px-6 gap-y-6 py-8 my-10">
-          <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--font-title)] font-bold text-clamp-medium self-start">
+        <div className="flex flex-col justify-center items-center md:border w-full md:w-[48%] relative md:px-6 gap-y-12 md:gap-y-6 pt-8 md:py-8 mt-10 mb-0 md:my-10">
+          <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--medium-grey)] font-bold text-clamp-medium self-start">
             Detalhes da Infração
           </h3>
           {/* Descrição */}
-          <div className="flex flex-col items-center justify-center gap-6 w-full">
-            <label className="bg-[var(--form-subtitle)] text-[var(--font-title)] font-bold w-full px-4 py-1 text-clamp-small">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
+            <label className="bg-[var(--f5-white)] text-[var(--medium-grey)] font-bold w-full px-4 py-1 text-clamp-small">
               O QUE ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -133,8 +135,8 @@ export const Denuncia_forms = () => {
             />
           </div>
           {/* Onde */}
-          <div className="flex flex-col items-center justify-center gap-6 w-full">
-            <label className="bg-[var(--form-subtitle)] text-[var(--font-title)] font-bold w-full px-4 py-1 text-clamp-small">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
+            <label className="bg-[var(--f5-white)] text-[var(--medium-grey)] font-bold w-full px-4 py-1 text-clamp-small">
               ONDE ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -147,8 +149,8 @@ export const Denuncia_forms = () => {
             />
           </div>
           {/* Quando */}
-          <div className="flex flex-col items-center justify-center gap-6 w-full">
-            <label className="bg-[var(--form-subtitle)] text-[var(--font-title)] font-bold w-full px-4 py-1 text-clamp-small">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
+            <label className="bg-[var(--f5-white)] text-[var(--medium-grey)] font-bold w-full px-4 py-1 text-clamp-small">
               QUANDO ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <input
@@ -158,15 +160,15 @@ export const Denuncia_forms = () => {
               onChange={(e) => {
                 const newDataOcorrido = e.target.value;
                 setDataOcorrido(newDataOcorrido);
-                console.log(newDataOcorrido);  // Mostra o valor atualizado
+                console.log(newDataOcorrido); // Mostra o valor atualizado
               }}
               required
               className="w-full border px-4 py-1 focus:outline-none text-clamp-small"
             />
           </div>
           {/* Impactos */}
-          <div className="flex flex-col items-center justify-center gap-6 w-full">
-            <label className="bg-[var(--form-subtitle)] text-[var(--font-title)] font-bold w-full px-4 py-1 text-clamp-small">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
+            <label className="bg-[var(--f5-white)] text-[var(--medium-grey)] font-bold w-full px-4 py-1 text-clamp-small">
               IMPACTOS <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -179,8 +181,8 @@ export const Denuncia_forms = () => {
             />
           </div>
           {/* Responsável */}
-          <div className="flex flex-col items-center justify-center gap-6 w-full">
-            <label className="bg-[var(--form-subtitle)] text-[var(--font-title)] font-bold w-full px-4 py-1 text-clamp-small">
+          <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
+            <label className="bg-[var(--f5-white)] text-[var(--medium-grey)] font-bold w-full px-4 py-1 text-clamp-small">
               QUEM FOI O RESPONSÁVEL
             </label>
             <textarea
@@ -194,11 +196,10 @@ export const Denuncia_forms = () => {
         </div>
 
         {/* Fotos do ocorrido e Dados */}
-        <div className="flex flex-col justify-center items-center w-[48%] relative gap-y-10 mt-10">
-            
+        <div className="flex flex-col justify-center items-center md:w-[48%] relative gap-y-10 mt-10">
           {/* Dados do usuário */}
-          <div className="flex flex-col justify-center items-start border w-full relative px-6 gap-x-2 py-8 text-clamp-small">
-            <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--font-title)] font-bold text-clamp-medium self-start">
+          <div className="flex flex-col justify-center items-start md:border w-full relative md:px-6 gap-x-2 py-8 text-clamp-small">
+            <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[var(--medium-grey)] font-bold text-clamp-medium self-start">
               Seus Dados
             </h3>
             <div className="flex items-center gap-2 mb-6">
@@ -243,7 +244,7 @@ export const Denuncia_forms = () => {
               required={!anonimo}
               className="w-full border px-2 py-1 rounded-sm focus:outline-none text-clamp-small disabled:bg-[#ddd] disabled:text-[#666] disabled:cursor-not-allowed"
             />
-            <p className="text-[var(--form-obs)] text-clamp-xsmall mb-2">
+            <p className="text-[var(--lightest-grey)] text-clamp-xsmall mb-2">
               Obrigatório para confirmação e acompanhamento.
             </p>
 
@@ -281,13 +282,13 @@ export const Denuncia_forms = () => {
               </label>
             </div>
             <button
-              className="font-bold text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer text-clamp-small"
+              className="w-full md:w-auto font-bold text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer text-clamp-small"
               type="submit"
               disabled={submitting}
             >
               {submitting ? "Enviando…" : "ENVIAR DENÚNCIA"}
             </button>
-            <p className="text-[var(--form-obs)] text-clamp-small">
+            <p className="text-[var(--lightest-grey)] text-clamp-small">
               Este site é protegido pelo reCAPTCHA e pelas políticas do Google.
             </p>
           </div>

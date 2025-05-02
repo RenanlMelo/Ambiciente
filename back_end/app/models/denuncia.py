@@ -9,6 +9,7 @@ class Denuncia(Base):
     __tablename__ = "denuncias"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    status: Mapped[str] = mapped_column(String, default="Em andamento")
     descricao_ocorrido: Mapped[str] = mapped_column(String)
     local_ocorrido: Mapped[str] = mapped_column(String)
     data_ocorrido: Mapped[date] = mapped_column(Date)

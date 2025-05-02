@@ -12,7 +12,7 @@ from app.models.user import User
 # Configurações (deveriam estar em variáveis de ambiente)
 SECRET_KEY = secrets.token_urlsafe(64)
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
 # Modelo para o token

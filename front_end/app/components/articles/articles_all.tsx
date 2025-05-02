@@ -57,11 +57,11 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-screen box-border bg-white px-5 md:px-32 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <main className="w-full box-border bg-white px-5 md:px-32 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
         {user && user.role === "admin" && (
           <Link
             href="artigos/admin-artigos/criar"
-            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--font-body)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1 -translate-x-2"
+            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--light-grey)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1 -translate-x-2"
           >
             Criar um novo artigo
             <Image
@@ -74,12 +74,12 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
           </Link>
         )}
 
-        <h2 className="text-clamp-xlarge font-semibold text-[var(--font-title)] pb-4 md:py-6">
+        <h2 className="text-clamp-xlarge font-semibold text-[var(--medium-grey)] pb-4 md:py-6">
           Lista de Artigos
         </h2>
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
           {articles.length === 0 ? (
-            <h2 className="text-[var(--font-body)] font-semibold text-clamp-medium underline underline-offset-[6px]">
+            <h2 className="text-[var(--light-grey)] font-semibold text-clamp-medium underline underline-offset-[6px]">
               Nenhum artigo disponível
             </h2>
           ) : (
@@ -96,10 +96,10 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                   alt="article background"
                   className="w-full bg-cover"
                 />
-                <h2 className="text-clamp-medium text-[var(--font-title)] px-8 pb-2 pt-4">
+                <h2 className="text-clamp-medium text-[var(--medium-grey)] px-8 pb-2 pt-4">
                   {article.title}
                 </h2>
-                <p className="text-clamp-small text-[var(--font-body)] px-8 pb-6">
+                <p className="text-clamp-small text-[var(--light-grey)] px-8 pb-6">
                   {article.subtitle}
                 </p>
                 {user && user.role === "admin" && (
@@ -148,7 +148,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       {articleToDelete && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
           <dialog className="p-8 rounded-2xl w-full max-w-md border-none  z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between">
-            <p className="text-clamp-medium text-[var(--font-title)]">
+            <p className="text-clamp-medium text-[var(--medium-grey)]">
               Deletar artigo &quot;{articleToDelete.title}&quot;?
             </p>
             <div className="mt-6 flex justify-end gap-4">
@@ -173,35 +173,3 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
     </>
   );
 };
-
-{
-  /* <dialog className="p-8 rounded-2xl shadow-lg w-full max-w-md border-none">
-            <h2
-              id="delete-dialog-title"
-              className="text-xl font-semibold text-gray-900"
-            >
-              Tem certeza que deseja excluir o artigo “{articleToDelete?.title}
-              ”?
-            </h2>
-            <p id="delete-dialog-desc" className="mt-2 text-sm text-gray-600">
-              Essa ação não pode ser desfeita.
-            </p>
-
-            <div className="mt-6 flex justify-end gap-4">
-              <button
-                onClick={() => setArticleToDelete(null)}
-                className="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring"
-                disabled={isLoading}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={isLoading}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
-              >
-                {isLoading ? "Excluindo..." : "Excluir"}
-              </button>
-            </div>
-          </dialog> */
-}

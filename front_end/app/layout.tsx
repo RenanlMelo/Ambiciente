@@ -22,9 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="box-border w-screen">
+      <body className="box-border w-full md:w-[calc(100vw-15px)]">
         <div
-          className={`${roboto.className} -z-50 bg-gradient-to-t from-[#191a27aa] to-black/10`}
+          className={`${roboto.className} w-full -z-50 bg-gradient-to-t from-[#191a27aa] to-black/10`}
           id="shadow-box"
           style={{ backgroundColor: "#0d1b3150" }}
         >

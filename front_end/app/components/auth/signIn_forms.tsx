@@ -21,14 +21,14 @@ export const SignIn_forms = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <main className="px-12 py-12 w-[calc(10vw+20rem)] flex flex-col gap-y-4 bg-[#f6f6f6] rounded-lg">
-        <h2 className="text-clamp-xlarge font-bold text-[var(--font-title)]">
+        <h2 className="text-clamp-xlarge font-bold text-[var(--medium-grey)]">
           Login
         </h2>
         <p className="text-[var(--font-subtle)] text-clamp-small">
           Não tem uma conta?{" "}
           <Link
             href="/cadastro"
-            className="font-semibold text-[var(--main)] ml-1 underline decoration-[var(--main)] underline-offset-2 hover:text-[var(--mainHover)]"
+            className="font-semibold text-[var(--primary)] ml-1 underline decoration-[var(--primary)] underline-offset-2 hover:text-[var(--primaryHover)]"
           >
             Cadastre-se
           </Link>
@@ -40,7 +40,7 @@ export const SignIn_forms = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <label className="block mb-2 font-semibold text-[var(--font-title)] text-clamp-small">
+          <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
             Email
           </label>
           <input
@@ -49,10 +49,10 @@ export const SignIn_forms = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full mb-4 p-2 border rounded bg-[var(--white)] shadow-[3px_4px_5px_#00000020] focus:outline-none text-clamp-small"
+            className="w-full mb-4 p-2 border rounded bg-[var(--f6-white)] shadow-[3px_4px_5px_#00000020] focus:outline-none text-clamp-small"
           />
 
-          <label className="block mb-2 font-semibold text-[var(--font-title)] text-clamp-small">
+          <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
             Senha
           </label>
           <input
@@ -62,13 +62,13 @@ export const SignIn_forms = () => {
             onChange={handleChange}
             required
             minLength={6}
-            className="w-full mb-6 p-2 border rounded bg-[var(--white)] shadow-[3px_4px_5px_#00000020] focus:outline-none text-clamp-small"
+            className="w-full mb-6 p-2 border rounded bg-[var(--f6-white)] shadow-[3px_4px_5px_#00000020] focus:outline-none text-clamp-small"
           />
 
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 font-bold rounded bg-[var(--secondary)] text-[var(--white)] text-clamp-small tracking-wider hover:bg-[var(--secondaryHover)] ${
+            className={`w-full py-3 font-bold rounded bg-[var(--secondary)] text-[var(--f6-white)] text-clamp-small tracking-wider hover:bg-[var(--secondaryHover)] ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >

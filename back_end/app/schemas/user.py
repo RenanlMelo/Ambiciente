@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, List
 
 class UserCreate(BaseModel):
     name: str
@@ -28,3 +28,6 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: EmailStr | None = None
     role: Optional[str] = None
+
+class UserDeleteRequest(BaseModel):
+    user_ids: List[int]
