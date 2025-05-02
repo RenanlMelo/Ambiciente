@@ -40,6 +40,7 @@ export default function Article_viewer({
       </Element>
 
       <div className="mt-6 md:mt-12 flex flex-col gap-4 md:gap-12">
+      <div className="mt-6 md:mt-12 flex flex-col gap-4 md:gap-12">
         {article.topics?.length > 0 ? (
           article.topics.map((topic) => (
             <Element key={`topic-${topic.title}`} name={topic.title}>

@@ -8,7 +8,9 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CircleX, CornerDownLeft, Funnel } from "lucide-react";
+import { CircleX, CornerDownLeft, Funnel } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
+
 
 const ibmPlexSans = IBM_Plex_Sans({ weight: "400", subsets: ["latin"] });
 
@@ -31,6 +33,7 @@ interface Props {
 export const Articles_sidebar: React.FC<Props> = ({ article }) => {
   const { user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [removePopup, setRemovePopup] = useState<boolean>(false);
   const params = useParams();
   const slug = params?.slug as string;
@@ -47,6 +50,8 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       setOffsetTop(-(vh + rem));
     }
 
+    handleResize();
+    window.addEventListener("resize", handleResize);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -76,6 +81,9 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
     }
   }
 
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const SidebarContent = () => (
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const SidebarContent = () => (
@@ -221,6 +229,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       {/* Carregamento */}
       {isLoading && (
         <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center gap-x-5">
+        <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center gap-x-5">
           <span className="bg-white w-10 h-10" />
           <span className="bg-white w-10 h-10" />
           <span className="bg-white w-10 h-10" />
@@ -228,10 +237,14 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       )}
 
       {/* Confirmação de exclusão */}
+
+      {/* Confirmação de exclusão */}
       {removePopup && (
+        <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
         <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
           <dialog
             open
+            className="p-8 rounded-2xl w-full max-w-md border-none z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between"
             className="p-8 rounded-2xl w-full max-w-md border-none z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between"
           >
             <p className="text-clamp-medium text-[var(--medium-grey)]">

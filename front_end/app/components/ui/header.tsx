@@ -143,6 +143,7 @@ export const Header = () => {
               fill="transparent"
               stroke="#f6f6f6"
               className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
+              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
             />
           </button>
         </div>

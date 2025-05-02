@@ -3,6 +3,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, ChevronsLeft } from "lucide-react";
+import { ChevronLeft, ChevronsLeft } from "lucide-react";
 
 interface Topic {
   id: number;
@@ -146,6 +147,7 @@ export const Edit_article = () => {
       <form
         onSubmit={onSubmit}
         className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
+        className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
         {/* Campos de título e subtítulo */}
         <div className="w-full flex flex-col md:flex-row justify-center items-center gap-12">
@@ -180,6 +182,7 @@ export const Edit_article = () => {
         </div>
 
         {/* Tópicos Dinâmicos */}
+        <div className="w-full">
         <div className="w-full">
           <h3 className="text-[var(--title)] text-clamp-medium mb-2">
             Tópicos
@@ -241,6 +244,7 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
+          className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer mb-24"
           className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer mb-24"
         >
           {isLoading ? "Enviando..." : "Atualizar Artigo"}

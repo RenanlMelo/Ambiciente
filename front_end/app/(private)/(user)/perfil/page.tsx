@@ -3,6 +3,9 @@
 import PrivateRoute from "@/app/components/auth/privateRoute";
 import { Users_info } from "@/app/components/user/users_info";
 import { Users_reports } from "@/app/components/user/users_reports";
+import PrivateRoute from "@/app/components/auth/privateRoute";
+import { Users_info } from "@/app/components/user/users_info";
+import { Users_reports } from "@/app/components/user/users_reports";
 import React from "react";
 
 export default function Perfil() {
