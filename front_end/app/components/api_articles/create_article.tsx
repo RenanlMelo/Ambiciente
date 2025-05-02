@@ -122,10 +122,10 @@ export const Create_article = () => {
   }
 
   return (
-    <div className="bg-white absolute w-screen pt-24 md:pt-32 md:pb-20 md:px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Link
         href={`/artigos`}
-        className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-full text-[var(--font-title)]"
+        className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[var(--font-title)]"
       >
         <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os artigos
       </Link>
@@ -145,7 +145,7 @@ export const Create_article = () => {
               value={formData.title}
               onChange={handleInputChange}
               required
-              className="w-full border px-0 py-1 rounded-sm focus:outline-none"
+              className="w-full border px-4 py-1 rounded-sm focus:outline-none"
               />
           </div>
           <div className="w-full">

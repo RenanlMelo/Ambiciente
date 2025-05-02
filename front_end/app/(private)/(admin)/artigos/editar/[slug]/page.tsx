@@ -8,7 +8,6 @@ export default function Edit() {
       <PrivateRoute allowedRoles={["admin"]}>
         <div className="block">
           <Edit_article />
-          <Footer />
         </div>
       </PrivateRoute>
     </>

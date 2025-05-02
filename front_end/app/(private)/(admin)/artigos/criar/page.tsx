@@ -8,7 +8,6 @@ export default function Create() {
       <PrivateRoute allowedRoles={["admin"]}>
         <div className="">
           <Create_article />
-          <Footer />
         </div>
       </PrivateRoute>
     </>

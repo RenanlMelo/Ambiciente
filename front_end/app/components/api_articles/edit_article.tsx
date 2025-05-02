@@ -2,6 +2,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { ChevronLeft, ChevronsLeft } from "lucide-react";
 
 interface Topic {
   id: number;
@@ -131,41 +132,42 @@ export const Edit_article = () => {
   }
 
   return (
-    <div className="bg-white absolute w-full py-32 px-96 top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
-      <div className="absolute top-4 left-10 flex flex-col">
+    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <div className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[var(--font-title)]">
         <Link
           href={`/artigos/${slug}`}
-          className="text-clamp-medium justify-between w-full"
+          className="block"
         >
-          &lt; Voltar para o artigo
+          <ChevronLeft stroke="#505050" className="inline" /> Voltar para o artigo
         </Link>
         <Link
-          href={`/artigos`}
-          className="text-clamp-medium justify-between w-full"
-        >
-          &lt; Ver todos os artigos
-        </Link>
+        href={`/artigos`}
+      >
+        <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os artigos
+      </Link>
       </div>
       <form
         onSubmit={onSubmit}
-        className="grid grid-cols-2 justify-between items-start gap-x-12 gap-y-10 text-clamp-small"
+        className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
         {/* Campos de título e subtítulo */}
-        <div>
-          <label htmlFor="title" className="text-clamp-medium">
-            Título do Artigo <strong className="text-red-500">*</strong>
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-            className="w-full border px-4 py-1 rounded-sm focus:outline-none"
-          />
+        <div className="w-full flex flex-col md:flex-row justify-center items-center gap-12">
+          <div className="w-full">
+            <label htmlFor="title" className="text-clamp-medium">
+              Título do Artigo <strong className="text-red-500">*</strong>
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+              className="w-full border px-4 py-1 rounded-sm focus:outline-none"
+              />
+            </div>
         </div>
-        <div>
+        <div className="w-full">
           <label htmlFor="subtitle" className="text-clamp-medium">
             Subtítulo do Artigo <strong className="text-red-500">*</strong>
           </label>
@@ -181,7 +183,7 @@ export const Edit_article = () => {
         </div>
 
         {/* Tópicos Dinâmicos */}
-        <div className="col-span-2">
+        <div className="w-full">
           <h3 className="text-[var(--title)] text-clamp-medium mb-2">
             Tópicos
           </h3>
@@ -242,7 +244,7 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer"
+          className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer mb-24"
         >
           {isLoading ? "Enviando..." : "Atualizar Artigo"}
         </button>
