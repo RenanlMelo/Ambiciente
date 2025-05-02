@@ -173,35 +173,3 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
     </>
   );
 };
-
-{
-  /* <dialog className="p-8 rounded-2xl shadow-lg w-full max-w-md border-none">
-            <h2
-              id="delete-dialog-title"
-              className="text-xl font-semibold text-gray-900"
-            >
-              Tem certeza que deseja excluir o artigo “{articleToDelete?.title}
-              ”?
-            </h2>
-            <p id="delete-dialog-desc" className="mt-2 text-sm text-gray-600">
-              Essa ação não pode ser desfeita.
-            </p>
-
-            <div className="mt-6 flex justify-end gap-4">
-              <button
-                onClick={() => setArticleToDelete(null)}
-                className="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring"
-                disabled={isLoading}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={isLoading}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white uppercase tracking-wide hover:bg-red-700 disabled:opacity-50 focus:outline-none focus:ring-red-400"
-              >
-                {isLoading ? "Excluindo..." : "Excluir"}
-              </button>
-            </div>
-          </dialog> */
-}

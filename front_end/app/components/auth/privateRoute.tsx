@@ -27,7 +27,7 @@ export default function PrivateRoute({
 
   if (loading || !user || (allowedRoles && !allowedRoles.includes(user.role))) {
     return (
-      <div className="bg-black text-white text-clamp-xlarge w-screen h-screen absolute flex items-center justify-center">
+      <div className="bg-black text-white text-clamp-xlarge w-full h-screen absolute flex items-center justify-center">
         Loading...
       </div>
     );

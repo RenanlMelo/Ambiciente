@@ -97,32 +97,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     })();
   }, [apiUrl]);
 
-  // Helper for authenticated requests
-  const fetchWithAuth = async (
-    url: string,
-    method = "GET",
-    body: any = null
-  ) => {
-    const storedToken = localStorage.getItem("access_token");
-    if (!storedToken) throw new Error("No authentication token");
-
-    const options: RequestInit = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${storedToken}`,
-      },
-    };
-
-    if (body && method !== "GET") {
-      options.body = JSON.stringify(body);
-    }
-
-    const res = await fetch(url, options);
-    if (!res.ok) throw new Error(`Error: ${res.status} - ${res.statusText}`);
-    return res.json();
-  };
-
   const login = async (email: string, password: string) => {
     setLoading(true);
     setError("");

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Form, status
+from app.schemas.denuncia import DenunciaStatusUpdate
 from app.schemas.denuncia import DenunciaResponse
 from app.utils.auth import get_current_user
 from app.models.denuncia import Denuncia
@@ -9,7 +10,7 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.post("/enviar/", status_code=status.HTTP_201_CREATED, response_model=DenunciaResponse)
+@router.post("/submit/", status_code=status.HTTP_201_CREATED, response_model=DenunciaResponse)
 async def create_denuncia(
     descricao: str = Form(..., min_length=10),
     local: str = Form(...),
@@ -59,7 +60,7 @@ async def create_denuncia(
 
 
 @router.get(
-    "/minhas/",
+    "/users/",
     response_model=List[DenunciaResponse],
     status_code=200,
     summary="Listar denúncias do usuário logado"
@@ -81,3 +82,39 @@ async def list_minhas_denuncias(
     )
     return denuncias
 
+
+@router.get("/all/", 
+    response_model=List[DenunciaResponse],
+    status_code=200,
+    summary="Listar denúncias"
+)
+async def list_minhas_denuncias(
+    db: Session = Depends(get_db),
+):
+    """
+    Retorna todas as denúncias criadas pelo usuário autenticado.
+    """
+    # Busca no banco todas as denúncias onde id_usuario == usuário atual
+    denuncias = (
+        db
+        .query(Denuncia)
+        .order_by(Denuncia.data_ocorrido.desc())  # opcional: ordena da mais recente para a mais antiga
+        .all()
+    )
+    return denuncias
+
+
+@router.patch("/{denuncia_id}/status", response_model=DenunciaResponse)
+def atualizar_status_denuncia(
+    denuncia_id: int,
+    status_update: DenunciaStatusUpdate,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)  # exige autenticação
+):
+    denuncia = db.query(Denuncia).get(denuncia_id)
+    if not denuncia:
+        raise HTTPException(status_code=404, detail="Denúncia não encontrada")
+    denuncia.status = status_update.status
+    db.commit()
+    db.refresh(denuncia)
+    return denuncia

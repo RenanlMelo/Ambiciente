@@ -71,7 +71,7 @@ export const Denuncia_forms = () => {
 
       console.log(formData);
 
-      const res = await fetch(`${apiUrl}/api/denuncias/enviar`, {
+      const res = await fetch(`${apiUrl}/api/denuncias/submit`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,8 +87,10 @@ export const Denuncia_forms = () => {
       }
 
       router.push("/perfil");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Registration failed");
+      throw err;
     } finally {
       setSubmitting(false);
     }

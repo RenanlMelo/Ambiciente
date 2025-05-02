@@ -6,7 +6,7 @@ export default function Create() {
   return (
     <>
       <PrivateRoute allowedRoles={["admin"]}>
-        <div className="block">
+        <div className="">
           <Create_article />
           <Footer />
         </div>

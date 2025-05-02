@@ -83,7 +83,7 @@ export const Header = () => {
             className="justify-self-end self-center p-4"
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <User className="w-6 h-6 stroke-[var(--main)]" />
+            <User className="md:w-6 md:h-6 stroke-[var(--main)]" />
           </button>
           <button
             onClick={toggleMobileMenu}
@@ -122,14 +122,16 @@ export const Header = () => {
 
       {/* Right side controls (desktop only) */}
       {!isMobile && (
-        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--main)] font-medium text-clamp-medium">
-          <Link
+        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--main)] font-medium text-clamp-medium pr-5 md:pr-0 md:mr-20">
+          {user && user.role === "user" &&
+            <Link
             href="/denuncia"
             className="font-bold text-white bg-[var(--secondary)] px-3 py-1 md:px-4 md:py-2 rounded-[4px] hover:bg-[var(--secondaryHover)] transition-colors duration-200 text-clamp-small"
             aria-label="Faça sua denúncia"
-          >
-            FAÇA SUA DENÚNCIA
-          </Link>
+            >
+              FAÇA SUA DENÚNCIA
+            </Link>
+          }
 
           <button
             onClick={toggleMenu}
@@ -140,7 +142,7 @@ export const Header = () => {
             <User
               fill="transparent"
               stroke="#f6f6f6"
-              className="w-[calc(1vw+20px)] h-[calc(1vw+20px)]"
+              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
             />
           </button>
         </div>
@@ -148,26 +150,46 @@ export const Header = () => {
 
       {/* User dropdown menu */}
       {menuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[var(--border)] md:mt-[calc(8vh+1rem)] md:w-[200px]">
-          <button
+        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[var(--border)] md:inset-auto md:absolute md:right-0 md:mt-[calc(8vh+1rem)] md:h-fit md:w-[200px]">
+          {isMobile && (
+            <button
             onClick={toggleMenu}
             aria-label="Fechar menu"
             className="absolute top-3 right-2 p-2"
-          >
+            >
             <CircleX size={40} stroke="#99b259" strokeWidth={2} />
           </button>
+          )}
           <nav aria-label="User menu">
-            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge m-12 gap-2">
+            <ul className="grid grid-rows-2 text-[var(--mainHover)] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 gap-2">
               {user ? (
                 <>
                   <li>
-                    <Link
-                      href="/perfil"
-                      className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
-                    >
-                      Meu Perfil
-                    </Link>
-                  </li>
+                    {user.role === "user" && 
+                      <Link
+                        href="/perfil"
+                        className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                      >
+                        Meu Perfil
+                      </Link>
+                    }
+                    {user.role === "staff" &&
+                      <Link
+                        href="/denuncia/visualizar-denuncias"
+                        className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                        >
+                        Denúncias
+                      </Link>
+                    }
+                    {user.role === "admin" &&
+                      <Link
+                        href="/denuncia/visualizar-denuncias"
+                        className="hover:decoration-[var(--main)] decoration-transparent underline underline-offset-[6px]"
+                        >
+                        Denúncias
+                      </Link>
+                    }
+                </li>
                   <li>
                     <button
                       onClick={handleLogout}
@@ -204,7 +226,7 @@ export const Header = () => {
 
       {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge">
+        <div className="w-full h-screen fixed inset-0 bg-[var(--background)] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge">
           <button
             onClick={toggleMobileMenu}
             aria-label="Fechar menu"

@@ -11,7 +11,7 @@
   --border: #d1e0a7;
   --politicas-bg: #eef3e1;
   --background: #f5f8ee;
-  --font-black: #202020;
+  --font-black: #303030;
   --font-title: #505050;
   --font-body: #707070;
   --line: #909090;
@@ -24,6 +24,9 @@ body {
   background: url("/background.jpg") no-repeat bottom;
   background-size: cover;
   font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Optional: Customize the loading bar */

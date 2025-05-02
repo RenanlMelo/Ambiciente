@@ -4,7 +4,7 @@ import Footer from "./components/ui/footer";
 export default function Home() {
   return (
     <>
-      <section className="max-w-screen min-h-[85lvh] bg-white flex flex-col justify-center items-center mt-[calc(8vh+1rem)]">
+      <section className="w-full min-h-[85lvh] bg-white flex flex-col justify-center items-center mt-[calc(8vh+1rem)]">
         <div className="px-5">
           <h2 className="text-[var(--font-title)] font-bold text-clamp-title mb-6 tracking-wider">
             Bem-vindo ao <span>Ambiciente</span> 🌱🌍
