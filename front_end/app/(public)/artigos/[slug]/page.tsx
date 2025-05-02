@@ -11,9 +11,20 @@ async function getArticle(slug: string): Promise<Article> {
 
 export async function generateStaticParams() {
   const apiUrl = getApiUrl();
-  const res = await fetch(`${apiUrl}/api/artigos?fields=slug`);
-  const articles: Article[] = await res.json();
-  return articles.map((article) => ({ slug: article.slug }));
+
+  try {
+    const res = await fetch(`${apiUrl}/api/artigos?fields=slug`);
+    if (!res.ok) {
+      console.error(`Failed to fetch articles: ${res.statusText}`);
+      return [];
+    }
+
+    const articles: Article[] = await res.json();
+    return articles.map((article) => ({ slug: article.slug }));
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    return [];
+  }
 }
 
 export const revalidate = 60;
