@@ -143,7 +143,6 @@ export const Header = () => {
               fill="transparent"
               stroke="#f6f6f6"
               className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
-              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
             />
           </button>
         </div>
@@ -165,16 +164,16 @@ export const Header = () => {
             <ul className="grid grid-rows-2 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 gap-2">
               {user ? (
                 <>
-                  <li>
-                    {user.role === "admin" && (
+                  {user.role === "admin" && (
+                    <li>
                       <Link
                         href="/users-control"
                         className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                       >
                         Controle de Usuários
                       </Link>
-                    )}
-                  </li>
+                    </li>
+                  )}
                   <li>
                     {user.role === "user" && (
                       <Link
