@@ -38,7 +38,7 @@ export default async function ArticlePage({
   const article = await getArticle(slug);
 
   return (
-    <div className="w-full grid grid-cols-[1fr_4fr]">
+    <div className="w-screen grid grid-cols-[1fr_4fr]">
       <Articles_sidebar article={article} />
       <Article_viewer initialArticle={article} />
     </div>

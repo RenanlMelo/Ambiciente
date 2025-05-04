@@ -62,6 +62,20 @@ export const Header = () => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const shouldBlockScroll = menuOpen || mobileMenuOpen;
+
+    if (shouldBlockScroll) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen, mobileMenuOpen]);
+
   return (
     <header
       className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-full box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
@@ -69,7 +83,7 @@ export const Header = () => {
       {/* Logo */}
       <Link
         href="/"
-        className={`${aboreto.className} text-clamp-heading text-start h-fit self-center ml-5 md:ml-20`}
+        className={`${aboreto.className} text-clamp-heading text-start h-fit self-center ml-5 lg:ml-20`}
         aria-label="Home"
       >
         AMBICIENTE
@@ -101,7 +115,7 @@ export const Header = () => {
           aria-label="Main navigation"
           className="flex justify-center items-center"
         >
-          <ul className="flex justify-center items-center gap-x-8 text-[var(--primary)] font-medium text-clamp-medium w-fit place-self-center">
+          <ul className="flex justify-center items-center gap-x-4 lg:gap-x-8 text-[var(--primary)] font-medium text-clamp-medium w-fit place-self-center">
             {pagesList.map((page) => (
               <li key={page.url}>
                 <Link
@@ -122,7 +136,7 @@ export const Header = () => {
 
       {/* Right side controls (desktop only) */}
       {!isMobile && (
-        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--primary)] font-medium text-clamp-medium pr-5 md:pr-0 md:mr-20">
+        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[var(--primary)] font-medium text-clamp-medium pr-5 md:pr-0 md:mr-5 lg:mr-20">
           {user && user.role === "user" && (
             <Link
               href="/denuncia"
@@ -174,25 +188,26 @@ export const Header = () => {
                       </Link>
                     </li>
                   )}
-                  <li>
-                    {user.role === "user" && (
+                  {user.role === "user" && (
+                    <li>
                       <Link
                         href="/perfil"
                         className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
                       >
                         Meu Perfil
                       </Link>
-                    )}
-                    {user.role === "staff" ||
-                      (user.role === "admin" && (
-                        <Link
-                          href="/denuncia/visualizar-denuncias"
-                          className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
-                        >
-                          Visualizar Denúncias
-                        </Link>
-                      ))}
-                  </li>
+                    </li>
+                  )}
+                  {user.role === "staff" || user.role === "staff" ? (
+                    <li>
+                      <Link
+                        href="/denuncia/visualizar-denuncias"
+                        className="hover:decoration-[var(--primary)] decoration-transparent underline underline-offset-[6px]"
+                      >
+                        Visualizar Denúncias
+                      </Link>
+                    </li>
+                  ) : null}
                   <li>
                     <button
                       onClick={handleLogout}
@@ -252,12 +267,14 @@ export const Header = () => {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/denuncia"
-              className="block border-2 border-[var(--primaryHover)] px-3 py-1 mt-10 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge"
-            >
-              Faça sua denúncia
-            </Link>
+            {user && user.role === "user" && (
+              <Link
+                href="/denuncia"
+                className="block border-2 border-[var(--primaryHover)] px-3 py-1 mt-10 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge"
+              >
+                Faça sua denúncia
+              </Link>
+            )}
           </nav>
         </div>
       )}

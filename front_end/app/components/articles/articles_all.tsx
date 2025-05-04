@@ -57,7 +57,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-full box-border bg-white px-5 md:px-32 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <main className="w-screen box-border bg-white px-5 lg:px-32 pb-10 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
         {user && user.role === "admin" && (
           <Link
             href="artigos/admin-artigos/criar"
@@ -86,7 +86,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
             articles.map((article: Article) => (
               <div
                 key={article.id}
-                className="border-[#ddd] border cursor-pointer opacity-100 hover:opacity-80 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative"
+                className="border-[#ddd] border-box cursor-pointer opacity-100 hover:opacity-80 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative max-w-[calc(95vw-20px)]"
                 onClick={() => router.push(`/artigos/${article.slug}`)}
               >
                 <Image
@@ -96,10 +96,10 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                   alt="article background"
                   className="w-full bg-cover"
                 />
-                <h2 className="text-clamp-medium text-[var(--medium-grey)] px-8 pb-2 pt-4">
+                <h2 className="text-clamp-medium text-[var(--medium-grey)] px-8 pb-2 pt-4 max-w-[60%] truncate">
                   {article.title}
                 </h2>
-                <p className="text-clamp-small text-[var(--light-grey)] px-8 pb-6">
+                <p className="text-clamp-small text-[var(--light-grey)] px-8 pb-6 max-w-[60%] truncate">
                   {article.subtitle}
                 </p>
                 {user && user.role === "admin" && (
@@ -118,7 +118,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                         height={100}
                         src="/svg/edit.svg"
                         alt="edit icon"
-                        className="w-6 h-6 mt-[2px] mb-[2px]"
+                        className="w-4 h-4 lg:w-6 lg:h-6 mt-[2px] mb-[2px]"
                       />
                     </button>
                     <button
@@ -133,7 +133,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                         height={100}
                         src="/svg/remove.svg"
                         alt="remove icon"
-                        className="w-7 h-7"
+                        className="w-5 h-5 lg:w-7 lg:h-7"
                       />
                     </button>
                   </div>

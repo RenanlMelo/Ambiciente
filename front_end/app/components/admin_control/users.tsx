@@ -49,7 +49,7 @@ export const Users_control = () => {
       <div className="flex flex-col gap-4 mb-8 w-fit border-[#d5e7eb]">
         <button
           onClick={() => setForm(!form)}
-          className="border px-4 py-2 rounded active:bg-[var(--e-white)] duration-75 hover:bg-[var(--f6-white)] w-fit"
+          className="border px-4 py-2 rounded active:bg-[var(--e-white)] duration-75 hover:bg-[var(--f6-white)] w-fit text-clamp-medium"
         >
           Cadastrar novo funcionário{" "}
           <SquarePlus
@@ -59,7 +59,7 @@ export const Users_control = () => {
         </button>
         {form && (
           <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
-            <div className="px-16 py-20 w-[calc(12vw+20rem)] flex flex-col gap-y-4 bg-[#f6f6f6] rounded-lg">
+            <div className="px-16 py-20 w-[calc(12vw+20rem)] flex flex-col gap-y-4 bg-[#f6f6f6] rounded-lg text-clamp-medium">
               {signupError && (
                 <div className="text-red-500 text-sm py-2 px-3 bg-red-100 rounded-md text-clamp-small">
                   {signupError}

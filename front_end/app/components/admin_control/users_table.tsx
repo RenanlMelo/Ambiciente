@@ -62,7 +62,7 @@ export const Users_table = () => {
       {selectedUsers.length > 0 ? (
         <button
           onClick={() => handleDeleteUsers(token, selectedUsers)}
-          className="border px-4 py-2 rounded active:bg-[var(--e-white)] duration-75 hover:bg-[var(--f6-white)] w-fit"
+          className="border px-4 py-2 rounded active:bg-[var(--e-white)] duration-75 hover:bg-[var(--f6-white)] w-fit text-clamp-medium"
         >
           Apagar usuário selecionados{" "}
           <Trash2 className="inline ml-1 -translate-y-px" stroke="#505050" />
@@ -70,14 +70,14 @@ export const Users_table = () => {
       ) : (
         <button
           disabled
-          className="border px-4 py-2 rounded disabled:bg-[var(--e-white)] text-[var(--lightest-grey)] w-fit"
+          className="border px-4 py-2 rounded disabled:bg-[var(--e-white)] text-[var(--lightest-grey)] w-fit text-clamp-medium"
         >
           Apagar usuário selecionados{" "}
           <Trash2 className="inline ml-1 -translate-y-px" stroke="#aaa" />
         </button>
       )}
-      <div className="overflow-x-auto w-full mt-4">
-        <table className="text-[var(--medium-grey)] min-w-[50vw]">
+      <div className="overflow-x-scroll mt-4 max-w-[90vw]">
+        <table className="text-[var(--medium-grey)] min-w-[50vw] text-clamp-medium">
           <thead>
             <tr>
               <th></th>

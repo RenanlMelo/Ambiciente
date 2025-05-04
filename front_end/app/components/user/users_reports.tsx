@@ -14,7 +14,7 @@ export const Users_reports = () => {
     }
     getUsersReports(token)
       .then((data) => {
-        setReports(data);
+        setReports(data.reverse());
       })
       .catch((error) => {
         console.error("Erro ao buscar denúncias: ", error);

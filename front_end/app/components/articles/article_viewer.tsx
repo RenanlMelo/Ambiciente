@@ -25,7 +25,7 @@ export default function Article_viewer({
   return (
     <main
       id="content"
-      className="col-start-2 overflow-y-scroll relative w-full md:w-[80vw] place-self-end bg-white py-12 md:py-24 px-8 md:px-16 lg:px-32 box-border top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]"
+      className="col-start-2 overflow-y-scroll relative w-screen md:w-[80vw] bg-white py-12 md:py-24 px-8 md:px-16 lg:px-32 box-border top-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]"
     >
       <Element name="section-title">
         <h2
@@ -39,7 +39,6 @@ export default function Article_viewer({
         </p>
       </Element>
 
-      <div className="mt-6 md:mt-12 flex flex-col gap-4 md:gap-12">
       <div className="mt-6 md:mt-12 flex flex-col gap-4 md:gap-12">
         {article.topics?.length > 0 ? (
           article.topics.map((topic) => (

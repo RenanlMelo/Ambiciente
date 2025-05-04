@@ -16,6 +16,7 @@ export const All_reports = () => {
   const [confirmRemoval, setConfirmRemoval] = useState<boolean>(false);
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [active, setActive] = useState<string>("Em Andamento");
 
   useEffect(() => {
     getReports()
@@ -77,16 +78,63 @@ export const All_reports = () => {
     }
   };
 
+  const handleActiveReports = (label: string) => {
+    setActive(label);
+  };
+
+  const statusMap: Record<string, string> = {
+    "Em Andamento": "Pendente",
+    Aprovadas: "Concluída",
+    Rejeitadas: "Rejeitada",
+  };
+
+  const filteredReports = active
+    ? reports.filter((report) => report.status === statusMap[active])
+    : reports;
+
   return (
     <main className="w-full min-h-screen mt-[calc(8vh+1rem)] bg-white px-5 md:px-32 py-16">
       <h2 className="text-clamp-xlarge text-[var(--dark-grey)] font-semibold mb-4">
-        Denúncias em andamento
+        Denúncias
       </h2>
-      {reports.length === 0 ? (
+      <div className="flex gap-x-4 mb-4">
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Em Andamento"
+              ? "bg-[var(--secondary)] text-white"
+              : " hover:bg-[var(--c-white)]"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Em Andamento
+        </button>
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Aprovadas"
+              ? "bg-[var(--secondary)] text-white"
+              : " hover:bg-[var(--c-white)]"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Aprovadas
+        </button>
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Rejeitadas"
+              ? "bg-[var(--secondary)] text-white"
+              : " hover:bg-[var(--c-white)]"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Rejeitadas
+        </button>
+      </div>
+
+      {filteredReports.length === 0 ? (
         <p>Nenhuma denúncia encontrada.</p>
       ) : (
         <ul className="space-y-4">
-          {reports.map((report) => (
+          {filteredReports.map((report) => (
             <li key={report.id} className="border p-8 rounded shadow">
               <p className="text-clamp-large mb-4">
                 <strong className="text-[var(--medium-grey)]">
