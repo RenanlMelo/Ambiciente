@@ -63,7 +63,7 @@ export const Header = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const shouldBlockScroll = menuOpen || mobileMenuOpen;
+    const shouldBlockScroll = isMobile && (menuOpen || mobileMenuOpen);
 
     if (shouldBlockScroll) {
       document.body.style.overflow = "hidden";
@@ -74,7 +74,7 @@ export const Header = () => {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuOpen, mobileMenuOpen]);
+  }, [menuOpen, mobileMenuOpen, isMobile]);
 
   return (
     <header
