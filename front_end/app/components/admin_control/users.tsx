@@ -7,7 +7,7 @@ import { SquarePlus } from "lucide-react";
 
 export const Users_control = () => {
   const [form, setForm] = useState<boolean>(false);
-  const { loading, error, token } = useAuth();
+  const { loading, token } = useAuth();
   const [signupError, setSignupError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",

@@ -22,7 +22,7 @@ export const Users_table = () => {
       .catch((error) => {
         console.error("Erro ao buscar usuários: ", error);
       });
-  }, []);
+  });
 
   const toggleSelectUser = (id: number) => {
     setSelectedUsers((prevSelected) =>

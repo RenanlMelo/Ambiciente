@@ -62,7 +62,7 @@ export async function handleSignup(
           message = data.detail;
         }
       }
-    } catch (e) {
+    } catch {
       message = res.statusText;
     }
 

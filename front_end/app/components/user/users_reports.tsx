@@ -19,7 +19,7 @@ export const Users_reports = () => {
       .catch((error) => {
         console.error("Erro ao buscar denúncias: ", error);
       });
-  }, []);
+  });
   return (
     <main className="text-clamp-small text-[var(--light-grey)] font-medium ">
       {reports.length === 0 ? (

@@ -11,7 +11,6 @@ export const SignUp_forms = () => {
     email: "",
     password: "",
   });
-  const [success, setSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,7 +28,6 @@ export const SignUp_forms = () => {
         formData.email,
         formData.password
       );
-      setSuccess(true);
     } catch {
       // error shown via context
     }
