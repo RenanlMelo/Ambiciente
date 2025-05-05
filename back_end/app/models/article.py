@@ -10,6 +10,7 @@ class Article(Base):
     title = Column(String, index=True)
     subtitle = Column(String)
     slug = Column(String, unique=True, index=True)
+    image_url = Column(String, nullable=True)
     topics = relationship("Topic", back_populates="article")
 
 # No modelo Topic
@@ -20,5 +21,4 @@ class Topic(Base):
     title = Column(String)
     content = Column(String)
     article_id = Column(Integer, ForeignKey('articles.id'))
-
     article = relationship("Article", back_populates="topics")

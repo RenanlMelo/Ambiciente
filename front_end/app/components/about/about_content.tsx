@@ -76,10 +76,10 @@ export const About_content = () => {
           <strong>Frontend:</strong> HTML, CSS, JavaScript, React.js, Next.js
         </li>
         <li className="text-clamp-medium text-[var(--light-grey)]">
-          <strong>Backend:</strong> C#, ASP.NET
+          <strong>Backend:</strong> Python, FastAPI
         </li>
         <li className="text-clamp-medium text-[var(--light-grey)]">
-          <strong>Banco de Dados:</strong> SQL Server
+          <strong>Banco de Dados:</strong> SQLite
         </li>
         <li className="text-clamp-medium text-[var(--light-grey)]">
           <strong>Análise de Dados:</strong> Power BI

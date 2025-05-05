@@ -16,15 +16,15 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
   const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
   const router = useRouter();
 
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_URL_PROD
+      : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
+
   const handleDelete = async () => {
     if (!articleToDelete) return;
 
     setIsLoading(true);
-
-    const apiUrl =
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_API_URL_PROD
-        : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
     if (!apiUrl) {
       throw new Error("API URL not configured");
@@ -50,10 +50,6 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       setArticleToDelete(null);
     }
   };
-  if (user) {
-    console.log(user);
-    console.log("role", user.role);
-  }
 
   return (
     <>
@@ -91,10 +87,10 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
               >
                 <Image
                   width={1600}
-                  height={900}
-                  src="/article1.png"
+                  height={400}
+                  src={`${apiUrl}/${article.image_url}`}
                   alt="article background"
-                  className="w-full bg-cover"
+                  className="w-full bg-cover aspect-[3/1] object-cover"
                 />
                 <h2
                   className={`text-clamp-medium text-[var(--medium-grey)] px-8 mb-2 pt-4 line-clamp-2`}

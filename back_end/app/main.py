@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.database import Base, engine
 from app.routes import article, user, roles, denuncias  # Importe todos os routers aqui
+from fastapi.staticfiles import StaticFiles
 import os
 
 @asynccontextmanager
@@ -63,6 +64,8 @@ app.include_router(
     prefix="/api/denuncias",
     tags=["Denúncias"],
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Health Check (opcional mas recomendado)
 @app.get("/api/health", tags=["Monitoramento"])

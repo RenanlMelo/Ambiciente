@@ -78,7 +78,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-full box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
+      className={`${ibmPlexSans.className} min-h-24 h-[calc(8vh+1rem)] w-screen box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
     >
       {/* Logo */}
       <Link

@@ -1,10 +1,11 @@
-from pydantic import BaseModel
-from typing import List
 from app.schemas.topic import Topic, TopicCreate
+from typing import List, Optional
+from pydantic import BaseModel
 
 class ArticleBase(BaseModel):
     title: str
     subtitle: str
+    image_url: str = None
 
 class Article(ArticleBase):
     id: int
@@ -20,6 +21,7 @@ class ArticleCreate(ArticleBase):
 class ArticleUpdate(BaseModel):
     title: str
     subtitle: str
+    image_url: str = None
     topics: List[TopicCreate] = []
 
 # Novo modelo de resposta para refletir os dados completos após a criação

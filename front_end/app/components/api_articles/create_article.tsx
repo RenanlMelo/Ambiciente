@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronsLeft } from "lucide-react";
 
@@ -14,6 +14,8 @@ export const Create_article = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   // Estado para o formulário
   const [formData, setFormData] = useState({
@@ -71,31 +73,29 @@ export const Create_article = () => {
     }
 
     try {
-      const articleData = {
-        title: formData.title,
-        subtitle: formData.subtitle,
-        slug: "", // O backend gera automaticamente
-        topics: validTopics,
-      };
+      const form = new FormData();
+      form.append("title", formData.title);
+      form.append("subtitle", formData.subtitle);
+      form.append("slug", ""); // você pode gerar isso no back
 
-      console.log("Enviando:", articleData);
+      if (imageFile) {
+        form.append("image", imageFile);
+      }
 
-      // Definir a URL da API dependendo do ambiente
+      form.append("topics", JSON.stringify(validTopics));
+
       const apiUrl =
         process.env.NODE_ENV === "production"
           ? process.env.NEXT_PUBLIC_API_URL_PROD
           : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
-      // Fazendo a requisição com a URL configurada
       const response = await fetch(`${apiUrl}/api/artigos`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(articleData),
+        body: form,
       });
 
       if (!response.ok) {
-        // Opcional: obter mensagem de erro do corpo da resposta
-        const errorBody = await response.text(); // ou response.json(), se for JSON
+        const errorBody = await response.text();
         throw new Error(
           `Erro ${response.status}: ${response.statusText} - ${errorBody}`
         );
@@ -104,12 +104,13 @@ export const Create_article = () => {
       const data = await response.json();
       console.log("Resposta:", data);
 
-      // Limpar os campos após o envio bem-sucedido
       setFormData({
         title: "",
         subtitle: "",
         topics: [] as Topic[],
       });
+      setImageFile(null);
+      setPreviewUrl(null);
       setSuccessMessage(true);
       nextTopicId.current = 1;
     } catch (error) {
@@ -121,8 +122,23 @@ export const Create_article = () => {
     }
   }
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setImageFile(file); // armazena o arquivo para envio
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImageFile(null);
+      setPreviewUrl(null);
+    }
+  };
+
   return (
-    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-[20vw] mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
       <Link
         href={`/artigos`}
         className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[var(--medium-grey)]"
@@ -134,6 +150,39 @@ export const Create_article = () => {
         onSubmit={onSubmit}
         className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
+        <div className="space-y-4 w-full relative">
+          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[var(--secondary)] text-white cursor-pointer hover:bg-[var(--secondaryHover)] transition duration-300 w-fit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4 3a2 2 0 00-2 2v4a2 2 0 002 2h1v3.586A1 1 0 006.707 15l3.293-3.293a1 1 0 000-1.414L6.707 7A1 1 0 006 8.414V12H5a1 1 0 01-1-1V5a1 1 0 011-1h10a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 100 2h2a3 3 0 003-3V5a3 3 0 00-3-3H4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span>Escolher imagem</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </label>
+          {previewUrl && (
+            <div className="relative aspect-[4/1] w-1/2 rounded-xl shadow overflow-hidden bg-gray-100">
+              <img
+                src={previewUrl}
+                alt="Pré-visualização"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          )}
+        </div>
+
         <div className="w-full flex flex-col md:flex-row justify-center items-center gap-12">
           <div className="w-full">
             <label htmlFor="title" className="text-clamp-medium">

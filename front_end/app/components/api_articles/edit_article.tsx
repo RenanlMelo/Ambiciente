@@ -1,8 +1,8 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, ChevronsLeft } from "lucide-react";
+import { ChevronsLeft } from "lucide-react";
 
 interface Topic {
   id: number;
@@ -10,24 +10,21 @@ interface Topic {
   content: string;
 }
 
-interface ArticleData {
-  title: string;
-  subtitle: string;
-  topics: Topic[];
-}
-
 export const Edit_article = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const params = useParams();
-  const slug = params?.slug as string;
-
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
     topics: [] as Topic[],
+    image_url: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const params = useParams();
+  const slug = params?.slug as string;
 
   const apiUrl =
     process.env.NODE_ENV === "production"
@@ -38,116 +35,157 @@ export const Edit_article = () => {
     async function fetchArticle() {
       try {
         const res = await fetch(`${apiUrl}/api/artigos/${slug}`);
-        const data: { title: string; subtitle: string; topics: Topic[] } =
-          await res.json();
-
+        console.log("res", res);
+        const data = await res.json();
+        console.log("data", data);
         setFormData({
           title: data.title || "",
           subtitle: data.subtitle || "",
-          topics: data.topics.map((topic: Topic, index: number) => ({
-            ...topic,
-            id: topic.id ? topic.id : Date.now() + index,
-          })),
+          image_url: data.image_url,
+          topics:
+            data.topics?.map((topic: Topic, i: number) => ({
+              ...topic,
+              id: topic.id ?? Date.now() + i,
+            })) || [],
         });
-      } catch (error) {
-        console.error("Erro ao carregar artigo:", error);
+        if (data.image_url) {
+          setPreviewUrl(data.image_url);
+        }
+      } catch (err) {
+        console.error("Erro ao buscar artigo:", err);
         setErrorMessage("Erro ao carregar o artigo.");
       }
     }
-
     fetchArticle();
   }, [slug, apiUrl]);
 
   function addTopic() {
-    const newTopic = { id: Date.now(), title: "", content: "" };
-    setFormData({
-      ...formData,
-      topics: [...formData.topics, newTopic],
-    });
+    setFormData((prev) => ({
+      ...prev,
+      topics: [...prev.topics, { id: Date.now(), title: "", content: "" }],
+    }));
   }
 
   function removeTopic(id: number) {
-    setFormData({
-      ...formData,
-      topics: formData.topics.filter((topic) => topic.id !== id),
-    });
+    setFormData((prev) => ({
+      ...prev,
+      topics: prev.topics.filter((t) => t.id !== id),
+    }));
   }
 
   function handleTopicChange(id: number, field: keyof Topic, value: string) {
-    setFormData((prevData) => ({
-      ...prevData,
-      topics: prevData.topics.map((topic) =>
-        topic.id === id ? { ...topic, [field]: value } : topic
+    setFormData((prev) => ({
+      ...prev,
+      topics: prev.topics.map((t) =>
+        t.id === id ? { ...t, [field]: value } : t
       ),
     }));
   }
 
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setPreviewUrl(reader.result as string);
+      reader.readAsDataURL(file);
+    } else {
+      setImageFile(null);
+      setPreviewUrl(null);
+    }
+  };
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setIsLoading(true);
-    setErrorMessage("");
+    setErrorMessage(null);
+    setSuccessMessage(false);
+
+    const validTopics = formData.topics.filter(
+      (t) => t.title.trim() && t.content.trim()
+    );
+
+    if (!formData.title || !formData.subtitle || validTopics.length === 0) {
+      setErrorMessage("Preencha título, subtítulo e pelo menos um tópico.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      const validTopics = formData.topics.filter(
-        (t) => t.title.trim() && t.content.trim()
-      );
+      const form = new FormData();
+      form.append("title", formData.title);
+      form.append("subtitle", formData.subtitle);
+      form.append("slug", slug);
+      form.append("topics", JSON.stringify(validTopics));
+      if (imageFile) form.append("image", imageFile);
 
-      const articleData: ArticleData = {
-        title: formData.title,
-        subtitle: formData.subtitle,
-        topics: validTopics,
-      };
-
-      const response = await fetch(`${apiUrl}/api/artigos/${slug}`, {
+      const res = await fetch(`${apiUrl}/api/artigos/${slug}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(articleData),
+        body: form,
       });
 
-      if (!response.ok) {
-        throw new Error("Erro na resposta da API");
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Erro ${res.status}: ${errorBody}`);
       }
 
-      const data = await response.json();
-      console.log("Resposta da atualização:", data);
-
       setSuccessMessage(true);
-    } catch (error) {
-      console.error("Erro ao atualizar artigo:", error);
-      setErrorMessage(
-        "Ocorreu um erro ao atualizar o artigo. Tente novamente."
-      );
-      setTimeout(() => setErrorMessage(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Erro ao atualizar o artigo.");
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-96 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
-      <div className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[var(--medium-grey)]">
-        <Link href={`/artigos/${slug}`} className="block">
-          <ChevronLeft stroke="#505050" className="inline" /> Voltar para o
-          artigo
-        </Link>
-        <Link href={`/artigos`}>
-          <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os
-          artigos
-        </Link>
-      </div>
+    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-[20vw] mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <Link
+        href={`/artigos`}
+        className="absolute top-4 left-4 md:left-10 text-clamp-medium text-[var(--medium-grey)]"
+      >
+        <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os
+        artigos
+      </Link>
+
       <form
         onSubmit={onSubmit}
         className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
-        {/* Campos de título e subtítulo */}
+        <div className="space-y-4 w-full">
+          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[var(--secondary)] text-white cursor-pointer hover:bg-[var(--secondaryHover)] transition w-fit">
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M4 3a2 2 0 00-2 2v4a2 2 0 002 2h1v3.586A1 1 0 006.707 15l3.293-3.293a1 1 0 000-1.414L6.707 7A1 1 0 006 8.414V12H5a1 1 0 01-1-1V5a1 1 0 011-1h10a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 100 2h2a3 3 0 003-3V5a3 3 0 00-3-3H4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span>Escolher nova imagem</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </label>
+
+          {previewUrl && (
+            <div className="relative aspect-[4/1] w-1/2 rounded-xl shadow overflow-hidden bg-gray-100">
+              <img
+                src={previewUrl}
+                alt="Pré-visualização"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          )}
+        </div>
+
         <div className="w-full flex flex-col md:flex-row justify-center items-center gap-12">
           <div className="w-full">
             <label htmlFor="title" className="text-clamp-medium">
@@ -163,62 +201,47 @@ export const Edit_article = () => {
               className="w-full border px-4 py-1 rounded-sm focus:outline-none"
             />
           </div>
-        </div>
-        <div className="w-full">
-          <label htmlFor="subtitle" className="text-clamp-medium">
-            Subtítulo do Artigo <strong className="text-red-500">*</strong>
-          </label>
-          <input
-            type="text"
-            id="subtitle"
-            name="subtitle"
-            value={formData.subtitle}
-            onChange={handleInputChange}
-            required
-            className="w-full border px-4 py-1 rounded-sm focus:outline-none"
-          />
+          <div className="w-full">
+            <label htmlFor="subtitle" className="text-clamp-medium">
+              Subtítulo do Artigo <strong className="text-red-500">*</strong>
+            </label>
+            <input
+              type="text"
+              id="subtitle"
+              name="subtitle"
+              value={formData.subtitle}
+              onChange={handleInputChange}
+              required
+              className="w-full border px-4 py-1 rounded-sm focus:outline-none"
+            />
+          </div>
         </div>
 
-        {/* Tópicos Dinâmicos */}
         <div className="w-full">
           <h3 className="text-[var(--title)] text-clamp-medium mb-2">
             Tópicos
           </h3>
 
-          {formData.topics.map((topic, index) => (
-            <div
-              key={topic.id || `topic-${index}`}
-              className="mb-4 p-3 border rounded-md"
-            >
-              <label htmlFor={`topic_title_${topic.id}`}>
-                Título do Tópico
-              </label>
+          {formData.topics.map((topic) => (
+            <div key={topic.id} className="mb-4 p-3 border rounded-md">
+              <label>Título do Tópico</label>
               <input
                 type="text"
-                id={`topic_title_${topic.id}`}
                 value={topic.title}
                 onChange={(e) =>
                   handleTopicChange(topic.id, "title", e.target.value)
                 }
                 className="w-full border px-4 py-1 rounded-sm focus:outline-none"
               />
-
-              <label
-                htmlFor={`topic_content_${topic.id}`}
-                className="mt-2 block"
-              >
-                Conteúdo
-              </label>
+              <label className="mt-2 block">Conteúdo</label>
               <textarea
-                id={`topic_content_${topic.id}`}
                 value={topic.content}
                 rows={3}
                 onChange={(e) =>
                   handleTopicChange(topic.id, "content", e.target.value)
                 }
                 className="resize-none w-full border px-4 py-1 focus:outline-none"
-              ></textarea>
-
+              />
               <button
                 type="button"
                 onClick={() => removeTopic(topic.id)}
@@ -228,7 +251,6 @@ export const Edit_article = () => {
               </button>
             </div>
           ))}
-
           <button
             type="button"
             onClick={addTopic}
@@ -241,18 +263,20 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer"
+          className="w-full md:w-auto font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] mb-24"
         >
-          {isLoading ? "Enviando..." : "Atualizar Artigo"}
+          {isLoading ? "Salvando..." : "Salvar Alterações"}
         </button>
       </form>
+
       {successMessage && (
-        <p className="text-[var(--medium-grey)] bg-[var(--e-white)] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
-          Seu artigo foi criado com sucesso!
+        <p className="text-[var(--medium-grey)] font-bold mt-4 px-4 py-2 rounded-md">
+          Artigo atualizado com sucesso!
         </p>
       )}
+
       {errorMessage && (
-        <p className="text-red-500 bg-red-200 text-clamp-small mt-4 px-4 py-2 rounded-md">
+        <p className="text-red-500 bg-red-200 mt-4 px-4 py-2 rounded-md">
           {errorMessage}
         </p>
       )}

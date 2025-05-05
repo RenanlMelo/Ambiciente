@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Request
 from sqlalchemy.orm import Session
+import shutil, os
 import uuid
+import json
 
-from app.database import SessionLocal
-from app.models.article import Article, Topic
 from app.schemas.article import ArticleCreate, ArticleUpdate, ArticleResponse
+from app.models.article import Article, Topic
+from app.database import SessionLocal
 
 router = APIRouter()  # Definição do roteador
 
@@ -22,35 +24,68 @@ def get_articles(db: Session = Depends(get_db)):
 
 
 @router.get("/{slug}", response_model=ArticleCreate)
-def get_article_by_slug(slug: str, db: Session = Depends(get_db)):
+def get_article_by_slug(slug: str, request: Request, db: Session = Depends(get_db)):
     db_article = db.query(Article).filter(Article.slug == slug).first()
     if db_article is None:
         raise HTTPException(status_code=404, detail="Artigo não encontrado")
-    return db_article
+
+    # Gera URL pública para a imagem
+    image_url = None
+    if db_article.image_url:
+        relative_path = db_article.image_url.replace("static/", "")
+        image_url = request.url_for("static", path=relative_path)
+
+    return {
+        "title": db_article.title,
+        "subtitle": db_article.subtitle,
+        "slug": db_article.slug,
+        "topics": [
+            {"title": t.title, "content": t.content} for t in db_article.topics
+        ],
+        "image_url": str(image_url) if image_url else None,
+    }
+
 
 
 @router.post("/", response_model=ArticleResponse)
-def create_article(article: ArticleCreate, db: Session = Depends(get_db)):
+async def create_article(
+    title: str = Form(...),
+    subtitle: str = Form(...),
+    topics: str = Form(...),  # Esperado como string JSON
+    image: UploadFile = File(None),
+    db: Session = Depends(get_db)
+):
     while True:
         article_slug = str(uuid.uuid4())[:12]
         if not db.query(Article).filter(Article.slug == article_slug).first():
             break
 
+    image_url = None
+    if image:
+        file_path = f"static/images/{article_slug}_{image.filename}"
+        os.makedirs("static/images", exist_ok=True)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+        image_url = file_path
+
+    # Parse dos tópicos recebidos como JSON
+    topics_data = json.loads(topics)
     db_article = Article(
-        title=article.title,
-        subtitle=article.subtitle,
+        title=title,
+        subtitle=subtitle,
         slug=article_slug,
+        image_url=image_url
     )
 
     db_article.topics = [
-        Topic(title=t.title, content=t.content) for t in article.topics
+        Topic(title=t["title"], content=t["content"]) for t in topics_data
     ]
-    
+
     db.add(db_article)
     db.commit()
     db.refresh(db_article)
 
-    return db_article  # Retorna um ArticleResponse
+    return db_article
 
 
 @router.put("/{slug}", response_model=ArticleUpdate)

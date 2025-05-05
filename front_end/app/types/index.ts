@@ -9,6 +9,7 @@ export interface Article {
   title: string;
   subtitle: string;
   slug: string;
+  image_url: string;
   topics: Topic[];
 }
 

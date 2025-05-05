@@ -5,9 +5,7 @@ export default function Create() {
   return (
     <>
       <PrivateRoute allowedRoles={["admin"]}>
-        <div>
-          <Create_article />
-        </div>
+        <Create_article />
       </PrivateRoute>
     </>
   );
