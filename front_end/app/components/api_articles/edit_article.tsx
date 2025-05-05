@@ -241,13 +241,13 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer mb-24"
+          className="w-full md:w-auto col-span-2 font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer"
         >
           {isLoading ? "Enviando..." : "Atualizar Artigo"}
         </button>
       </form>
       {successMessage && (
-        <p className="text-[var(--medium-grey)] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
+        <p className="text-[var(--medium-grey)] bg-[var(--e-white)] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
           Seu artigo foi criado com sucesso!
         </p>
       )}
