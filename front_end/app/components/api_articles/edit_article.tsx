@@ -48,6 +48,7 @@ export const Edit_article = () => {
               id: topic.id ?? Date.now() + i,
             })) || [],
         });
+
         if (data.image_url) {
           setPreviewUrl(data.image_url);
         }

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Request
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import selectinload, Session
 import shutil, os
 import uuid
 import json
@@ -89,25 +89,43 @@ async def create_article(
 
 
 @router.put("/{slug}", response_model=ArticleUpdate)
-def update_article(article: ArticleUpdate, slug: str, db: Session = Depends(get_db)):
+def update_article(
+    slug: str,
+    title: str = Form(...),
+    subtitle: str = Form(...),
+    topics: str = Form(...),
+    image: UploadFile = File(None),
+    db: Session = Depends(get_db)
+):
     db_article = db.query(Article).filter(Article.slug == slug).first()
 
     if db_article is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artigo não encontrado")
 
-    db_article.title = article.title
-    db_article.subtitle = article.subtitle
+    db_article.title = title
+    db_article.subtitle = subtitle
 
-    # Remover tópicos antigos
-    db.query(Topic).filter(Topic.article_id == db_article.id).delete()
+    # Atualiza imagem se frnecida
+    if image:
+        # Salvar arquivo ou armazenar como BLOB/base64, conforme seu sistema
+        db_article.image_data = image.file.read()
 
-    # Adicionar novos tópicos
-    new_topics = [Topic(title=t.title, content=t.content, article_id=db_article.id) for t in article.topics]
-    db.add_all(new_topics)
+    # Remove tópicos antigos
+    db.query(Topic).filter(Topic.article_id == db_article.id).delete(synchronize_session=False)
+
+    try:
+        parsed_topics = json.loads(topics)
+        new_topics = [
+            Topic(title=t["title"], content=t["content"], article_id=db_article.id)
+            for t in parsed_topics
+        ]
+        db.add_all(new_topics)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Erro ao processar tópicos: {e}")
 
     db.commit()
-    db.refresh(db_article)
 
+    db_article = db.query(Article).options(selectinload(Article.topics)).filter(Article.slug == slug).first()
     return db_article
 
 
