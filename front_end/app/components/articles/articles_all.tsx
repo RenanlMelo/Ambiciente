@@ -86,7 +86,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
             articles.map((article: Article) => (
               <div
                 key={article.id}
-                className="border-[#ddd] border-box cursor-pointer opacity-100 hover:opacity-80 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative max-w-[calc(95vw-20px)]"
+                className="border-[#ddd] border-box cursor-pointer opacity-100 hover:opacity-90 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative max-w-[calc(95vw-20px)]"
                 onClick={() => router.push(`/artigos/${article.slug}`)}
               >
                 <Image
@@ -96,14 +96,18 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                   alt="article background"
                   className="w-full bg-cover"
                 />
-                <h2 className="text-clamp-medium text-[var(--medium-grey)] px-8 pb-2 pt-4 max-w-[60%] truncate">
+                <h2
+                  className={`text-clamp-medium text-[var(--medium-grey)] px-8 mb-2 pt-4 line-clamp-2`}
+                >
                   {article.title}
                 </h2>
-                <p className="text-clamp-small text-[var(--light-grey)] px-8 pb-6 max-w-[60%] truncate">
+                <p
+                  className={`text-clamp-small text-[var(--light-grey)] px-8 mb-6 line-clamp-3`}
+                >
                   {article.subtitle}
                 </p>
                 {user && user.role === "admin" && (
-                  <div className="absolute bottom-5 right-5 flex gap-x-3">
+                  <div className="p-8 pt-0 bottom-5 right-5 flex gap-x-3 place-self-end">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -111,30 +115,18 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                           `/artigos/admin-artigos/editar/${article.slug}`
                         );
                       }}
-                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                      className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-800 text-clamp-small font-medium transition"
                     >
-                      <Image
-                        width={100}
-                        height={100}
-                        src="/svg/edit.svg"
-                        alt="edit icon"
-                        className="w-4 h-4 lg:w-6 lg:h-6 mt-[2px] mb-[2px]"
-                      />
+                      Editar
                     </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setArticleToDelete(article);
                       }}
-                      className="flex justify-between bg-[#ddd] p-2 rounded-full hover:scale-110 duration-75"
+                      className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-800 text-clamp-small font-medium transition"
                     >
-                      <Image
-                        width={100}
-                        height={100}
-                        src="/svg/remove.svg"
-                        alt="remove icon"
-                        className="w-5 h-5 lg:w-7 lg:h-7"
-                      />
+                      Remover
                     </button>
                   </div>
                 )}
