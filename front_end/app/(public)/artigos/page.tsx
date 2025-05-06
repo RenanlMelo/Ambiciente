@@ -38,8 +38,6 @@ export default async function ArticlesPage() {
     console.error("Error fetching articles:", error);
   }
 
-  console.log(articles);
-
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">

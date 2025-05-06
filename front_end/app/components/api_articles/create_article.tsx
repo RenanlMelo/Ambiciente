@@ -108,8 +108,6 @@ export const Create_article = () => {
         );
       }
 
-      const data = await response.json();
-
       setFormData({
         title: "",
         subtitle: "",
