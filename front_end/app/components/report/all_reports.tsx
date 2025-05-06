@@ -16,7 +16,7 @@ export const All_reports = () => {
   const [confirmRemoval, setConfirmRemoval] = useState<boolean>(false);
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [active, setActive] = useState<string>("Em Andamento");
+  const [active, setActive] = useState<string>("em andamento");
 
   useEffect(() => {
     getReports()
@@ -53,6 +53,8 @@ export const All_reports = () => {
     }
   };
 
+  console.log("REPORTS", reports);
+
   const handleReject = async () => {
     if (!selectedReportId) return;
     setIsLoading(true);
@@ -83,13 +85,15 @@ export const All_reports = () => {
   };
 
   const statusMap: Record<string, string> = {
-    "Em Andamento": "Pendente",
-    Aprovadas: "Concluída",
-    Rejeitadas: "Rejeitada",
+    "em andamento": "Em andamento",
+    aprovadas: "Concluída",
+    rejeitadas: "Rejeitada",
   };
 
   const filteredReports = active
-    ? reports.filter((report) => report.status === statusMap[active])
+    ? reports.filter(
+        (report) => report.status === statusMap[active.toLowerCase()]
+      )
     : reports;
 
   return (
@@ -101,12 +105,12 @@ export const All_reports = () => {
         <button
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
-            active === "Em Andamento"
+            active === "Em andamento"
               ? "bg-[var(--secondary)] text-white"
               : " hover:bg-[var(--c-white)]"
           } border px-4 py-2 rounded  duration-75 w-fit`}
         >
-          Em Andamento
+          Em andamento
         </button>
         <button
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}

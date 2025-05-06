@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Request
 from sqlalchemy.orm import selectinload, Session
 import shutil, os
-import uuid
+from uuid import uuid4
 import json
 
 from app.schemas.article import ArticleCreate, ArticleUpdate, ArticleResponse
 from app.models.article import Article, Topic
 from app.database import SessionLocal
+import uuid
 
 router = APIRouter()  # Definição do roteador
 
@@ -62,11 +63,12 @@ async def create_article(
 
     image_url = None
     if image:
-        file_path = f"static/images/{article_slug}_{image.filename}"
+        print(f"AQUIDVBFUQEF static/images/{article_slug}_{image.filename}".replace("\\", "/"))
+        filename = f"static/images/{article_slug}_{image.filename}".replace("\\", "/")
         os.makedirs("static/images", exist_ok=True)
-        with open(file_path, "wb") as buffer:
+        with open(filename, "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        image_url = file_path
+        image_url = f"/{filename}"
 
     # Parse dos tópicos recebidos como JSON
     topics_data = json.loads(topics)
@@ -94,25 +96,35 @@ def update_article(
     title: str = Form(...),
     subtitle: str = Form(...),
     topics: str = Form(...),
-    image: UploadFile = File(None),
+    image_url: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
     db_article = db.query(Article).filter(Article.slug == slug).first()
+    if not db_article:
+        raise HTTPException(status_code=404, detail="Artigo não encontrado")
 
-    if db_article is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artigo não encontrado")
-
+    # campos textuais
     db_article.title = title
     db_article.subtitle = subtitle
 
-    # Atualiza imagem se frnecida
-    if image:
-        # Salvar arquivo ou armazenar como BLOB/base64, conforme seu sistema
-        db_article.image_data = image.file.read()
+    # validação extra: garantir que o arquivo é imagem
+    if image_url:
+        if not image_url.content_type.startswith("image/"):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="O arquivo enviado não é uma imagem."
+            )
 
-    # Remove tópicos antigos
-    db.query(Topic).filter(Topic.article_id == db_article.id).delete(synchronize_session=False)
+        # grava no disco e atualiza image_url
+        filename = f"{uuid4().hex}_{image_url.filename}"
+        image_path = os.path.join("static", "images", filename)
+        os.makedirs(os.path.dirname(image_path), exist_ok=True)
+        with open(image_path, "wb") as f:
+            f.write(image_url.file.read())
+        db_article.image_url = f"/static/images/{filename}".replace("\\", "/")
 
+    # tópicos
+    db.query(Topic).filter(Topic.article_id == db_article.id).delete()
     try:
         parsed_topics = json.loads(topics)
         new_topics = [
@@ -124,10 +136,8 @@ def update_article(
         raise HTTPException(status_code=400, detail=f"Erro ao processar tópicos: {e}")
 
     db.commit()
-
-    db_article = db.query(Article).options(selectinload(Article.topics)).filter(Article.slug == slug).first()
+    db.refresh(db_article)
     return db_article
-
 
 
 @router.delete("/{article_slug}", status_code=204)

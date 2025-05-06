@@ -3,6 +3,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronsLeft } from "lucide-react";
+import Image from "next/image";
 
 interface Topic {
   id: number;
@@ -31,17 +32,17 @@ export const Edit_article = () => {
       ? process.env.NEXT_PUBLIC_API_URL_PROD
       : process.env.NEXT_PUBLIC_API_URL_HOMOLOG;
 
+  console.log(`${apiUrl}/api/artigos/${slug}`);
+
   useEffect(() => {
     async function fetchArticle() {
       try {
         const res = await fetch(`${apiUrl}/api/artigos/${slug}`);
-        console.log("res", res);
         const data = await res.json();
-        console.log("data", data);
         setFormData({
           title: data.title || "",
           subtitle: data.subtitle || "",
-          image_url: data.image_url,
+          image_url: data.image_url || "", // Certifique-se que a imagem está vindo aqui
           topics:
             data.topics?.map((topic: Topic, i: number) => ({
               ...topic,
@@ -50,7 +51,7 @@ export const Edit_article = () => {
         });
 
         if (data.image_url) {
-          setPreviewUrl(data.image_url);
+          setPreviewUrl(data.image_url); // Atualize a imagem do frontend
         }
       } catch (err) {
         console.error("Erro ao buscar artigo:", err);
@@ -123,19 +124,21 @@ export const Edit_article = () => {
       form.append("subtitle", formData.subtitle);
       form.append("slug", slug);
       form.append("topics", JSON.stringify(validTopics));
-      if (imageFile) form.append("image", imageFile);
+      if (imageFile) form.append("image_url", imageFile);
 
       const res = await fetch(`${apiUrl}/api/artigos/${slug}`, {
         method: "PUT",
         body: form,
       });
 
-      if (!res.ok) {
-        const errorBody = await res.text();
-        throw new Error(`Erro ${res.status}: ${errorBody}`);
+      if (res.ok) {
+        const updatedData = await res.json();
+        setPreviewUrl(updatedData.image_url); // Atualize a imagem diretamente após o sucesso
+        setSuccessMessage(true);
       }
 
       setSuccessMessage(true);
+      window.location.reload();
     } catch (err) {
       console.error(err);
       setErrorMessage("Erro ao atualizar o artigo.");
@@ -178,7 +181,9 @@ export const Edit_article = () => {
 
           {previewUrl && (
             <div className="relative aspect-[4/1] w-1/2 rounded-xl shadow overflow-hidden bg-gray-100">
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 src={previewUrl}
                 alt="Pré-visualização"
                 className="absolute inset-0 w-full h-full object-cover"
@@ -264,14 +269,14 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] mb-24"
+          className="w-full md:w-auto font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] mb-4"
         >
           {isLoading ? "Salvando..." : "Salvar Alterações"}
         </button>
       </form>
 
       {successMessage && (
-        <p className="text-[var(--medium-grey)] font-bold mt-4 px-4 py-2 rounded-md">
+        <p className="text-[var(--medium-grey)] bg-[var(--e-white)] font-bold mt-4 px-4 py-2 rounded-md">
           Artigo atualizado com sucesso!
         </p>
       )}

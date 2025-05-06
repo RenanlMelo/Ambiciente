@@ -5,7 +5,7 @@ from pydantic import BaseModel
 class ArticleBase(BaseModel):
     title: str
     subtitle: str
-    image_url: str = None
+    image_url: Optional[str] = None
 
 class Article(ArticleBase):
     id: int
@@ -18,10 +18,9 @@ class Article(ArticleBase):
 class ArticleCreate(ArticleBase):
     topics: List[TopicCreate] = []  # Lista dinâmica de tópicos
 
-class ArticleUpdate(BaseModel):
-    title: str
-    subtitle: str
-    image_url: str = None
+class ArticleUpdate(ArticleBase):
+    slug: str
+    image_url: Optional[str]
     topics: List[TopicCreate] = []
 
 # Novo modelo de resposta para refletir os dados completos após a criação

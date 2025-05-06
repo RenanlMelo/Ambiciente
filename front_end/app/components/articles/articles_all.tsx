@@ -88,7 +88,8 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                 <Image
                   width={1600}
                   height={400}
-                  src={`${apiUrl}/${article.image_url}`}
+                  id={`${apiUrl}${article.image_url}`}
+                  src={`${apiUrl}${article.image_url}`}
                   alt="article background"
                   className="w-full bg-cover aspect-[3/1] object-cover"
                 />

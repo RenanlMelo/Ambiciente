@@ -54,7 +54,7 @@ export const Header = () => {
     localStorage.removeItem("access_token");
     logout();
     setMenuOpen(false);
-    router.refresh();
+    router.push("/login");
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`${ibmPlexSans.className} min-h-24 h-[calc(8vh+1rem)] w-screen box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
+      className={`${ibmPlexSans.className} h-[calc(8vh+1rem)] w-screen box-border fixed top-0 bg-[var(--background)] grid grid-cols-2 md:grid-cols-3 text-[var(--primary)] pt-4 md:pt-6 pb-4 md:pb-6 z-50 border-b-2 border-b-[var(--border)]`}
     >
       {/* Logo */}
       <Link
@@ -175,7 +175,7 @@ export const Header = () => {
             </button>
           )}
           <nav aria-label="User menu" className="min-w-[150px] ">
-            <ul className="grid grid-rows-2 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 gap-2">
+            <ul className="grid grid-rows-2 text-[var(--primaryHover)] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 md:mr-8 gap-2">
               {user ? (
                 <>
                   {user.role === "admin" && (

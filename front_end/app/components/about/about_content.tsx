@@ -73,7 +73,7 @@ export const About_content = () => {
       </h2>
       <ul>
         <li className="text-clamp-medium text-[var(--light-grey)]">
-          <strong>Frontend:</strong> HTML, CSS, JavaScript, React.js, Next.js
+          <strong>Frontend:</strong> HTML, CSS, JavaScript, TypeScript, Next.js
         </li>
         <li className="text-clamp-medium text-[var(--light-grey)]">
           <strong>Backend:</strong> Python, FastAPI
