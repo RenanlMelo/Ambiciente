@@ -8,6 +8,7 @@ Ambiciente is a digital platform dedicated to environmental care and preservatio
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation and Configuration](#installation-and-configuration)
+- [Versioning](#versioning)
 
 ## Overview
 
@@ -107,3 +108,109 @@ Ambiciente engages the community in protecting the environment by allowing users
     ```bash
    uvicorn main:app --reload
    ```
+
+## Versioning
+
+---
+
+## [1.0.0] - 2025-05-06
+### Added
+- Production release
+
+---
+
+## [0.5.0] - 2025-05-06
+### Changed
+- Optimized image tags for Next.js
+- Improved article creation and editing functionalities
+- Fixed admin functionalities
+- Improved rendering performance
+
+## [0.4.0] - 2025-05-05
+### Added
+- Power BI map
+- Image selection option for each article
+
+### Changed
+- Improved responsiveness
+- Updated image handling (front-end and back-end)
+- Updated article PUT request
+
+---
+
+## [0.3.0] - 2025-05-02
+### Added
+- Private routes for each user role
+- Admin functionalities: user management, staff sign-up, and user table view
+
+### Fixed
+- Static Site Generation (SSG) errors
+
+### Changed
+- Improved responsiveness
+
+---
+
+## [0.2.3] - 2025-04-30
+### Added
+- Roles functionality (front-end and back-end)
+- Functionality to the reports page
+
+### Changed
+- Improved responsiveness
+
+---
+
+## [0.2.2] - 2025-04-26
+### Changed
+- Improved sign-in and sign-up functionalities
+- Improved responsiveness
+- Updated mobile header
+
+---
+
+## [0.2.1] - 2025-04-24
+### Changed
+- Updated sign-in and sign-up functionalities
+- Added text responsiveness
+
+---
+
+## [0.2.0] - 2025-04-22
+### Added
+- User routes, schema, and model (sign-in and sign-up)
+
+---
+
+## [0.1.0] - 2025-03-24
+### Added
+- Topic functionalities within articles
+
+### Changed
+- Updated article request functionalities
+
+---
+
+## [0.0.3] - 2025-03-14
+### Changed
+- Rearranged back-end structure
+
+---
+
+## [0.0.2] - 2025-03-08
+### Changed
+- Updated article request functionalities
+
+---
+
+## [0.0.1] - 2025-03-07
+### Added
+- Initial back-end functionalities
+
+---
+
+## [0.0.0] - 2025-02-25
+### Added
+- Main pages and components
+
+---
