@@ -7,6 +7,7 @@ Ambiciente is a digital platform dedicated to environmental care and preservatio
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [API's Links for Power BI](#apis-links-for-power-bi)
 - [Installation and Configuration](#installation-and-configuration)
 - [Versioning](#versioning)
 
@@ -16,25 +17,39 @@ Ambiciente engages the community in protecting the environment by allowing users
 
 ## Features
 
+### Roles
+- **Description:** Divided in 3 different roles, user, staff and admin
+  - **User:** Can view articles (read-only) and share reports.
+  - **Staff:** Can view articles (read-only), access reports, and update report statuses.
+  - **Admin:** Has full access to create and edit articles, view all users in the system, add new staff members, and remove users.
+
 ### Reporting Page
 - **Description:** Enables users to report environmental violations.
-- **Features:** A comprehensive form to input details of the violation, including location, date, and the option to attach files (images, videos).
 - **Objective:** Facilitate the submission of reports so that authorities can take the necessary actions.
 
 ### Articles Page
 - **Description:** Gathers content and news about the environment.
-- **Features:** Articles organized by category, with search functionality and filters for efficient navigation.
 - **Objective:** Inform and raise awareness among users about sustainable practices and environmental preservation.
 
 ### Environmental Map Page
 - **Description:** Displays an interactive map integrated with Power BI that presents environmental indicators by state.
-- **Features:** Visualization of data such as air quality, water quality, pollution levels, among others, using embedded Power BI dashboards.
 - **Objective:** Provide a clear and updated view of the environmental state across different regions of the country through interactive reports.
 
 ### Login and Registration System
 - **Description:** User authentication area.
-- **Features:** Registration and login forms, along with a control panel to track submitted reports.
 - **Objective:** Allow users to track the status of their reports and access personalized content.
+
+### Admin Page
+- **Description:** Main page for the admin to view all users, add new staff members, and remove existing users.
+- **Objective:** Enable the admin to manage users within the system.
+
+### Staff Page
+- **Description:** Main page for staff to view all reports submitted by users and update their statuses.
+- **Objective:** Allow staff members to manage user reports effectively.
+
+### User Page
+- **Description:** Page where users can view all reports they have submitted.
+- **Objective:** Allow users to track their reports and view the status of each one.
 
 ## Technologies Used
 
@@ -47,6 +62,12 @@ Ambiciente engages the community in protecting the environment by allowing users
   - **SQLite:** A lightweight database ideal for small to medium-sized applications.
 - **Data Visualization:** 
   - **Power BI:** For creating and integrating interactive dashboards that display environmental indicators.
+    - Made by [![KevinScavassin](https://img.shields.io/badge/@KevinScavassin-100000?style=flat&logo=github&logoColor=white)][https://github.com/KevinScavassin]
+
+## API's Links for Power BI
+- **INPE:** [Queimadas – TerraBrasilis](https://terrabrasilis.dpi.inpe.br/queimadas/bdqueimadas/)
+- **IEMA:** [Air Quality – IEMA](https://energiaeambiente.org.br/qualidadedoar/)
+- **ANA:** [Open Data – ANA](https://dadosabertos.ana.gov.br/search?groupIds=a7877fdc2dff4ad4a3087f0943d47e42)
 
 ## Installation and Configuration
 
