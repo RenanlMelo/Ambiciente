@@ -260,21 +260,21 @@ export const Denuncia_forms = () => {
           </div>
 
           {/* Políticas e Enviar */}
-          <div className="flex flex-col items-start w-full bg-[var(--politicas-bg)] py-8 px-6 gap-y-4">
+          <div className="flex flex-col items-start w-full bg-[var(--new)] py-8 px-6 gap-y-4">
             <div className="flex items-center justify-start gap-2">
               <input id="checkbox_politicas" type="checkbox" required />
-              <label htmlFor="checkbox_politicas" className="font-light">
+              <label htmlFor="checkbox_politicas" className="font-light text-[var(--c-white)]">
                 Li e concordo com a{" "}
                 <Link
                   href="/"
-                  className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)]"
+                  className="font-normal text-[var(--c-white)] hover:underline decoration-[var(--c-white)]"
                 >
                   Política de Privacidade
                 </Link>{" "}
                 e os{" "}
                 <Link
                   href="/"
-                  className="font-normal text-[var(--secondary)] hover:underline decoration-[var(--secondary)]"
+                  className="font-normal text-[var(--c-white)] hover:underline decoration-[var(--c-white)]"
                 >
                   Termos & Condições
                 </Link>
@@ -282,13 +282,13 @@ export const Denuncia_forms = () => {
               </label>
             </div>
             <button
-              className="w-full md:w-auto font-bold text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] cursor-pointer text-clamp-small"
+              className="w-full md:w-auto font-bold text-white bg-[var(--new)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--newL)] cursor-pointer text-clamp-small border border-[var(--c-white)"
               type="submit"
               disabled={submitting}
             >
               {submitting ? "Enviando…" : "ENVIAR DENÚNCIA"}
             </button>
-            <p className="text-[var(--lightest-grey)] text-clamp-small">
+            <p className="text-[var(--c-white)] text-clamp-small">
               Este site é protegido pelo reCAPTCHA e pelas políticas do Google.
             </p>
           </div>

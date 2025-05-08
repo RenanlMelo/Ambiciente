@@ -53,11 +53,20 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-screen box-border bg-white px-5 lg:px-32 pb-10 pt-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+      <main className="w-screen box-border bg-white pb-10 mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+        <div className="relative w-full">
+          <Image src='/articles.jpg' width={1920} height={1080} alt="Article main image" className="h-[40vh] object-cover" />
+          <span className="absolute top-0 w-full h-full text-center text-white text-clamp-xxlarge backdrop-blur-md flex justify-center items-center">
+            <p className="max-w-[calc(100%-20px)] md:max-w-[40%]">
+              Aprenda e transforme: artigos sobre a sustentabilidade, clima e meio ambiente
+            </p>
+          </span>
+        </div>
+        <div className="px-5 lg:px-32 pt-10">
         {user && user.role === "admin" && (
           <Link
-            href="artigos/admin-artigos/criar"
-            className="flex justify-between items-center w-fit text-clamp-medium text-[var(--light-grey)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1 -translate-x-2"
+          href="artigos/admin-artigos/criar"
+          className="flex justify-between items-center w-fit text-clamp-medium text-[var(--light-grey)] font-bold hover:bg-[var(--politicas-bg)] px-2 py-1 -translate-x-2"
           >
             Criar um novo artigo
             <Image
@@ -66,11 +75,11 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
               src="/svg/create.svg"
               alt="create icon"
               className="pl-2 w-7 md:w-10 h-7 md:h-10"
-            />
+              />
           </Link>
         )}
 
-        <h2 className="text-clamp-xlarge font-semibold text-[var(--medium-grey)] pb-4 md:py-6">
+        <h2 className="text-clamp-xxlarge font-semibold text-[var(--newL)] pb-4 md:py-6">
           Lista de Artigos
         </h2>
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
@@ -82,27 +91,30 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
             articles.map((article: Article) => (
               <div
                 key={article.id}
-                className="border-[#ddd] border-box cursor-pointer opacity-100 hover:opacity-90 shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative max-w-[calc(95vw-20px)]"
-                onClick={() => router.push(`/artigos/${article.slug}`)}
-              >
+                className="border-[#ddd] border-box shadow-[2px_2px_7px_rgba(0,0,0,.15)] relative max-w-[calc(95vw-20px)] rounded-lg overflow-hidden"
+                >
                 <Image
                   width={1600}
                   height={400}
                   id={`${apiUrl}${article.image_url}`}
                   src={`${apiUrl}${article.image_url}`}
                   alt="article background"
-                  className="w-full bg-cover aspect-[3/1] object-cover"
-                />
+                  onClick={() => router.push(`/artigos/${article.slug}`)}
+                  className="w-full bg-cover aspect-[3/1] object-cover cursor-pointer"
+                  />
                 <h2
-                  className={`text-clamp-medium text-[var(--medium-grey)] px-8 mb-2 pt-4 line-clamp-2`}
-                >
+                  className={`text-clamp-medium text-[var(--newL)] px-8 mb-2 pt-4 line-clamp-2`}
+                  >
                   {article.title}
                 </h2>
                 <p
-                  className={`text-clamp-small text-[var(--light-grey)] px-8 mb-6 line-clamp-3`}
-                >
+                  className={`text-clamp-small text-[var(--light-grey)] px-8 pb-2 line-clamp-3`}
+                  >
                   {article.subtitle}
                 </p>
+                <button onClick={() => router.push(`/artigos/${article.slug}`)} className="mb-6 w-full text-end px-8 hover:underline underline-offset-2 decoration-[var(--new)]">
+                  Ler mais
+                </button>
                 {user && user.role === "admin" && (
                   <div className="p-8 pt-0 bottom-5 right-5 flex gap-x-3 place-self-end">
                     <button
@@ -113,7 +125,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                         );
                       }}
                       className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-800 text-clamp-small font-medium transition"
-                    >
+                      >
                       Editar
                     </button>
                     <button
@@ -122,7 +134,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                         setArticleToDelete(article);
                       }}
                       className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-800 text-clamp-small font-medium transition"
-                    >
+                      >
                       Remover
                     </button>
                   </div>
@@ -131,6 +143,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
             ))
           )}
         </div>
+      </div>
       </main>
 
       {/* Delete confirmation modal */}

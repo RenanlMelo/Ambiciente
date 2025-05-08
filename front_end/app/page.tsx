@@ -1,25 +1,52 @@
 "use client";
+import Image from "next/image";
 import Footer from "./components/ui/footer";
+import { GraduationCap, Map, MessageSquareWarning } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-      <section className="w-screen min-h-[85lvh] bg-white flex flex-col justify-center items-center mt-[calc(8vh+1rem)]">
-        <div className="px-5">
-          <h2 className="text-[var(--medium-grey)] font-bold text-clamp-title mb-6 tracking-wider">
-            Bem-vindo ao <span>Ambiciente</span> 🌱🌍
+    <div className="bg-[var(--background)] mt-[calc(8vh+1rem)] flex flex-col items-center justify-center">
+
+      <section className="w-screen h-[75lvh] flex flex-col justify-center items-center bg-[url(/bg.jpg)] relative">
+          <span className="w-full h-full absolute top-0 bg-black/60" />
+          <h2 className="text-[var(--f5-white)] font-bold text-clamp-xxxlarge mb-6 tracking-wider z-10">
+            Bem-vindo ao <span>Ambiciente</span>🌍
           </h2>
-          <p className="text-[var(--light-grey)] text-clamp-medium tracking-wider md:w-[calc(564px+10vw)]">
+          <p className="text-[var(--e-white)] text-clamp-medium tracking-wider md:w-[calc(564px+15vw)] z-10 text-center font-medium">
             Nosso planeta precisa de nós, e o Ambiciente. é o espaço para quem
             quer fazer a diferença. Aqui, você pode denunciar crimes ambientais,
             se informar com artigos sobre sustentabilidade e visualizar o
             impacto ambiental no Brasil através de um mapa interativo. Juntos,
             podemos construir um futuro mais{" "}
-            <strong className="text-[var(--primary)]">verde</strong> e
-            consciente!
+            verde e consciente!
           </p>
-        </div>
       </section>
+      <section className="w-full h-full grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 py-20 md:w-[calc(564px+25vw)] gap-x-12">
+          <Link href='/denuncia' className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer">
+            <span className="bg-blue-900 p-5 rounded-full">
+              <MessageSquareWarning stroke="var(--background)" size={96} />
+            </span>
+            <h3 className="font-bold tracking-wide text-clamp-xlarge text-blue-900">Denúncias</h3>
+            <p className="text-center text-clamp-medium">Reporte crimes contra o meio ambiente para ajudar a combater a degradação.</p>
+          </Link>
+          <Link href='/artigos' className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer">
+            <span className="bg-green-900 p-5 rounded-full">
+              <GraduationCap stroke="var(--background)" size={96} />
+            </span>
+            <h3 className="font-bold tracking-wide text-clamp-xlarge text-green-900">Educação</h3>
+            <p className="text-center text-clamp-medium">Aprenda mais sobre práticas sustentáveis através de nossos artigos.</p>
+          </Link>
+          <Link href='/mapa' className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer">
+            <span className="bg-yellow-600 p-5 rounded-full">
+              <Map stroke="var(--background)" size={96} />
+            </span>
+            <h3 className="font-bold tracking-wide text-clamp-xlarge text-yellow-600">Mapa</h3>
+            <p className="text-center text-clamp-medium">Visualize impactos ambientais com nosso mapa interativo.</p>
+          </Link>
+      </section>
+    </div>
       <Footer />
     </>
   );

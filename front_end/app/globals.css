@@ -4,18 +4,22 @@
 @tailwind utilities;
 
 :root {
-  --primary: #6d8237;
+  --new: #0f281e;
+  --newL: #163a2b;
+  --newD: #0a1a13;
+  --primary: #468237;
   --primaryHover: #596b2d;
   --secondary: #99b259;
   --secondaryHover: #82974e;
   --border: #d1e0a7;
   --politicas-bg: #eef3e1;
-  --background: #f5f8ee;
+  --background: rgb(245, 248, 238);
   --dark-grey: #303030;
   --medium-grey: #505050;
   --light-grey: #707070;
   --lighter-grey: #909090;
   --lightest-grey: #aaaaaa;
+  --b-white: #bbb;
   --c-white: #ccc;
   --e-white: #eee;
   --f5-white: #f5f5f5;
@@ -23,7 +27,7 @@
 }
 
 body {
-  background: url("/background.jpg") no-repeat bottom;
+  background: url("/bg.jpg") no-repeat bottom;
   background-size: cover;
   font-family: sans-serif;
   box-sizing: border-box;
