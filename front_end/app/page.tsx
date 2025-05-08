@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Footer from "./components/ui/footer";
 import { GraduationCap, Map, MessageSquareWarning } from "lucide-react";
 import Link from "next/link";
