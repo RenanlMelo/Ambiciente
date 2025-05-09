@@ -22,7 +22,7 @@ export const Users_reports = () => {
   }, [token]);
 
   return (
-    <main className="text-clamp-small text-[var(--light-grey)] font-medium ">
+    <main className="text-clamp-small text-[--light_grey] font-medium ">
       {reports.length === 0 ? (
         <p>Nenhuma denúncia encontrada.</p>
       ) : (
@@ -30,11 +30,11 @@ export const Users_reports = () => {
           {reports.map((report, index) => (
             <li key={index} className="border p-4 rounded shadow">
               <p className="text-clamp-large mb-4">
-                <strong className="text-[var(--medium-grey)]">Status</strong>
+                <strong className="text-[--medium_grey]">Status</strong>
                 <br />
                 {report.status}
               </p>
-              <strong className="text-[var(--medium-grey)] text-clamp-large">
+              <strong className="text-[--medium_grey] text-clamp-large">
                 Informações do ocorrido
               </strong>
               <p className="truncate">

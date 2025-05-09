@@ -97,8 +97,8 @@ export const All_reports = () => {
     : reports;
 
   return (
-    <main className="w-full min-h-screen mt-[calc(8vh+1rem)] bg-white px-5 md:px-32 py-16">
-      <h2 className="text-clamp-xlarge text-[var(--dark-grey)] font-semibold mb-4">
+    <main className="w-full min-h-screen bg-white px-5 md:px-32 py-16">
+      <h2 className="text-clamp-xlarge text-[--dark_grey] font-semibold mb-4">
         Denúncias
       </h2>
       <div className="flex gap-x-4 mb-4">
@@ -106,8 +106,8 @@ export const All_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Em andamento"
-              ? "bg-[var(--secondary)] text-white"
-              : " hover:bg-[var(--c-white)]"
+              ? "bg-[--newxL] text-white"
+              : " hover:bg-[--c_white]"
           } border px-4 py-2 rounded  duration-75 w-fit`}
         >
           Em andamento
@@ -116,8 +116,8 @@ export const All_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Aprovadas"
-              ? "bg-[var(--secondary)] text-white"
-              : " hover:bg-[var(--c-white)]"
+              ? "bg-[--newxL] text-white"
+              : " hover:bg-[--c_white]"
           } border px-4 py-2 rounded  duration-75 w-fit`}
         >
           Aprovadas
@@ -126,8 +126,8 @@ export const All_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Rejeitadas"
-              ? "bg-[var(--secondary)] text-white"
-              : " hover:bg-[var(--c-white)]"
+              ? "bg-[--newxL] text-white"
+              : " hover:bg-[--c_white]"
           } border px-4 py-2 rounded  duration-75 w-fit`}
         >
           Rejeitadas
@@ -141,19 +141,19 @@ export const All_reports = () => {
           {filteredReports.map((report) => (
             <li key={report.id} className="border p-8 rounded shadow">
               <p className="text-clamp-large mb-4">
-                <strong className="text-[var(--medium-grey)]">
+                <strong className="text-[--medium_grey]">
                   Envio da denúncia
                 </strong>
                 <br />
                 {handleData(report.data_criacao)}
               </p>
               <p className="text-clamp-large mb-4">
-                <strong className="text-[var(--medium-grey)]">Status</strong>
+                <strong className="text-[--medium_grey]">Status</strong>
                 <br />
                 {report.status}
               </p>
               <div className="mb-4">
-                <strong className="text-[var(--medium-grey)] text-clamp-large">
+                <strong className="text-[--medium_grey] text-clamp-large">
                   Informações do ocorrido
                 </strong>
                 <p className="truncate">
@@ -172,13 +172,11 @@ export const All_reports = () => {
                   <strong>Responsável:</strong> {report.responsavel}
                 </p>
               </div>
-              <strong className="text-[var(--medium-grey)] text-clamp-large">
+              <strong className="text-[--medium_grey] text-clamp-large">
                 Informações do usuário
               </strong>
               {report.is_anonimo ? (
-                <p className="text-[var(--medium-grey)] text-clamp-large">
-                  Anônimo
-                </p>
+                <p className="text-[--medium_grey] text-clamp-large">Anônimo</p>
               ) : (
                 <div>
                   <p className="truncate">
@@ -235,7 +233,7 @@ export const All_reports = () => {
             open
             className="p-8 rounded-2xl w-full max-w-md border-none shadow-[3px_4px_10px_#00000040] flex flex-col justify-between bg-white"
           >
-            <p className="text-clamp-medium text-[var(--medium-grey)]">
+            <p className="text-clamp-medium text-[--medium_grey]">
               Tem certeza que deseja rejeitar esta denúncia?
             </p>
             <div className="mt-6 flex justify-end gap-4">

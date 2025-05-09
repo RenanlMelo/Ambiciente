@@ -43,13 +43,13 @@ export const Users_control = () => {
 
   return (
     <>
-      <h2 className="text-clamp-xlarge text-[var(--dark-grey)] font-semibold mb-4">
+      <h2 className="text-clamp-xlarge text-[--dark_grey] font-semibold mb-4">
         Controle de Usuários
       </h2>
       <div className="flex flex-col gap-4 mb-8 w-fit border-[#d5e7eb]">
         <button
           onClick={() => setForm(!form)}
-          className="border px-4 py-2 rounded active:bg-[var(--e-white)] duration-75 hover:bg-[var(--f6-white)] w-fit text-clamp-medium"
+          className="border px-4 py-2 rounded active:bg-[--e_white] duration-75 hover:bg-[--f6_white] w-fit text-clamp-medium"
         >
           Cadastrar novo funcionário{" "}
           <SquarePlus
@@ -65,11 +65,11 @@ export const Users_control = () => {
                   {signupError}
                 </div>
               )}
-              <p className="text-clamp-large text-[var(--dark-grey)] font-semibold mb-4">
+              <p className="text-clamp-large text-[--dark_grey] font-semibold mb-4">
                 Cadastro de novo funcionário
               </p>
               <form onSubmit={handleSubmit}>
-                <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
+                <label className="block mb-2 font-semibold text-[--medium_grey] text-clamp-small">
                   Name
                 </label>
                 <input
@@ -79,10 +79,10 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={3}
-                  className="w-full mb-6 p-2 border border-[var(--lightest-grey)] rounded bg-[var(--f6-white)] focus:outline-none text-clamp-small"
+                  className="w-full mb-6 p-2 border border-[--lightest_grey] rounded bg-[--f6_white] focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
+                <label className="block mb-2 font-semibold text-[--medium_grey] text-clamp-small">
                   Last Name
                 </label>
                 <input
@@ -92,10 +92,10 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={3}
-                  className="w-full mb-6 p-2 border border-[var(--lightest-grey)] rounded bg-[var(--f6-white)] focus:outline-none text-clamp-small"
+                  className="w-full mb-6 p-2 border border-[--lightest_grey] rounded bg-[--f6_white] focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
+                <label className="block mb-2 font-semibold text-[--medium_grey] text-clamp-small">
                   Email
                 </label>
                 <input
@@ -104,10 +104,10 @@ export const Users_control = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full mb-6 p-2 border border-[var(--lightest-grey)] rounded bg-[var(--f6-white)] focus:outline-none text-clamp-small"
+                  className="w-full mb-6 p-2 border border-[--lightest_grey] rounded bg-[--f6_white] focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-[var(--medium-grey)] text-clamp-small">
+                <label className="block mb-2 font-semibold text-[--medium_grey] text-clamp-small">
                   Password
                 </label>
                 <input
@@ -117,13 +117,13 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={6}
-                  className="w-full mb-6 p-2 border border-[var(--lightest-grey)] rounded bg-[var(--f6-white)] focus:outline-none text-clamp-small"
+                  className="w-full mb-6 p-2 border border-[--lightest_grey] rounded bg-[--f6_white] focus:outline-none text-clamp-small"
                 />
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full py-3 font-bold rounded bg-[var(--secondary)] text-[var(--f6-white)] text-clamp-small tracking-wider hover:bg-[var(--secondaryHover)] mb-4 ${
+                  className={`w-full py-3 font-bold rounded bg-[--newxL] text-[--f6_white] text-clamp-small tracking-wider hover:bg-[--newL] mb-4 ${
                     loading ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
@@ -131,7 +131,7 @@ export const Users_control = () => {
                 </button>
                 <button
                   onClick={() => setForm(false)}
-                  className="w-full border px-4 py-2 rounded duration-75 bg-[var(--e-white)] hover:bg-[var(--c-white)] text-clamp-small"
+                  className="w-full border px-4 py-2 rounded duration-75 bg-[--e_white] hover:bg-[--c_white] text-clamp-small"
                 >
                   Cancelar Cadastro
                 </button>

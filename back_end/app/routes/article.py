@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Request
 from sqlalchemy.orm import selectinload, Session
-import shutil, os
 from uuid import uuid4
+import shutil, os
 import json
+import uuid
 
 from app.schemas.article import ArticleCreate, ArticleUpdate, ArticleResponse
 from app.models.article import Article, Topic
 from app.database import SessionLocal
-import uuid
 
 router = APIRouter()  # Definição do roteador
 
