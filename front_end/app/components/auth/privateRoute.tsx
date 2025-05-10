@@ -18,6 +18,7 @@ export default function PrivateRoute({
   useEffect(() => {
     if (!loading) {
       if (!user) {
+        localStorage.setItem("redirectAfterLogin", window.location.pathname);
         router.push("/login");
       } else if (allowedRoles && !allowedRoles.includes(user.role)) {
         router.push("/unauthorized");

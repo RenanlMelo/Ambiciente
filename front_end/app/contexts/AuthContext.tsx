@@ -129,7 +129,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         role: profile.role,
       });
 
-      router.push("/");
+      const redirectUrl = localStorage.getItem("redirectAfterLogin") || "/";
+      localStorage.removeItem("redirectAfterLogin");
+      router.push(redirectUrl);
     } catch (err) {
       console.error(err);
       setError("Invalid email or password");
