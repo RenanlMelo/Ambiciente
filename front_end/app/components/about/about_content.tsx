@@ -15,7 +15,6 @@ import {
   Paintbrush,
   Cloud,
   ChartColumn,
-  CornerRightDown,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
