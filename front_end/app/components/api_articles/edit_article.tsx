@@ -148,10 +148,10 @@ export const Edit_article = () => {
   }
 
   return (
-    <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-[20vw] mt-[calc(8vh+1rem)] min-h-[calc(92vh-1rem)]">
+    <div className="bg-background absolute w-full pt-24 md:pt-32 md:pb-20 md:px-[20vw] min-h-[calc(92vh-1rem)]">
       <Link
         href={`/artigos`}
-        className="absolute top-4 left-4 md:left-10 text-clamp-medium text-[var(--medium-grey)]"
+        className="absolute top-4 left-4 md:left-10 text-clamp-medium text-mediumGrey"
       >
         <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os
         artigos
@@ -162,7 +162,7 @@ export const Edit_article = () => {
         className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
         <div className="space-y-4 w-full">
-          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[var(--secondary)] text-white cursor-pointer hover:bg-[var(--secondaryHover)] transition w-fit">
+          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-newxxL text-white cursor-pointer hover:bg-newxL transition w-fit">
             <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
@@ -224,9 +224,7 @@ export const Edit_article = () => {
         </div>
 
         <div className="w-full">
-          <h3 className="text-[var(--title)] text-clamp-medium mb-2">
-            Tópicos
-          </h3>
+          <h3 className="text-mediumGrey text-clamp-medium mb-2">Tópicos</h3>
 
           {formData.topics.map((topic) => (
             <div key={topic.id} className="mb-4 p-3 border rounded-md">
@@ -269,14 +267,14 @@ export const Edit_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto font-normal text-white bg-[var(--secondary)] px-4 py-2 h-10 rounded-[4px] hover:bg-[var(--secondaryHover)] mb-4"
+          className="w-full md:w-auto font-normal text-white bg-newxxL px-4 py-2 h-10 rounded-[4px] hover:bg-newxL mb-4"
         >
           {isLoading ? "Salvando..." : "Salvar Alterações"}
         </button>
       </form>
 
       {successMessage && (
-        <p className="text-[var(--medium-grey)] bg-[var(--e-white)] font-bold mt-4 px-4 py-2 rounded-md">
+        <p className="text-mediumGrey bg-eWhite font-bold mt-4 px-4 py-2 rounded-md">
           Artigo atualizado com sucesso!
         </p>
       )}

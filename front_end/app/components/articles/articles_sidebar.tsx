@@ -82,18 +82,18 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
     <>
       <Link
         href="/artigos"
-        className="text-[var(--title)] text-clamp-small font-semibold tracking-wide hover:decoration-[var(--lighter-grey)] underline underline-offset-[6px] decoration-transparent cursor-pointer"
+        className="text-mediumGrey text-clamp-small font-semibold tracking-wide hover:decoration-lighterGrey underline underline-offset-[6px] decoration-transparent cursor-pointer"
       >
         Ver todos os artigos <CornerDownLeft className="ml-1 w-5 h-5 inline" />
       </Link>
 
       {user && user.role === "admin" && (
         <div id="create_article">
-          <h2 className="text-[var(--medium-grey)] font-semibold text-clamp-large tracking-wide">
+          <h2 className="text-mediumGrey font-semibold text-clamp-large tracking-wide">
             Artigos
           </h2>
           <ul className="grid grid-rows-3 grid-cols-1 items-start justify-center py-4 text-clamp-small">
-            <li className="cursor-pointer border-y border-[var(--lighter-grey)] py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
+            <li className="cursor-pointer border-y border-lighterGrey py-2 px-2 w-full flex items-center justify-between hover:bg-[#6d823730]">
               <Link
                 href="admin-artigos/criar"
                 className="flex justify-between w-full gap-x-8 items-center"
@@ -108,7 +108,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
                 />
               </Link>
             </li>
-            <li className="cursor-pointer border-b border-[var(--lighter-grey)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
+            <li className="cursor-pointer border-b border-lighterGrey w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]">
               <Link
                 href={`admin-artigos/editar/${slug}`}
                 className="flex justify-between items-center w-full"
@@ -124,7 +124,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
               </Link>
             </li>
             <li
-              className="cursor-pointer border-b border-[var(--lighter-grey)] w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
+              className="cursor-pointer border-b border-lighterGrey w-full py-2 px-2 flex items-center justify-between hover:bg-[#6d823730]"
               onClick={() => setRemovePopup(true)}
             >
               Deletar artigo atual
@@ -141,21 +141,21 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       )}
 
       <div id="navigation">
-        <h2 className="text-[var(--medium-grey)] font-semibold text-2xl tracking-wide pb-4">
+        <h2 className="text-mediumGrey font-semibold text-2xl tracking-wide pb-4">
           Navegação
         </h2>
         <div className="relative">
-          <span className="w-[2px] bg-[var(--lighter-grey)] h-[95%] top-1/2 -translate-y-1/2 absolute left-0" />
+          <span className="w-[2px] bg-lighterGrey h-[95%] top-1/2 -translate-y-1/2 absolute left-0" />
           <ul className="flex flex-col gap-y-8 text-xl">
-            <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-[var(--medium-grey)] decoration-transparent underline underline-offset-[6px]">
-              <div className="-translate-x-[45%] bg-[var(--medium-grey)] w-3 h-3 rounded-full" />
+            <li className="flex items-center gap-x-2 cursor-pointer hover:decoration-mediumGrey decoration-transparent underline underline-offset-[6px]">
+              <span className="-translate-x-[45%] bg-mediumGrey w-3 h-3 rounded-full absolute" />
               <LinkScroll
                 smooth={true}
                 offset={offsetTop}
                 spy={true}
                 duration={500}
                 to={"section-title"}
-                className="font-semibold text-[var(--medium-grey)]"
+                className="font-semibold text-mediumGrey ml-4"
                 onClick={() => setMenuOpen(false)}
               >
                 {article.title}
@@ -165,9 +165,9 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
             {article.topics?.map((topic, index) => (
               <li
                 key={topic.id || `topic-${index}`}
-                className="grid grid-cols-[12px_1fr] items-center gap-x-2 cursor-pointer hover:decoration-[var(--medium-grey)] decoration-transparent underline underline-offset-[6px] text-[var(--medium-grey)]"
+                className="flex items-center gap-x-2 cursor-pointer hover:decoration-mediumGrey decoration-transparent underline underline-offset-[6px] text-mediumGrey"
               >
-                <div className="-translate-x-[45%] bg-[var(--medium-grey)] w-3 h-3 rounded-full" />
+                <span className="-translate-x-[45%] bg-mediumGrey w-3 h-3 rounded-full absolute" />
                 <LinkScroll
                   to={topic.title}
                   smooth={true}
@@ -175,7 +175,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
                   offset={offsetTop}
                   duration={400}
                   onClick={() => setMenuOpen(false)}
-                  className="truncate cursor-pointer"
+                  className="truncate cursor-pointer ml-4"
                 >
                   {topic.title}
                 </LinkScroll>
@@ -194,12 +194,12 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
         onClick={toggleMenu}
         className="md:hidden fixed top-28 right-4 z-30 bg-[#505050aa] text-white p-2 rounded-lg cursor-pointer"
       >
-        <Funnel size={32} stroke="var(--f6-white)" strokeWidth={2} />
+        <Funnel size={32} className="stroke-f6White" strokeWidth={2} />
       </button>
 
       {/* Menu fixo para desktop */}
       <aside
-        className={`hidden md:flex ${ibmPlexSans.className} overflow-y-scroll fixed bg-[var(--background)] w-[20vw] p-[24px_48px_48px_80px] flex-col gap-y-5 top-[calc(8vh+1rem)] bottom-0 box-border z-40`}
+        className={`hidden md:flex ${ibmPlexSans.className} overflow-y-scroll fixed bg-background w-[20vw] p-[24px_48px_48px_80px] flex-col gap-y-5 top-24 bottom-0 box-border z-40`}
       >
         <SidebarContent />
       </aside>
@@ -207,14 +207,14 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
       {/* Menu toggle mobile */}
       {menuOpen && (
         <aside
-          className={`md:hidden ${ibmPlexSans.className} overflow-y-scroll fixed bg-[var(--background)] w-full p-8 flex flex-col gap-y-5 top-[calc(8vh+1rem)] bottom-0 box-border z-50`}
+          className={`md:hidden ${ibmPlexSans.className} overflow-y-scroll fixed bg-background w-full p-8 flex flex-col gap-y-5 top-20 bottom-0 box-border z-50`}
         >
           <button
             onClick={toggleMenu}
             aria-label="Fechar menu"
             className="absolute top-3 right-2 p-2"
           >
-            <CircleX size={40} stroke="#99b259" strokeWidth={2} />
+            <CircleX size={40} className="stroke-newxxL" strokeWidth={2} />
           </button>
           <SidebarContent />
         </aside>
@@ -236,7 +236,7 @@ export const Articles_sidebar: React.FC<Props> = ({ article }) => {
             open
             className="p-8 rounded-2xl w-full max-w-md border-none z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between"
           >
-            <p className="text-clamp-medium text-[var(--medium-grey)]">
+            <p className="text-clamp-medium text-mediumGrey">
               Deseja apagar esse artigo?
             </p>
             <div className="mt-6 flex justify-end gap-4">

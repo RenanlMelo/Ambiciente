@@ -4,6 +4,7 @@ import { Report } from "@/app/types";
 import { useAuth } from "@/app/contexts/AuthContext";
 
 export const Users_reports = () => {
+  const [active, setActive] = useState<string>("em andamento");
   const [reports, setReports] = useState<Report[]>([]);
   const { token } = useAuth();
 
@@ -21,20 +22,64 @@ export const Users_reports = () => {
       });
   }, [token]);
 
+  const handleActiveReports = (label: string) => {
+    setActive(label);
+  };
+
+  const statusMap: Record<string, string> = {
+    "em andamento": "Em andamento",
+    aprovadas: "Concluída",
+    rejeitadas: "Rejeitada",
+  };
+
+  const filteredReports = active
+    ? reports.filter(
+        (report) => report.status === statusMap[active.toLowerCase()]
+      )
+    : reports;
+
   return (
-    <main className="text-clamp-small text-[var(--light-grey)] font-medium ">
-      {reports.length === 0 ? (
+    <main className="text-clamp-small text-lightGrey font-medium ">
+      <div className="flex gap-x-4 mb-4">
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Em andamento"
+              ? "bg-newxL text-white"
+              : " hover:bg-cWhite"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Em andamento
+        </button>
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Aprovadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Aprovadas
+        </button>
+        <button
+          onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
+          className={`${
+            active === "Rejeitadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
+          } border px-4 py-2 rounded  duration-75 w-fit`}
+        >
+          Rejeitadas
+        </button>
+      </div>
+      {filteredReports.length === 0 ? (
         <p>Nenhuma denúncia encontrada.</p>
       ) : (
         <ul className="space-y-4">
-          {reports.map((report, index) => (
+          {filteredReports.map((report, index) => (
             <li key={index} className="border p-4 rounded shadow">
               <p className="text-clamp-large mb-4">
-                <strong className="text-[var(--medium-grey)]">Status</strong>
+                <strong className="text-mediumGrey">Status</strong>
                 <br />
                 {report.status}
               </p>
-              <strong className="text-[var(--medium-grey)] text-clamp-large">
+              <strong className="text-mediumGrey text-clamp-large">
                 Informações do ocorrido
               </strong>
               <p className="truncate">
