@@ -10,7 +10,7 @@ export default function Perfil() {
     <PrivateRoute allowedRoles={["user"]}>
       <div className="w-full min-h-screen bg-white px-5 md:px-32 py-16">
         <Users_info />
-        <h3 className="text-clamp-large text-[--dark_grey] font-semibold mt-12 mb-4">
+        <h3 className="text-clamp-large text-darkGrey font-semibold mt-12 mb-4">
           Minhas Denúncias
         </h3>
         <Users_reports />

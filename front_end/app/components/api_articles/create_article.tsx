@@ -145,7 +145,7 @@ export const Create_article = () => {
     <div className="bg-white absolute w-full pt-24 md:pt-32 md:pb-20 md:px-[20vw] min-h-[calc(92vh-1rem)]">
       <Link
         href={`/artigos`}
-        className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[--medium_grey]"
+        className="absolute top-4 left-4 md:left-10 text-clamp-medium justify-between w-fit text-[--medium-grey]"
       >
         <ChevronsLeft stroke="#505050" className="inline" /> Ver todos os
         artigos
@@ -155,7 +155,7 @@ export const Create_article = () => {
         className="flex flex-col justify-between items-start gap-x-12 gap-y-10 text-clamp-small px-5 md:p-0"
       >
         <div className="space-y-4 w-full relative">
-          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[--newxxL] text-white cursor-pointer hover:bg-[--newxL] transition duration-300 w-fit">
+          <label className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[--newxxL] text-white cursor-pointer hover:bg-newxL transition duration-300 w-fit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -222,9 +222,7 @@ export const Create_article = () => {
 
         {/* Tópicos Dinâmicos */}
         <div className="w-full">
-          <h3 className="text-[var(--title)] text-clamp-medium mb-2">
-            Tópicos
-          </h3>
+          <h3 className="text-mediumGrey text-clamp-medium mb-2">Tópicos</h3>
 
           {formData.topics.map((topic) => (
             <div key={topic.id} className="mb-4 p-3 border rounded-md">
@@ -279,13 +277,13 @@ export const Create_article = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto col-span-2 font-normal text-white bg-[--newxxL] px-4 py-2 h-10 rounded-[4px] hover:bg-[--newxL] cursor-pointer mb-2"
+          className="w-full md:w-auto col-span-2 font-normal text-white bg-[--newxxL] px-4 py-2 h-10 rounded-[4px] hover:bg-newxL cursor-pointer mb-2"
         >
           {isLoading ? "Enviando..." : "Criar Artigo"}
         </button>
       </form>
       {successMessage && (
-        <p className="text-[--medium_grey] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
+        <p className="text-[--medium-grey] font-bold text-clamp-small mt-4 px-4 py-2 rounded-md">
           Seu artigo foi criado com sucesso!
         </p>
       )}

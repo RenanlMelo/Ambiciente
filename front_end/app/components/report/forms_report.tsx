@@ -106,7 +106,7 @@ export const Denuncia_forms = () => {
 
   return (
     <main className="w-full h-fit bg-white px-5 md:px-[12vw] py-12">
-      <h2 className="text-[--medium_grey] font-semibold text-clamp-xxlarge">
+      <h2 className="text-mediumGrey font-semibold text-clamp-xxlarge">
         Envie uma nova denúncia
       </h2>
       {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
@@ -116,12 +116,12 @@ export const Denuncia_forms = () => {
       >
         {/* Detalhes da Infração */}
         <div className="flex flex-col justify-center items-center md:border w-full md:w-[48%] relative md:px-6 gap-y-12 md:gap-y-6 pt-8 md:py-8 mt-10 mb-0 md:my-10">
-          <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[--medium_grey] font-bold text-clamp-medium self-start">
+          <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-mediumGrey font-bold text-clamp-medium self-start">
             Detalhes da Infração
           </h3>
           {/* Descrição */}
           <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
-            <label className="bg-[--f5_white] text-[--medium_grey] font-bold w-full px-4 py-1 text-clamp-small">
+            <label className="bg-f5White text-mediumGrey font-bold w-full px-4 py-1 text-clamp-small">
               O QUE ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -136,7 +136,7 @@ export const Denuncia_forms = () => {
           </div>
           {/* Onde */}
           <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
-            <label className="bg-[--f5_white] text-[--medium_grey] font-bold w-full px-4 py-1 text-clamp-small">
+            <label className="bg-f5White text-mediumGrey font-bold w-full px-4 py-1 text-clamp-small">
               ONDE ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -150,7 +150,7 @@ export const Denuncia_forms = () => {
           </div>
           {/* Quando */}
           <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
-            <label className="bg-[--f5_white] text-[--medium_grey] font-bold w-full px-4 py-1 text-clamp-small">
+            <label className="bg-f5White text-mediumGrey font-bold w-full px-4 py-1 text-clamp-small">
               QUANDO ACONTECEU <strong className="text-red-500">*</strong>
             </label>
             <input
@@ -168,7 +168,7 @@ export const Denuncia_forms = () => {
           </div>
           {/* Impactos */}
           <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
-            <label className="bg-[--f5_white] text-[--medium_grey] font-bold w-full px-4 py-1 text-clamp-small">
+            <label className="bg-f5White text-mediumGrey font-bold w-full px-4 py-1 text-clamp-small">
               IMPACTOS <strong className="text-red-500">*</strong>
             </label>
             <textarea
@@ -182,7 +182,7 @@ export const Denuncia_forms = () => {
           </div>
           {/* Responsável */}
           <div className="flex flex-col items-center justify-center gap-2 md:gap-6 w-full">
-            <label className="bg-[--f5_white] text-[--medium_grey] font-bold w-full px-4 py-1 text-clamp-small">
+            <label className="bg-f5White text-mediumGrey font-bold w-full px-4 py-1 text-clamp-small">
               QUEM FOI O RESPONSÁVEL
             </label>
             <textarea
@@ -198,7 +198,7 @@ export const Denuncia_forms = () => {
         <div className="flex flex-col justify-center items-center md:w-[48%] relative gap-y-10 mt-10">
           {/* Dados do usuário */}
           <div className="flex flex-col justify-center items-start md:border w-full relative md:px-6 gap-x-2 py-8 text-clamp-small">
-            <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-[--medium_grey] font-bold text-clamp-medium self-start">
+            <h3 className="bg-white px-2 absolute top-0 -translate-y-1/2 text-mediumGrey font-bold text-clamp-medium self-start">
               Seus Dados
             </h3>
             <div className="flex items-center gap-2 mb-6">
@@ -243,7 +243,7 @@ export const Denuncia_forms = () => {
               required={!anonimo}
               className="w-full border px-2 py-1 rounded-sm focus:outline-none text-clamp-small disabled:bg-[#ddd] disabled:text-[#666] disabled:cursor-not-allowed"
             />
-            <p className="text-[--lightest_grey] text-clamp-xsmall mb-2">
+            <p className="text-lightestGrey text-clamp-xsmall mb-2">
               Obrigatório para confirmação e acompanhamento.
             </p>
 
@@ -259,24 +259,29 @@ export const Denuncia_forms = () => {
           </div>
 
           {/* Políticas e Enviar */}
-          <div className="flex flex-col items-start w-full bg-[--newxL] py-8 px-6 gap-y-4">
+          <div className="flex flex-col items-start w-full border py-8 px-6 gap-y-4">
             <div className="flex items-center justify-start gap-2">
-              <input id="checkbox_politicas" type="checkbox" required />
+              <input
+                id="checkbox_politicas"
+                type="checkbox"
+                required
+                className="cursor-pointer -translate-y-[2px]"
+              />
               <label
                 htmlFor="checkbox_politicas"
-                className="font-light text-[--c_white]"
+                className="font-light text-mediumGrey  cursor-pointer"
               >
                 Li e concordo com a{" "}
                 <Link
                   href="/"
-                  className="font-normal text-[--c_white] hover:underline decoration-[--c_white]"
+                  className="font-normal hover:underline decoration-cWhite"
                 >
                   Política de Privacidade
                 </Link>{" "}
                 e os{" "}
                 <Link
                   href="/"
-                  className="font-normal text-[--c_white] hover:underline decoration-[--c_white]"
+                  className="font-normal hover:underline decoration-cWhite"
                 >
                   Termos & Condições
                 </Link>
@@ -284,13 +289,13 @@ export const Denuncia_forms = () => {
               </label>
             </div>
             <button
-              className="w-full md:w-auto font-bold text-white bg-[--newL] px-4 py-2 h-10 rounded-[4px] hover:bg-[--new] cursor-pointer text-clamp-small border border-[--c_white"
+              className="w-full md:w-auto font-bold text-white bg-newxxL px-4 py-2 h-10 rounded-[4px] hover:bg-newxL cursor-pointer text-clamp-small"
               type="submit"
               disabled={submitting}
             >
               {submitting ? "Enviando…" : "ENVIAR DENÚNCIA"}
             </button>
-            <p className="text-[--c_white] text-clamp-small">
+            <p className="text-lightGrey text-clamp-small">
               Este site é protegido pelo reCAPTCHA e pelas políticas do Google.
             </p>
           </div>

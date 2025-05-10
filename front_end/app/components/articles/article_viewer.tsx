@@ -40,11 +40,11 @@ export default function Article_viewer({
         <Element name="section-title">
           <h2
             key={article.title}
-            className="text-clamp-xxlarge font-semibold text-[--new] break-words"
+            className="text-clamp-xxlarge font-semibold text-new break-words"
           >
             {article.title}
           </h2>
-          <p className="text-clamp-small text-[--newxL] break-words">
+          <p className="text-clamp-small text-newxL break-words">
             {article.subtitle}
           </p>
         </Element>
@@ -53,10 +53,10 @@ export default function Article_viewer({
           {article.topics?.length > 0 ? (
             article.topics.map((topic) => (
               <Element key={`topic-${topic.title}`} name={topic.title}>
-                <h3 className="text-clamp-large font-semibold text-[--medium_grey] break-words">
+                <h3 className="text-clamp-large font-semibold text-mediumGrey break-words">
                   {topic.title}
                 </h3>
-                <p className="text-clamp-small text-[--light_grey] break-words">
+                <p className="text-clamp-small text-lightGrey break-words">
                   {topic.content}
                 </p>
               </Element>

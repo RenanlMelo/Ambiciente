@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[--new] text-white pt-5 text-center w-screen z-40 text-clamp-small">
+    <footer className="bg-new text-white pt-5 text-center w-screen z-40 text-clamp-small">
       <div className="flex justify-around flex-wrap max-w-6xl mx-auto p-5">
         {/* Sobre Nós */}
         <div className="flex-1 min-w-[250px] m-2.5">
@@ -109,7 +109,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 bg-[--newD] p-2.5 text-clamp-xsmall">
+      <div className="mt-5 bg-newD p-2.5 text-clamp-xsmall">
         <p>&copy; 2025 Ambiente Seguro | Todos os direitos reservados.</p>
       </div>
     </footer>

@@ -78,7 +78,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`${ibmPlexSans.className} h-20 md:h-24 w-screen box-border sticky top-0 bg-[--new] grid grid-cols-2 md:grid-cols-3 text-[--e_white] pt-4 pb-3 z-50 border-b-2 border-b-[--newL]`}
+      className={`${ibmPlexSans.className} h-20 md:h-24 w-screen box-border sticky top-0 bg-new grid grid-cols-2 md:grid-cols-3 text-eWhite pt-4 pb-3 z-50 border-b-2 border-b-newL`}
     >
       {/* Logo */}
       <Link
@@ -97,14 +97,14 @@ export const Header = () => {
             className="justify-self-end self-center p-4"
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <User className="md:w-6 md:h-6 stroke-[var(--c_white)]" />
+            <User className="md:w-6 md:h-6 stroke-cWhite" />
           </button>
           <button
             onClick={toggleMobileMenu}
             className="justify-self-end self-center p-4"
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <AlignRight className="w-6 h-6 stroke-[var(--c_white)]" />
+            <AlignRight className="w-6 h-6 stroke-cWhite" />
           </button>
         </div>
       )}
@@ -115,16 +115,16 @@ export const Header = () => {
           aria-label="Main navigation"
           className="flex justify-center items-center"
         >
-          <ul className="flex justify-center items-center gap-x-4 lg:gap-x-8 text-[--b_white] font-medium text-clamp-medium w-fit place-self-center">
+          <ul className="flex justify-center items-center gap-x-4 lg:gap-x-8 text-bWhite font-medium text-clamp-medium w-fit place-self-center">
             {pagesList.map((page) => (
               <li key={page.url}>
                 <Link
                   href={page.url}
                   className={`${
                     page.url === pathname
-                      ? `decoration-[--c_white] text-[--c_white]`
-                      : `decoration-transparent hover:decoration-[--c_white]`
-                  } underline decoration-2 underline-offset-[6px] transition-colors duration-150 hover:text-[--e_white]`}
+                      ? `decoration-cWhite text-cWhite`
+                      : `decoration-transparent hover:decoration-cWhite`
+                  } underline decoration-2 underline-offset-[6px] transition-colors duration-150 hover:text-eWhite`}
                 >
                   {page.name}
                 </Link>
@@ -136,11 +136,11 @@ export const Header = () => {
 
       {/* Right side controls (desktop only) */}
       {!isMobile && !["/login", "/cadastro"].includes(pathname) && (
-        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-[--e_white] font-medium text-clamp-medium pr-5 md:pr-0 md:mr-5 lg:mr-20">
+        <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-eWhite font-medium text-clamp-medium pr-5 md:pr-0 md:mr-5 lg:mr-20">
           {user && user.role === "user" && (
             <Link
               href="/denuncia"
-              className="font-bold text-[--c_white] px-3 py-1 md:px-4 md:py-2 rounded-[4px] border border-[--newL] hover:bg-[--newL] transition-colors duration-200 text-clamp-small"
+              className="font-bold text-cWhite px-3 py-1 md:px-4 md:py-2 rounded-[4px] border border-newL hover:bg-newL transition-colors duration-200 text-clamp-small"
               aria-label="Faça sua denúncia"
             >
               FAÇA SUA DENÚNCIA
@@ -151,12 +151,11 @@ export const Header = () => {
             onClick={toggleMenu}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={menuOpen}
-            className="p-2 rounded-full border-2 border-[--c_white] hover:bg-[--newL] transition-colors duration-200"
+            className="p-2 rounded-full border-2 border-cWhite hover:bg-newL transition-colors duration-200"
           >
             <User
               fill="transparent"
-              stroke="var(--c_white)"
-              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)]"
+              className="w-[calc(1vw+10px)] h-[calc(1vw+10px)] stroke-cWhite"
             />
           </button>
         </div>
@@ -164,25 +163,25 @@ export const Header = () => {
 
       {/* User dropdown menu */}
       {menuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[--new] flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-[--newL] md:inset-auto md:absolute md:top-full md:right-0 md:h-fit md:w-auto md:translate-y-[2px]">
+        <div className="w-screen h-screen fixed inset-0 bg-new flex flex-col items-start justify-start md:rounded-bl-lg md:border-b-2 md:border-l-2 border-newL md:inset-auto md:absolute md:top-full md:right-0 md:h-fit md:w-auto md:translate-y-[2px]">
           {isMobile && (
             <button
               onClick={toggleMenu}
               aria-label="Fechar menu"
               className="absolute top-3 right-2 p-2"
             >
-              <CircleX size={40} stroke="var(--c_white)" strokeWidth={2} />
+              <CircleX size={40} className="stroke-cWhite" strokeWidth={2} />
             </button>
           )}
           <nav aria-label="User menu" className="min-w-[150px] ">
-            <ul className="grid grid-rows-2 text-[--c_white] font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 md:mr-8 gap-2">
+            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 md:mr-8 gap-2">
               {user ? (
                 <>
                   {user.role === "admin" && (
                     <li>
                       <Link
                         href="/users-control"
-                        className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                        className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                       >
                         Controle de Usuários
                       </Link>
@@ -192,7 +191,7 @@ export const Header = () => {
                     <li>
                       <Link
                         href="/perfil"
-                        className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                        className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                       >
                         Meu Perfil
                       </Link>
@@ -202,7 +201,7 @@ export const Header = () => {
                     <li>
                       <Link
                         href="/denuncia/visualizar-denuncias"
-                        className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                        className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                       >
                         Visualizar Denúncias
                       </Link>
@@ -211,7 +210,7 @@ export const Header = () => {
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                     >
                       Sair
                     </button>
@@ -222,14 +221,14 @@ export const Header = () => {
                   <li>
                     <Link
                       href="/login"
-                      className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                     >
                       Login
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                      className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                       href="/cadastro"
                     >
                       Cadastro
@@ -244,22 +243,22 @@ export const Header = () => {
 
       {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
-        <div className="w-screen h-screen fixed inset-0 bg-[--new] flex flex-col items-start justify-start z-40 text-clamp-xxxlarge p-12">
+        <div className="w-screen h-screen fixed inset-0 bg-new flex flex-col items-start justify-start z-40 text-clamp-xxxlarge p-12">
           <button
             onClick={toggleMobileMenu}
             aria-label="Fechar menu"
             className="absolute top-3 right-2 p-2"
           >
-            <CircleX size={40} stroke="var(--c_white)" strokeWidth={2} />
+            <CircleX size={40} className="stroke-cWhite" strokeWidth={2} />
           </button>
 
           <nav aria-label="Mobile navigation" className="w-full box-border">
-            <ul className="grid grid-rows-2 text-[--c_white] font-medium text-clamp-xxxlarge gap-2">
+            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-xxxlarge gap-2">
               {pagesList.map((page) => (
                 <li key={page.url}>
                   <Link
                     href={page.url}
-                    className="hover:decoration-[--c_white] decoration-transparent underline underline-offset-[6px]"
+                    className="hover:decoration-cWhite decoration-transparent underline underline-offset-[6px]"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {page.name}
@@ -270,7 +269,7 @@ export const Header = () => {
             {user && user.role === "user" && (
               <Link
                 href="/denuncia"
-                className="block border-2 border-[--c_white] px-3 py-1 mt-10 text-[--c_white] font-medium text-clamp-xxxlarge"
+                className="block border-2 border-cWhite px-3 py-1 mt-10 text-cWhite font-medium text-clamp-xxxlarge"
               >
                 Faça sua denúncia
               </Link>

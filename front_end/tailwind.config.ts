@@ -15,6 +15,25 @@ export default {
         "clamp-small": "clamp(0.85rem, .65vw + 0.2rem, 1.5rem)", // Tamanho de fonte para corpo com clamp
         "clamp-xsmall": "clamp(0.65rem, .55vw + 0.2rem, 1.25rem)", // Tamanho de fonte para corpo com clamp
       },
+      colors: {
+        new: "#0f281e",
+        newL: "#163a2b",
+        newxL: "#1c4b37",
+        newxxL: "#1b5e41",
+        newD: "#0a1a13",
+        newO: "#0a1a1330", // RGBA (opacidade), pode não funcionar em todos os casos como cor sólida
+        background: "rgb(245, 247, 247)",
+        darkGrey: "#303030",
+        mediumGrey: "#505050",
+        lightGrey: "#707070",
+        lighterGrey: "#909090",
+        lightestGrey: "#aaaaaa",
+        bWhite: "#bbb",
+        cWhite: "#ccc",
+        eWhite: "#eee",
+        f5White: "#f5f5f5",
+        f6White: "#f6f6f6",
+      },
     },
   },
   plugins: [],

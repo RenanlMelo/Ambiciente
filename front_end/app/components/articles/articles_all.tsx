@@ -53,7 +53,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
 
   return (
     <>
-      <main className="w-screen box-border bg-[var(--background)] pb-10 min-h-[calc(92vh-1rem)]">
+      <main className="w-screen box-border bg-background pb-10 min-h-[calc(92vh-1rem)]">
         <div className="relative w-full">
           <Image
             src="/articles.jpeg"
@@ -74,7 +74,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
           {user && user.role === "admin" && (
             <Link
               href="artigos/admin-artigos/criar"
-              className="flex justify-between items-center w-fit text-clamp-medium text-[--light_grey] font-bold hover:bg-[--newO] hover:text-[--new] px-2 py-1 -translate-x-2"
+              className="flex justify-between items-center w-fit text-clamp-medium text-lightGrey font-bold hover:bg-newO hover:text-new px-2 py-1 -translate-x-2"
             >
               Criar um novo artigo
               <Image
@@ -87,12 +87,12 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
             </Link>
           )}
 
-          <h2 className="text-clamp-xxlarge font-semibold text-[--newL] pb-4 md:py-6">
+          <h2 className="text-clamp-xxlarge font-semibold text-newL pb-4 md:py-6">
             Lista de Artigos
           </h2>
           <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
             {articles.length === 0 ? (
-              <h2 className="text-[--light_grey] font-semibold text-clamp-medium underline underline-offset-[6px]">
+              <h2 className="text-lightGrey font-semibold text-clamp-medium underline underline-offset-[6px]">
                 Nenhum artigo disponível
               </h2>
             ) : (
@@ -111,18 +111,18 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                     className="w-full bg-cover aspect-[3/1] object-cover cursor-pointer"
                   />
                   <h2
-                    className={`text-clamp-medium text-[--newL] px-8 mb-2 pt-4 line-clamp-2`}
+                    className={`text-clamp-medium text-newL px-8 mb-2 pt-4 line-clamp-2`}
                   >
                     {article.title}
                   </h2>
                   <p
-                    className={`text-clamp-small text-[--light_grey] px-8 pb-2 line-clamp-3`}
+                    className={`text-clamp-small text-lightGrey px-8 pb-2 line-clamp-3`}
                   >
                     {article.subtitle}
                   </p>
                   <button
                     onClick={() => router.push(`/artigos/${article.slug}`)}
-                    className="mb-6 w-full text-end px-8 hover:underline underline-offset-2 decoration-[--new]"
+                    className="mb-6 w-full text-end px-8 hover:underline underline-offset-2 decoration-new"
                   >
                     Ler mais
                   </button>
@@ -161,7 +161,7 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       {articleToDelete && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
           <dialog className="p-8 rounded-2xl w-full max-w-md border-none  z-50 shadow-[3px_4px_10px_#00000040] flex flex-col justify-between">
-            <p className="text-clamp-medium text-[--medium_grey]">
+            <p className="text-clamp-medium text-mediumGrey">
               Deletar artigo &quot;{articleToDelete.title}&quot;?
             </p>
             <div className="mt-6 flex justify-end gap-4">

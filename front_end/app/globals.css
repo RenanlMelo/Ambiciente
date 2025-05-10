@@ -3,28 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --new: #0f281e;
-  --newL: #163a2b;
-  --newxL: #1c4b37;
-  --newxxL: #1b5e41;
-  --newD: #0a1a13;
-  --newO: #0a1a1330;
-  --background: rgb(245, 247, 247);
-  --dark_grey: #303030;
-  --medium_grey: #505050;
-  --light_grey: #707070;
-  --lighter_grey: #909090;
-  --lightest_grey: #aaaaaa;
-  --b_white: #bbb;
-  --c_white: #ccc;
-  --e_white: #eee;
-  --f5_white: #f5f5f5;
-  --f6_white: #f6f6f6;
-}
-
 body {
-  /* background: url("/bg.jpg") no-repeat bottom; */
+  /* background: url("/bg2.png") no-repeat; */
   background: linear-gradient(170deg, #0f281e, #134631);
   background-size: cover;
   font-family: sans-serif;

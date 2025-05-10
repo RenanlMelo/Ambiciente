@@ -5,8 +5,8 @@ export const Users_info = () => {
   const { user } = useAuth();
 
   return (
-    <section className="text-clamp-medium text-[--light_grey]">
-      <h2 className="text-clamp-large text-[--dark_grey] font-semibold mb-4">
+    <section className="text-clamp-medium text-lightGrey">
+      <h2 className="text-clamp-large text-darkGrey font-semibold mb-4">
         Informações do usuário
       </h2>
       <p>

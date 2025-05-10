@@ -6,13 +6,13 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <div className="bg-[--background] flex flex-col items-center justify-center">
+      <div className="bg-background flex flex-col items-center justify-center">
         <section className="w-screen h-[75lvh] flex flex-col justify-center items-center bg-[url(/bg.jpg)] relative px-5">
           <span className="w-full h-full absolute top-0 bg-gradient-to-t from-[#191a27aa] to-black/10" />
-          <h2 className="text-[--f5_white] font-bold text-center text-4xl md:text-clamp-xxxlarge mb-6 tracking-wider z-10">
+          <h2 className="text-f5White font-bold text-center text-4xl md:text-clamp-xxxlarge mb-6 tracking-wider z-10">
             Bem-vindo ao <span>Ambiciente</span>🌍
           </h2>
-          <p className="text-[--e_white] text-clamp-medium tracking-wider md:w-[calc(564px+15vw)] z-10 text-center font-medium">
+          <p className="text-eWhite text-clamp-medium tracking-wider md:w-[calc(564px+15vw)] z-10 text-center font-medium">
             Nosso planeta precisa de nós, e o Ambiciente. é o espaço para quem
             quer fazer a diferença. Aqui, você pode denunciar crimes ambientais,
             se informar com artigos sobre sustentabilidade e visualizar o
@@ -26,7 +26,7 @@ export default function Home() {
             className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer"
           >
             <span className="bg-blue-900 p-5 rounded-full">
-              <MessageSquareWarning stroke="var(--background)" size={96} />
+              <MessageSquareWarning className="stroke-background" size={96} />
             </span>
             <h3 className="font-bold tracking-wide text-clamp-xlarge text-blue-900">
               Denúncias
@@ -41,7 +41,7 @@ export default function Home() {
             className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer"
           >
             <span className="bg-green-900 p-5 rounded-full">
-              <GraduationCap stroke="var(--background)" size={96} />
+              <GraduationCap className="stroke-background" size={96} />
             </span>
             <h3 className="font-bold tracking-wide text-clamp-xlarge text-green-900">
               Educação
@@ -56,7 +56,7 @@ export default function Home() {
             className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer"
           >
             <span className="bg-yellow-600 p-5 rounded-full">
-              <Map stroke="var(--background)" size={96} />
+              <Map className="stroke-background" size={96} />
             </span>
             <h3 className="font-bold tracking-wide text-clamp-xlarge text-yellow-600">
               Mapa
