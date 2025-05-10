@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { Aboreto, IBM_Plex_Sans } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/app/contexts/AuthContext";
+import Image from "next/image";
 
 // Fontes
 const aboreto = Aboreto({ weight: "400", subsets: ["latin"] });
@@ -135,7 +136,7 @@ export const Header = () => {
       )}
 
       {/* Right side controls (desktop only) */}
-      {!isMobile && !["/login", "/cadastro"].includes(pathname) && (
+      {!isMobile && !["/login", "/cadastro"].includes(pathname) ? (
         <div className="flex items-center justify-end gap-x-2 md:gap-x-4 text-eWhite font-medium text-clamp-medium pr-5 md:pr-0 md:mr-5 lg:mr-20">
           {user && user.role === "user" && (
             <Link
@@ -159,6 +160,14 @@ export const Header = () => {
             />
           </button>
         </div>
+      ) : (
+        <Image
+          width={200}
+          height={200}
+          alt="Logo from Ambiciente website"
+          src="/logo.png"
+          className="w-auto h-16 opacity-55 hidden md:block absolute right-20 top-1/2 -translate-y-1/2"
+        />
       )}
 
       {/* User dropdown menu */}
