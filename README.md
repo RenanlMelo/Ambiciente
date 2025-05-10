@@ -9,6 +9,7 @@
 - Completely revamped UI/UX for a smoother user experience
 - Added redirect callback after login to return users to their intended page
 - Updated the About page with additional content and improved structure
+- Updating metadata informations
 
 ---
 
