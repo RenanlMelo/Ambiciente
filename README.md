@@ -134,6 +134,14 @@ Ambiciente engages the community in protecting the environment by allowing users
 
 ---
 
+## [1.1.0] - 2025-05-10
+### Changed
+- Completely revamped UI/UX for a smoother user experience
+- Added redirect callback after login to return users to their intended page
+- Updated the About page with additional content and improved structure
+
+---
+
 ## [1.0.0] - 2025-05-06
 ### Added
 - Production release
