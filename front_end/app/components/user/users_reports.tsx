@@ -4,7 +4,7 @@ import { Report } from "@/app/types";
 import { useAuth } from "@/app/contexts/AuthContext";
 
 export const Users_reports = () => {
-  const [active, setActive] = useState<string>("em andamento");
+  const [active, setActive] = useState<string>("Em andamento");
   const [reports, setReports] = useState<Report[]>([]);
   const { token } = useAuth();
 
@@ -40,14 +40,14 @@ export const Users_reports = () => {
 
   return (
     <main className="text-clamp-small text-lightGrey font-medium ">
-      <div className="flex gap-x-4 mb-4">
+      <div className="grid md:grid-cols-3 gap-4 mb-4 md:w-fit">
         <button
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Em andamento"
               ? "bg-newxL text-white"
               : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Em andamento
         </button>
@@ -55,7 +55,7 @@ export const Users_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Aprovadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Aprovadas
         </button>
@@ -63,7 +63,7 @@ export const Users_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Rejeitadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Rejeitadas
         </button>

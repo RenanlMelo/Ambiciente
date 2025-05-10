@@ -183,7 +183,7 @@ export const Header = () => {
             </button>
           )}
           <nav aria-label="User menu" className="min-w-[150px] ">
-            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-xxxlarge md:text-clamp-medium m-12 md:m-4 md:mr-8 gap-2">
+            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-large md:text-clamp-medium m-12 md:m-4 md:mr-8 gap-2">
               {user ? (
                 <>
                   {user.role === "admin" && (
@@ -262,7 +262,7 @@ export const Header = () => {
           </button>
 
           <nav aria-label="Mobile navigation" className="w-full box-border">
-            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-xxxlarge gap-2">
+            <ul className="grid grid-rows-2 text-cWhite font-medium text-clamp-large gap-2">
               {pagesList.map((page) => (
                 <li key={page.url}>
                   <Link

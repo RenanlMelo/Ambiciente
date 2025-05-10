@@ -16,7 +16,7 @@ export const All_reports = () => {
   const [confirmRemoval, setConfirmRemoval] = useState<boolean>(false);
   const [selectedReportId, setSelectedReportId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [active, setActive] = useState<string>("em andamento");
+  const [active, setActive] = useState<string>("Em andamento");
 
   useEffect(() => {
     getReports()
@@ -52,8 +52,6 @@ export const All_reports = () => {
       setIsLoading(false);
     }
   };
-
-  console.log("REPORTS", reports);
 
   const handleReject = async () => {
     if (!selectedReportId) return;
@@ -96,19 +94,21 @@ export const All_reports = () => {
       )
     : reports;
 
+  console.log(active);
+
   return (
     <main className="w-full min-h-screen bg-white px-5 md:px-32 py-16">
       <h2 className="text-clamp-xlarge text-darkGrey font-semibold mb-4">
         Denúncias
       </h2>
-      <div className="flex gap-x-4 mb-4">
+      <div className="grid md:grid-cols-3 gap-4 mb-4 md:w-fit">
         <button
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Em andamento"
               ? "bg-newxL text-white"
               : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Em andamento
         </button>
@@ -116,7 +116,7 @@ export const All_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Aprovadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Aprovadas
         </button>
@@ -124,7 +124,7 @@ export const All_reports = () => {
           onClick={(e) => handleActiveReports(e.currentTarget.innerText)}
           className={`${
             active === "Rejeitadas" ? "bg-newxL text-white" : " hover:bg-cWhite"
-          } border px-4 py-2 rounded  duration-75 w-fit`}
+          } border px-4 py-2 rounded  duration-75 w-full`}
         >
           Rejeitadas
         </button>
@@ -187,35 +187,37 @@ export const All_reports = () => {
                   </p>
                 </div>
               )}
-              <div className="mt-6 flex justify-evenly items-center gap-8 w-fit">
-                <button
-                  onClick={() => handleApprove(report.id)}
-                  disabled={isLoading}
-                  className="shadow-xl p-2 px-4 rounded-md bg-green-600 text-white uppercase hover:bg-green-700"
-                >
-                  <Check
-                    stroke="#fff"
-                    strokeWidth={3}
-                    className="inline -translate-y-px"
-                  />{" "}
-                  Aprovar Denúncia
-                </button>
-                <button
-                  onClick={() => {
-                    setSelectedReportId(report.id);
-                    setConfirmRemoval(true);
-                  }}
-                  disabled={isLoading}
-                  className="shadow-xl p-2 px-4 rounded-md bg-red-600 text-white uppercase hover:bg-red-700"
-                >
-                  <CircleX
-                    stroke="#fff"
-                    strokeWidth={3}
-                    className="inline -translate-y-px"
-                  />{" "}
-                  Rejeitar Denúncia
-                </button>
-              </div>
+              {report.status == "Em andamento" && (
+                <div className="mt-6 flex flex-col md:flex-row justify-evenly items-center gap-8 w-fit">
+                  <button
+                    onClick={() => handleApprove(report.id)}
+                    disabled={isLoading}
+                    className="shadow-xl p-2 px-4 rounded-md bg-green-600 text-white uppercase hover:bg-green-700"
+                  >
+                    <Check
+                      stroke="#fff"
+                      strokeWidth={3}
+                      className="inline -translate-y-px"
+                    />{" "}
+                    Aprovar Denúncia
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedReportId(report.id);
+                      setConfirmRemoval(true);
+                    }}
+                    disabled={isLoading}
+                    className="shadow-xl p-2 px-4 rounded-md bg-red-600 text-white uppercase hover:bg-red-700"
+                  >
+                    <CircleX
+                      stroke="#fff"
+                      strokeWidth={3}
+                      className="inline -translate-y-px"
+                    />{" "}
+                    Rejeitar Denúncia
+                  </button>
+                </div>
+              )}
             </li>
           ))}
         </ul>

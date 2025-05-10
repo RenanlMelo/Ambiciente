@@ -1,13 +1,21 @@
 "use client";
 import Footer from "./components/ui/footer";
 import { GraduationCap, Map, MessageSquareWarning } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <>
       <div className="bg-background flex flex-col items-center justify-center">
-        <section className="w-screen h-[75lvh] flex flex-col justify-center items-center bg-[url(/bg.jpg)] relative px-5">
+        <section className="w-screen h-[75lvh] flex flex-col justify-center items-center relative px-5">
+          <Image
+            src="/bg.jpg"
+            width={4000}
+            height={2250}
+            alt="Article main image"
+            className="h-[75lvh] object-cover absolute top-0"
+          />
           <span className="w-full h-full absolute top-0 bg-gradient-to-t from-[#191a27aa] to-black/10" />
           <h2 className="text-f5White font-bold text-center text-4xl md:text-clamp-xxxlarge mb-6 tracking-wider z-10">
             Bem-vindo ao <span>Ambiciente</span>🌍
