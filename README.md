@@ -1,4 +1,16 @@
 # Ambiciente
+---
+
+## Changelog
+
+**Current Version: [1.1.0] - 2025-05-10**
+
+### Changed
+- Completely revamped UI/UX for a smoother user experience
+- Added redirect callback after login to return users to their intended page
+- Updated the About page with additional content and improved structure
+
+---
 
 Ambiciente is a digital platform dedicated to environmental care and preservation. The site enables users to report environmental violations, offers informative articles, and presents an interactive map that displays environmental indicators by state. Users can also track their reports through a secure login and registration system.
 
