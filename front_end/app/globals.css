@@ -51,7 +51,7 @@ body {
 }
 
 table {
-  border: solid 1px #e5e7eb;
+  border: solid 1px #ccc;
 }
 
 tr th:nth-child(1),
@@ -67,5 +67,5 @@ th,
 td {
   padding: 0.55rem 1.5rem 0.25rem 1rem;
   text-align: left;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #ccc;
 }

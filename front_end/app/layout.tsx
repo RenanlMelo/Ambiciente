@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className="box-border w-screen">
         <div className={`${roboto.className}`}>
           <AuthProvider>

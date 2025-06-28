@@ -30,6 +30,7 @@ export default {
         lightestGrey: "#aaaaaa",
         bWhite: "#bbb",
         cWhite: "#ccc",
+        e6White: "#e6e6e6",
         eWhite: "#eee",
         f5White: "#f5f5f5",
         f6White: "#f6f6f6",

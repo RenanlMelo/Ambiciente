@@ -135,7 +135,10 @@ export const All_reports = () => {
       ) : (
         <ul className="space-y-4">
           {filteredReports.map((report) => (
-            <li key={report.id} className="border p-8 rounded shadow">
+            <li
+              key={report.id}
+              className="border p-8 rounded shadow bg-e6White"
+            >
               <p className="text-clamp-large mb-4">
                 <strong className="text-mediumGrey">Envio da denúncia</strong>
                 <br />
@@ -192,7 +195,7 @@ export const All_reports = () => {
                   <button
                     onClick={() => handleApprove(report.id)}
                     disabled={isLoading}
-                    className="shadow-xl p-2 px-4 rounded-md bg-green-600 text-white uppercase hover:bg-green-700"
+                    className="p-2 px-4 rounded-md bg-green-600 text-white uppercase hover:bg-green-700"
                   >
                     <Check
                       stroke="#fff"
@@ -207,7 +210,7 @@ export const All_reports = () => {
                       setConfirmRemoval(true);
                     }}
                     disabled={isLoading}
-                    className="shadow-xl p-2 px-4 rounded-md bg-red-600 text-white uppercase hover:bg-red-700"
+                    className="p-2 px-4 rounded-md bg-red-600 text-white uppercase hover:bg-red-700"
                   >
                     <CircleX
                       stroke="#fff"

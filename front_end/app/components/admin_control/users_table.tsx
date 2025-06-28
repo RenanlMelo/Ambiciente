@@ -72,12 +72,12 @@ export const Users_table = () => {
           disabled
           className="border px-4 py-2 rounded disabled:bg-eWhite text-lightestGrey w-fit text-clamp-medium"
         >
-          Apagar usuário selecionados{" "}
+          Apagar usuário(s) selecionado(s){" "}
           <Trash2 className="inline ml-1 -translate-y-px" stroke="#aaa" />
         </button>
       )}
       <div className="overflow-x-scroll mt-4 max-w-[90vw]">
-        <table className="text-mediumGrey min-w-[50vw] text-clamp-medium">
+        <table className="text-mediumGrey min-w-[50vw] text-clamp-medium bg-dWhite">
           <thead>
             <tr>
               <th></th>
@@ -95,6 +95,7 @@ export const Users_table = () => {
                     type="checkbox"
                     checked={isSelected(user.id)}
                     onChange={() => toggleSelectUser(user.id)}
+                    className="accent-red-400 bg-green-500"
                   />
                 </td>
                 <td>{user.role}</td>

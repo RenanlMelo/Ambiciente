@@ -177,7 +177,7 @@ export const Create_article = () => {
             />
           </label>
           {previewUrl && (
-            <div className="relative aspect-[4/1] w-1/2 rounded-xl shadow overflow-hidden bg-gray-100">
+            <div className="relative aspect-[4/1] w-full lg:w-1/2 rounded-xl shadow overflow-hidden bg-gray-100">
               <Image
                 width={1920}
                 height={1080}

@@ -17,11 +17,11 @@ export default function Home() {
             className="h-[75lvh] object-cover absolute top-0"
           />
           <span className="w-full h-full absolute top-0 bg-gradient-to-t from-[#191a27aa] to-black/10" />
-          <h2 className="text-f5White font-bold text-center text-4xl md:text-clamp-xxxlarge mb-6 tracking-wider z-10">
+          <h1 className="text-f5White font-bold text-center text-4xl md:text-clamp-xxxlarge mb-6 tracking-wider z-10">
             Bem-vindo ao <span>Ambiciente</span>🌍
-          </h2>
+          </h1>
           <p className="text-eWhite text-clamp-medium tracking-wider md:w-[calc(564px+15vw)] z-10 text-center font-medium">
-            Nosso planeta precisa de nós, e o Ambiciente. é o espaço para quem
+            Nosso planeta precisa de nós, e o Ambiciente. É o espaço para quem
             quer fazer a diferença. Aqui, você pode denunciar crimes ambientais,
             se informar com artigos sobre sustentabilidade e visualizar o
             impacto ambiental no Brasil através de um mapa interativo. Juntos,
@@ -36,9 +36,9 @@ export default function Home() {
             <span className="bg-blue-900 p-5 rounded-full">
               <MessageSquareWarning className="stroke-background" size={96} />
             </span>
-            <h3 className="font-bold tracking-wide text-clamp-xlarge text-blue-900">
+            <h2 className="font-bold tracking-wide text-clamp-xlarge text-blue-900">
               Denúncias
-            </h3>
+            </h2>
             <p className="text-center text-clamp-medium">
               Reporte crimes contra o meio ambiente para ajudar a combater a
               degradação.
@@ -51,9 +51,9 @@ export default function Home() {
             <span className="bg-green-900 p-5 rounded-full">
               <GraduationCap className="stroke-background" size={96} />
             </span>
-            <h3 className="font-bold tracking-wide text-clamp-xlarge text-green-900">
+            <h2 className="font-bold tracking-wide text-clamp-xlarge text-green-900">
               Educação
-            </h3>
+            </h2>
             <p className="text-center text-clamp-medium">
               Aprenda mais sobre práticas sustentáveis através de nossos
               artigos.
@@ -66,9 +66,9 @@ export default function Home() {
             <span className="bg-yellow-600 p-5 rounded-full">
               <Map className="stroke-background" size={96} />
             </span>
-            <h3 className="font-bold tracking-wide text-clamp-xlarge text-yellow-600">
+            <h2 className="font-bold tracking-wide text-clamp-xlarge text-yellow-600">
               Mapa
-            </h3>
+            </h2>
             <p className="text-center text-clamp-medium">
               Visualize impactos ambientais com nosso mapa interativo.
             </p>

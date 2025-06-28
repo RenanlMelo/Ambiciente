@@ -60,7 +60,7 @@ export const Users_control = () => {
         </button>
         {form && (
           <div className="bg-black/30 w-[100vw] h-[100lvh] fixed top-0 left-0 z-50 backdrop-blur-sm flex justify-center items-center">
-            <div className="px-16 py-20 w-[calc(12vw+20rem)] flex flex-col gap-y-4 bg-f6White rounded-lg text-clamp-medium">
+            <div className="px-8 lg:px-16 py-10 lg:py-20 w-[calc(12vw+20rem)] flex flex-col bg-f6White rounded-lg text-clamp-medium">
               {signupError && (
                 <div className="text-red-500 text-sm py-2 px-3 bg-red-100 rounded-md text-clamp-small">
                   {signupError}
@@ -70,7 +70,7 @@ export const Users_control = () => {
                 Cadastro de novo funcionário
               </p>
               <form onSubmit={handleSubmit}>
-                <label className="block mb-2 font-semibold text-mediumGrey text-clamp-small">
+                <label className="block mb-1 font-semibold text-mediumGrey text-clamp-small">
                   Name
                 </label>
                 <input
@@ -80,10 +80,10 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={3}
-                  className="w-full mb-6 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
+                  className="w-full mb-3 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-mediumGrey text-clamp-small">
+                <label className="block mb-1 font-semibold text-mediumGrey text-clamp-small">
                   Last Name
                 </label>
                 <input
@@ -93,10 +93,10 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={3}
-                  className="w-full mb-6 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
+                  className="w-full mb-3 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-mediumGrey text-clamp-small">
+                <label className="block mb-1 font-semibold text-mediumGrey text-clamp-small">
                   Email
                 </label>
                 <input
@@ -105,10 +105,10 @@ export const Users_control = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full mb-6 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
+                  className="w-full mb-3 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
                 />
 
-                <label className="block mb-2 font-semibold text-mediumGrey text-clamp-small">
+                <label className="block mb-1 font-semibold text-mediumGrey text-clamp-small">
                   Password
                 </label>
                 <input
@@ -118,9 +118,9 @@ export const Users_control = () => {
                   onChange={handleChange}
                   required
                   minLength={6}
-                  className="w-full mb-2 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
+                  className="w-full mb-1 p-2 border border-cWhite rounded bg-f6White focus:outline-none text-clamp-small"
                 />
-                <div className="mb-6 flex items-center gap-2 text-clamp-small text-mediumGrey">
+                <div className="mb-4 flex items-center gap-2 text-clamp-small text-mediumGrey">
                   <input
                     type="checkbox"
                     id="show-password"
@@ -144,7 +144,7 @@ export const Users_control = () => {
                 </button>
                 <button
                   onClick={() => setForm(false)}
-                  className="w-full border px-4 py-2 rounded duration-75 bg-eWhite hover:bg-cWhite text-clamp-small"
+                  className="w-full border px-4 py-2 rounded duration-75 bg-e6White hover:bg-cWhite text-clamp-small"
                 >
                   Cancelar Cadastro
                 </button>

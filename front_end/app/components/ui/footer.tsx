@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="flex justify-around flex-wrap max-w-6xl mx-auto p-5">
         {/* Sobre Nós */}
         <div className="flex-1 min-w-[250px] m-2.5">
-          <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
+          <p className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Sobre Nós
-          </h4>
+          </p>
           <p>
             Nosso objetivo é ajudar na preservação do meio ambiente e na
             proteção dos animais, facilitando denúncias e conscientização.
@@ -19,9 +19,9 @@ const Footer = () => {
         </div>
         {/* Links Úteis */}
         <div className="flex-1 min-w-[250px] m-2.5">
-          <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
+          <p className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Links Úteis
-          </h4>
+          </p>
           <ul className="list-none p-0">
             <li className="my-2">
               <Link
@@ -59,9 +59,9 @@ const Footer = () => {
         </div>
         {/* Contato */}
         <div className="flex-1 min-w-[250px] m-2.5">
-          <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
+          <p className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Contato
-          </h4>
+          </p>
           <p>
             <a href="mailto:renanlaramelo@gmail.com">
               Email: contato@ambicente.com
@@ -78,9 +78,9 @@ const Footer = () => {
         </div>
         {/* Siga-nos */}
         <div className="flex-1 min-w-[250px] m-2.5">
-          <h4 className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
+          <p className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Siga-nos
-          </h4>
+          </p>
           <div className="flex justify-center space-x-4 mt-2">
             <Link
               href="#"

@@ -35,25 +35,25 @@ export const About_content = () => {
         />
         <span className="w-full h-full absolute top-0 bg-black/10 bg-gradient-to-t from-[#191a27aa] to-black/10" />
         <span className="absolute top-0 w-full h-full text-center text-white text-clamp-xxlarge backdrop-blur-sm flex justify-center items-center">
-          <p className="max-w-[calc(100%-20px)] md:max-w-[40%]">
+          <h1 className="max-w-[calc(100%-20px)] md:max-w-[40%]">
             🌍 Por um futuro mais consciente: conheça o AMBICIENTE
-          </p>
+          </h1>
         </span>
       </div>
 
       <main className="px-5 md:px-[20vw] pt-10 pb-24 bg-white w-full min-h-[calc(92vh-1rem)]">
         {/* Tecnologias Utilizadas */}
-        <div className="col-span-2 mb-12 border-b pb-12">
+        <div className="col-span-2 mb-4 border-b pb-4">
           <div
             onClick={() => setTechInfo(!techInfo)}
             className="flex items-center gap-2 cursor-pointer  hover:underline decoration-mediumGrey"
           >
-            <h3 className="text-clamp-xlarge mb-4 text-mediumGrey">
+            <h2 className="text-clamp-xlarge lg:mb-4 text-mediumGrey">
               Informações Técnicas
-            </h3>
+            </h2>
             <ChevronDown
               size={36}
-              className={`stroke-mediumGrey inline -translate-y-[6px] ${
+              className={`stroke-mediumGrey inline translate-y-[1px] lg:-translate-y-[6px] ${
                 techInfo ? "rotate-180" : ""
               }`}
             />
@@ -65,9 +65,9 @@ export const About_content = () => {
             {techInfo && (
               <div className="overflow-scroll max-h-[80vh] border rounded-xl px-8 py-6 gap-y-12 flex flex-col bg-[#fafafa] shadow-sm">
                 <div className="pb-2 border-b border-mediumGrey/20">
-                  <h4 className="text-clamp-large mb-4 text-mediumGrey">
+                  <h3 className="text-clamp-large mb-4 text-mediumGrey">
                     1. Tecnologias Utilizadas
-                  </h4>
+                  </h3>
                   <ul className="list-disc pl-5 space-y-2 text-clamp-medium text-lightGrey">
                     <li className="flex items-start gap-3">
                       <Code2
@@ -228,9 +228,9 @@ export const About_content = () => {
                   </ul>
                 </div>
                 <div className="pb-2 border-b">
-                  <h4 className="text-clamp-large mb-4 text-mediumGrey">
+                  <h3 className="text-clamp-large mb-4 text-mediumGrey">
                     2. Funcionalidades Técnicas
-                  </h4>
+                  </h3>
                   <p className="text-clamp-medium text-lightGrey">
                     A plataforma conta com diversas funcionalidades avançadas,
                     como:
@@ -254,9 +254,9 @@ export const About_content = () => {
                   </ul>
                 </div>
                 <div className="pb-2 border-b">
-                  <h4 className="text-clamp-large mb-4 text-mediumGrey">
+                  <h3 className="text-clamp-large mb-4 text-mediumGrey">
                     3. Arquitetura
-                  </h4>
+                  </h3>
 
                   {/* Diagrama simplificado */}
                   <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
@@ -312,9 +312,9 @@ export const About_content = () => {
                   </p>
                 </div>
                 <div className="pb-2 border-b">
-                  <h4 className="text-clamp-large mb-4 text-mediumGrey">
+                  <h3 className="text-clamp-large mb-4 text-mediumGrey">
                     4. Deploy e Infraestrutura
-                  </h4>
+                  </h3>
                   <ul className="list-disc pl-5 space-y-1 text-clamp-medium text-lightGrey">
                     <li>
                       <strong>Frontend:</strong> Vercel
@@ -342,9 +342,9 @@ export const About_content = () => {
                 </div>
 
                 <div className="pb-2 border-b">
-                  <h4 className="text-clamp-large mb-4 text-mediumGrey">
+                  <h3 className="text-clamp-large mb-4 text-mediumGrey">
                     5. Meu Portfólio
-                  </h4>
+                  </h3>
                   <p className="text-clamp-medium text-lightGrey">
                     Fique à vontade para conhecer mais de meus projetos e também
                     sobre mim!
@@ -368,9 +368,9 @@ export const About_content = () => {
 
         {/* Visão Geral */}
         <div className="w-full col-span-2">
-          <h3 className="text-clamp-xlarge mb-4 text-mediumGrey">
+          <h2 className="text-clamp-xlarge mb-4 text-mediumGrey">
             Visão Geral
-          </h3>
+          </h2>
           <p className="text-clamp-medium text-lightGrey">
             O <strong>AMBICIENTE</strong> é uma plataforma inovadora dedicada à
             proteção ambiental e à conscientização climática. Nosso objetivo é
@@ -383,16 +383,16 @@ export const About_content = () => {
 
         {/* Funcionalidades */}
         <div className="w-full col-span-2 mt-12">
-          <h3 className="mb-4 text-clamp-xlarge text-mediumGrey">
+          <h2 className="mb-4 text-clamp-xlarge text-mediumGrey">
             Funcionalidades Sustentáveis
             <Leaf className="stroke-green-600 inline ml-2" />
-          </h3>
+          </h2>
 
           <div className="mb-6">
-            <h4 className="text-clamp-large text-mediumGrey mb-1">
+            <h3 className="text-clamp-large text-mediumGrey mb-1">
               1. Denúncias Ambientais{" "}
               <TreePine className="inline -translate-y-[2px]" size={26} />
-            </h4>
+            </h3>
             <p className="text-clamp-medium text-lightGrey">
               Relate desmatamentos, queimadas, poluição hídrica e descartes
               irregulares. Suas denúncias são encaminhadas com segurança a
@@ -401,10 +401,10 @@ export const About_content = () => {
           </div>
 
           <div className="mb-6">
-            <h4 className="text-clamp-large text-mediumGrey mb-1">
+            <h3 className="text-clamp-large text-mediumGrey mb-1">
               2. Relatórios Climáticos e Monitoramento{" "}
               <ThermometerSun className="inline -translate-y-[2px]" size={26} />
-            </h4>
+            </h3>
             <p className="text-clamp-medium text-lightGrey">
               Dados como temperatura, umidade e qualidade do ar em tempo real
               são obtidos por API pública, auxiliando a população e gestores
@@ -413,10 +413,10 @@ export const About_content = () => {
           </div>
 
           <div>
-            <h4 className="text-clamp-large text-mediumGrey mb-1">
+            <h3 className="text-clamp-large text-mediumGrey mb-1">
               3. Conteúdo Socioeducativo{" "}
               <BookOpenText className="inline -translate-y-[2px]" size={26} />
-            </h4>
+            </h3>
             <p className="text-clamp-medium text-lightGrey">
               Artigos e conteúdos didáticos para informar e formar cidadãos
               conscientes, promovendo educação ambiental de forma acessível e
@@ -427,9 +427,9 @@ export const About_content = () => {
 
         {/* Justificativa */}
         <div className="col-span-2 mt-12">
-          <h3 className="text-clamp-xlarge mb-4 text-mediumGrey">
+          <h2 className="text-clamp-xlarge mb-4 text-mediumGrey">
             Justificativa do Projeto
-          </h3>
+          </h2>
           <p className="text-clamp-medium text-lightGrey">
             O <strong>AMBICIENTE</strong> surgiu como uma resposta direta aos
             desafios climáticos e à carência de canais acessíveis de denúncia.
@@ -440,7 +440,7 @@ export const About_content = () => {
 
         {/* Conclusão */}
         <div className="col-span-2 mt-12">
-          <h3 className="text-clamp-xlarge mb-4 text-mediumGrey">Conclusão</h3>
+          <h2 className="text-clamp-xlarge mb-4 text-mediumGrey">Conclusão</h2>
           <p className="text-clamp-medium text-lightGrey">
             O <strong>AMBICIENTE</strong> é mais do que uma plataforma — é um
             movimento. Unimos denúncia cidadã, dados ambientais e educação para

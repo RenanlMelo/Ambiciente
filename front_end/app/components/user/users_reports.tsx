@@ -73,7 +73,7 @@ export const Users_reports = () => {
       ) : (
         <ul className="space-y-4">
           {filteredReports.map((report, index) => (
-            <li key={index} className="border p-4 rounded shadow">
+            <li key={index} className="border p-4 rounded shadow bg-e6White">
               <p className="text-clamp-large mb-4">
                 <strong className="text-mediumGrey">Status</strong>
                 <br />

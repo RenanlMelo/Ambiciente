@@ -64,17 +64,17 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
           />
           <span className="w-full h-full absolute top-0 bg-black/50 bg-gradient-to-t from-[#191a27aa] to-black/10" />
           <span className="absolute top-0 w-full h-full text-center text-white text-clamp-xxlarge backdrop-blur-sm flex justify-center items-center">
-            <p className="max-w-[calc(100%-20px)] md:max-w-[40%]">
+            <h1 className="max-w-[calc(100%-20px)] md:max-w-[40%]">
               Aprenda e transforme: artigos sobre a sustentabilidade, clima e
               meio ambiente
-            </p>
+            </h1>
           </span>
         </div>
         <div className="px-5 lg:px-32 pt-10">
           {user && user.role === "admin" && (
             <Link
               href="artigos/admin-artigos/criar"
-              className="flex justify-between items-center w-fit text-clamp-medium text-lightGrey font-bold hover:bg-newO hover:text-new px-2 py-1 -translate-x-2"
+              className="flex justify-between items-center w-fit text-clamp-medium text-eWhite font-bold hover:bg-newO hover:text-new px-4 py-2 bg-newxxL rounded-2xl mb-8 lg:mb-0"
             >
               Criar um novo artigo
               <Image
@@ -92,9 +92,9 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
           </h2>
           <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
             {articles.length === 0 ? (
-              <h2 className="text-lightGrey font-semibold text-clamp-medium underline underline-offset-[6px]">
+              <h3 className="text-lightGrey font-semibold text-clamp-medium underline underline-offset-[6px]">
                 Nenhum artigo disponível
-              </h2>
+              </h3>
             ) : (
               articles.map((article: Article) => (
                 <div
@@ -110,11 +110,11 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
                     onClick={() => router.push(`/artigos/${article.slug}`)}
                     className="w-full bg-cover aspect-[3/1] object-cover cursor-pointer"
                   />
-                  <h2
+                  <h3
                     className={`text-clamp-medium text-newL px-8 mb-2 pt-4 line-clamp-2`}
                   >
                     {article.title}
-                  </h2>
+                  </h3>
                   <p
                     className={`text-clamp-small text-lightGrey px-8 pb-2 line-clamp-3`}
                   >
