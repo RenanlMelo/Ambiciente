@@ -14,7 +14,7 @@ export default function Home() {
             rel="preload"
             width={1920}
             height={1200}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1920px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
             alt="Article main image"
             className="h-[75lvh] object-cover absolute top-0"
           />

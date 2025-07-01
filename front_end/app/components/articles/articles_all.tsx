@@ -57,10 +57,12 @@ export default function Articles_all({ articles }: ArticlesAllProps) {
         <div className="relative w-full">
           <Image
             rel="preload"
+            priority
+            quality={55}
             src="/articles.jpg"
             width={1920}
-            height={1200}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1920px"
+            height={500}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
             alt="Article main image"
             className="h-[40vh] object-cover"
           />
