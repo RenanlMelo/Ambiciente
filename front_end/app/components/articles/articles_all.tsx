@@ -56,9 +56,11 @@ export default function Articles_all({ articles }: ArticlesAllProps) {
       <main className="w-screen box-border bg-background pb-10 min-h-[calc(92vh-1rem)]">
         <div className="relative w-full">
           <Image
+            rel="preload"
             src="/articles.jpg"
-            width={3000}
-            height={2000}
+            width={1920}
+            height={1200}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1920px"
             alt="Article main image"
             className="h-[40vh] object-cover"
           />

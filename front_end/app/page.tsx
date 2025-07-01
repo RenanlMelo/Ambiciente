@@ -11,6 +11,7 @@ export default function Home() {
         <section className="w-screen h-[75lvh] flex flex-col justify-center items-center relative px-5">
           <Image
             src="/bg.jpg"
+            rel="preload"
             width={1920}
             height={1200}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1920px"

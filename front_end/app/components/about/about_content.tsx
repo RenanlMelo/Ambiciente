@@ -27,11 +27,12 @@ export const About_content = () => {
       {/* Título com contexto */}
       <div className="relative w-full">
         <Image
+          rel="preload"
           src="/bg.jpg"
           width={1920}
           height={1200}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1920px"
-          alt="Article main image"
+          alt="About main image"
           className="h-[40vh] object-cover"
         />
         <span className="w-full h-full absolute top-0 bg-black/10 bg-gradient-to-t from-[#191a27aa] to-black/10" />
