@@ -25,14 +25,16 @@ const Footer = () => {
           <ul className="list-none p-0">
             <li className="my-2">
               <Link
+                aria-label="Acesse o mapa para monitorar as condições do Brasil inteiro"
                 href="/mapa"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
-                Mapa de Denúncias
+                Mapa de Monitoramento
               </Link>
             </li>
             <li className="my-2">
               <Link
+                aria-label="Acesse nossa página de artigos e fique informado"
                 href="/artigos"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
@@ -41,6 +43,7 @@ const Footer = () => {
             </li>
             <li className="my-2">
               <Link
+                aria-label="Faça sua denúncia agora"
                 href="/denuncia"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
@@ -49,6 +52,7 @@ const Footer = () => {
             </li>
             <li className="my-2">
               <Link
+                aria-label="Leia nossa política de privacidade"
                 href="/"
                 className="text-white no-underline transition duration-300 hover:text-[#1abc9c]"
               >
@@ -62,19 +66,27 @@ const Footer = () => {
           <p className="text-clamp-medium mb-2.5 border-b-2 border-[#1abc9c] inline-block pb-1">
             Contato
           </p>
-          <p>
-            <a href="mailto:renanlaramelo@gmail.com">
+          <a
+            href="mailto:renanlaramelo@gmail.com"
+            aria-label="Envie um email para contato@ambicente.com"
+          >
+            <p className="p-1 transition duration-300 hover:text-[#1abc9c]">
               Email: contato@ambicente.com
-            </a>
-          </p>
-          <p>
-            <a href="tel:+5515996839690">Telefone: (15) 99683-9690</a>
-          </p>
-          <p>
-            <a href="https://g.co/kgs/u8DQW6H">
+            </p>
+          </a>
+          <a
+            href="tel:+5515996839690"
+            aria-label="Ligue ou entre em contato via whatsApp"
+          >
+            <p className="p-1 transition duration-300 hover:text-[#1abc9c]">
+              Telefone: (15) 99683-9690
+            </p>
+          </a>
+          <a href="https://g.co/kgs/u8DQW6H" aria-label="Venha nos visitar">
+            <p className="p-1 transition duration-300 hover:text-[#1abc9c]">
               Endereço: Rod. Sen. José Ermírio de Moraes, 1425 Sorocaba, SP
-            </a>
-          </p>
+            </p>
+          </a>
         </div>
         {/* Siga-nos */}
         <div className="flex-1 min-w-[250px] m-2.5">
@@ -83,24 +95,28 @@ const Footer = () => {
           </p>
           <div className="flex justify-center space-x-4 mt-2">
             <Link
+              aria-label="Siga-nos no Facebook"
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaFacebook />
             </Link>
             <Link
+              aria-label="Siga-nos no Instagram"
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaInstagram />
             </Link>
             <Link
+              aria-label="Siga-nos no Twitter"
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >
               <FaTwitter />
             </Link>
             <Link
+              aria-label="Siga-nos no Linkedin"
               href="#"
               className="text-white text-[20px] transition duration-300 hover:text-[#1abc9c]"
             >

@@ -1,6 +1,14 @@
-import { Articles_all } from "@/app/components/articles/articles_all";
+import dynamic from "next/dynamic";
 import Footer from "@/app/components/ui/footer";
 import { Article } from "@/app/types";
+
+const Articles_all = dynamic(
+  () => import("@/app/components/articles/articles_all"),
+  {
+    loading: () => <p>Carregando artigos...</p>,
+    ssr: true,
+  }
+);
 
 // ISR Configuration - revalidates every 60 seconds in production, 1 second in development
 export const revalidate = 1;

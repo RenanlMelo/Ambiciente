@@ -11,8 +11,8 @@ export default function Home() {
         <section className="w-screen h-[75lvh] flex flex-col justify-center items-center relative px-5">
           <Image
             src="/bg.jpg"
-            width={4000}
-            height={2250}
+            width={1920}
+            height={1200}
             alt="Article main image"
             className="h-[75lvh] object-cover absolute top-0"
           />
@@ -63,10 +63,10 @@ export default function Home() {
             href="/mapa"
             className="flex flex-col items-center justify-start gap-y-2 shadow-[0px_10px_30px_rgba(80,80,60,.25)] hover:shadow-[0px_20px_40px_rgba(80,80,60,.3)] duration-150 p-9 rounded-2xl cursor-pointer"
           >
-            <span className="bg-yellow-600 p-5 rounded-full">
+            <span className="bg-[#5c4033] p-5 rounded-full">
               <Map className="stroke-background" size={96} />
             </span>
-            <h2 className="font-bold tracking-wide text-clamp-xlarge text-yellow-600">
+            <h2 className="font-bold tracking-wide text-clamp-xlarge text-[#5c4033]">
               Mapa
             </h2>
             <p className="text-center text-clamp-medium">

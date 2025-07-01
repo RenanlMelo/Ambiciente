@@ -10,7 +10,7 @@ interface ArticlesAllProps {
   articles: Article[];
 }
 
-export const Articles_all = ({ articles }: ArticlesAllProps) => {
+export default function Articles_all({ articles }: ArticlesAllProps) {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
@@ -56,9 +56,9 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       <main className="w-screen box-border bg-background pb-10 min-h-[calc(92vh-1rem)]">
         <div className="relative w-full">
           <Image
-            src="/articles.jpeg"
-            width={4000}
-            height={2250}
+            src="/articles.jpg"
+            width={3000}
+            height={2000}
             alt="Article main image"
             className="h-[40vh] object-cover"
           />
@@ -185,4 +185,4 @@ export const Articles_all = ({ articles }: ArticlesAllProps) => {
       )}
     </>
   );
-};
+}

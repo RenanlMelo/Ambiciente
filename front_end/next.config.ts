@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const isAnalyze = process.env.ANALYZE === "true";
 
 const nextConfig: NextConfig = {
   env: {
@@ -8,6 +11,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["ambiciente.onrender.com", "127.0.0.1"],
   },
+  reactStrictMode: true,
 };
 
-export default nextConfig;
+export default withBundleAnalyzer({
+  enabled: isAnalyze,
+})(nextConfig);

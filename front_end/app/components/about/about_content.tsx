@@ -28,8 +28,8 @@ export const About_content = () => {
       <div className="relative w-full">
         <Image
           src="/bg.jpg"
-          width={4000}
-          height={2250}
+          width={1920}
+          height={1200}
           alt="Article main image"
           className="h-[40vh] object-cover"
         />
